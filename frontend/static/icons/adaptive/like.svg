@@ -1,0 +1,9 @@
+<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <g transform="translate(-112, 0)">
+    <g xmlns="http://www.w3.org/2000/svg">
+<path d="M129.36 20H118C116.895 20 116 19.1046 116 18V10H119.93C120.598 10 121.223 9.6658 121.594 9.1094L124.109 5.3359C124.666 4.5013 125.602 4 126.606 4H126.82C127.437 4 127.908 4.55487 127.806 5.1644L127 10H130.56C131.822 10 132.769 11.1547 132.522 12.3922L131.322 18.3922C131.135 19.3271 130.314 20 129.36 20Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+<path d="M120 10V20" stroke="currentColor" stroke-width="2" />
+</g>
+
+  </g>
+</svg>

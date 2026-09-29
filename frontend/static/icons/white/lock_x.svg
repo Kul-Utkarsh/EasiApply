@@ -1,0 +1,9 @@
+<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <g transform="translate(-280, -280)">
+    <rect xmlns="http://www.w3.org/2000/svg" x="284" y="289" width="16" height="12" rx="4" stroke="white" stroke-width="2" />
+<path xmlns="http://www.w3.org/2000/svg" d="M290.121 297L294.121 293" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+<path xmlns="http://www.w3.org/2000/svg" d="M290.121 293L294.121 297" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+<path xmlns="http://www.w3.org/2000/svg" d="M296 289V287C296 284.791 294.209 283 292 283C289.791 283 288 284.791 288 287L288 289" stroke="white" stroke-width="2" />
+
+  </g>
+</svg>

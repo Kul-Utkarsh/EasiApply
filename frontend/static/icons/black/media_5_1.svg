@@ -1,0 +1,10 @@
+<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <g transform="translate(-280, -56)">
+    <g xmlns="http://www.w3.org/2000/svg">
+<path d="M283 60H301V72C301 73.1046 300.105 74 299 74H285C283.895 74 283 73.1046 283 72V60Z" stroke="black" stroke-width="2" stroke-linejoin="round" />
+<circle cx="292" cy="67" r="3" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+<path d="M297 57L299 57" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+</g>
+
+  </g>
+</svg>

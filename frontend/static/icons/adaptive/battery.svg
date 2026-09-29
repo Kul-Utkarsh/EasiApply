@@ -1,0 +1,10 @@
+<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <g transform="translate(0, -168)">
+    <g xmlns="http://www.w3.org/2000/svg">
+<rect x="3" y="174" width="16" height="12" rx="3" stroke="currentColor" stroke-width="2" />
+<path d="M18.9375 177.5H19.9375C20.8803 177.5 21.3517 177.5 21.6446 177.793C21.9375 178.086 21.9375 178.557 21.9375 179.5V180.5C21.9375 181.443 21.9375 181.914 21.6446 182.207C21.3517 182.5 20.8803 182.5 19.9375 182.5H18.9375" stroke="currentColor" stroke-width="2" />
+<path d="M12.125 177.5L9.875 180H12.125L9.875 182.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+</g>
+
+  </g>
+</svg>

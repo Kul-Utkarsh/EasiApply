@@ -1,0 +1,10 @@
+<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <g transform="translate(-112, 0)">
+    <g xmlns="http://www.w3.org/2000/svg">
+<path d="M119 21C117.895 21 117 20.1046 117 19V3H126L131 8V19C131 20.1046 130.105 21 129 21H119Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+<path d="M122 15H126" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+<path d="M125 3V9H131" stroke="currentColor" stroke-width="2" stroke-linejoin="round" />
+</g>
+
+  </g>
+</svg>

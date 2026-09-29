@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>EasiApply — Cockpit Dashboard</title>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <script>(function(){try{var t=localStorage.getItem("easiapply-theme");if(t==="dark"||(!t&&window.matchMedia("(prefers-color-scheme: dark)").matches)){document.documentElement.setAttribute("data-theme","dark");}if(localStorage.getItem("easiapply-compact")==="1"){document.documentElement.classList.add("compact-view");}}catch(e){}})();</script>
+  <!-- Material Symbols replaced with Figma Simple Icons -->
+  <link href="https://fonts.googleapis.com" rel="preconnect">
+  <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
+  <!-- Material Symbols replaced with Figma Simple Icons -->
+  <style>
+    @layer base {
+      html, body { margin:0; padding:0; }
+      body { overscroll-behavior:none; }
+      main > :first-child { margin-top:0 !important; }
+      main > :last-child { margin-bottom:0 !important; }
+    }
+    ::-webkit-scrollbar { display:none; }
+  </style>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="/static/theme.css" rel="stylesheet">
+  <script src="/static/xicons.js"></script>
+  <script src="/static/theme-config.js"></script>
+  <script>
+    if (localStorage.getItem("easiapply_sidebar_minimized") === "true") {
+      document.documentElement.classList.add("sidebar-minimized");
+    }
+  </script>
+</head>
+<body class="bg-surface font-body-md text-body-md text-on-surface antialiased selection:bg-primary-container selection:text-on-primary-fixed">
+
+  <!-- Sidebar -->
+  <aside id="app-sidebar" class="fixed left-0 top-0 h-full w-64 bg-surface-container-low z-50 flex flex-col justify-between py-space-lg px-space-md shadow-[0_1px_8px_rgba(0,0,0,0.04)]">
+    <div class="flex flex-col gap-space-lg">
+      <div id="sidebar-header-row" class="flex items-center justify-between px-space-sm min-h-[36px]">
+        <div id="sidebar-brand-wrapper" class="relative group/brand cursor-pointer shrink-0" title="EasiApply">
+          <div id="sidebar-brand-icon" class="w-9 h-9 rounded-xl bg-on-background flex items-center justify-center text-primary-container font-headline-md text-headline-md font-bold shrink-0">
+            <span class="material-symbols-outlined text-[20px]">bolt</span>
+          </div>
+          <button id="sidebar-expand-btn" type="button" aria-label="Expand sidebar" title="Expand sidebar" class="w-9 h-9 rounded-xl bg-primary-container text-on-primary-fixed flex items-center justify-center font-bold shadow-sm hover:brightness-105 transition-all cursor-pointer">
+            <span class="material-symbols-outlined text-[20px]">arrow_right_4_square</span>
+          </button>
+        </div>
+        <span class="font-headline-md text-headline-md tracking-tight font-bold text-on-surface sidebar-label ml-space-sm flex-1 truncate">EasiApply</span>
+        <button id="sidebar-toggle-btn" type="button" aria-label="Minimize sidebar" title="Minimize sidebar" class="w-8 h-8 rounded-full flex items-center justify-center text-secondary hover:text-on-surface hover:bg-surface-container transition-all cursor-pointer shrink-0">
+          <span class="material-symbols-outlined text-[18px]">arrow_left_4_square</span>
+        </button>
+      </div>
+      <nav class="flex flex-col gap-space-xs" data-active-classes="bg-primary-container text-on-primary-fixed font-bold rounded-full shadow-[0_4px_16px_rgba(182,244,56,0.25)]">
+        <a aria-current="page" class="flex items-center gap-space-sm px-space-md py-space-sm transition-all bg-primary-container text-on-primary-fixed font-bold rounded-full shadow-[0_4px_16px_rgba(182,244,56,0.25)]" data-path="dashboard" href="#" title="Dashboard">
+          <span class="material-symbols-outlined text-[20px]">category_3</span><span class="sidebar-label">Dashboard</span>
+        </a>
+        <a class="flex items-center gap-space-sm px-space-md py-space-sm text-secondary hover:bg-surface-container-highest hover:text-on-surface transition-all rounded-full font-label-md text-label-md" data-path="profile" href="#" title="Profile">
+          <span class="material-symbols-outlined text-[20px]">user_02</span><span class="sidebar-label">Profile</span>
+        </a>
+        <a class="flex items-center gap-space-sm px-space-md py-space-sm text-secondary hover:bg-surface-container-highest hover:text-on-surface transition-all rounded-full font-label-md text-label-md" data-path="matches" href="#" title="Matches">
+          <span class="material-symbols-outlined text-[20px]">discover</span><span class="sidebar-label">Matches</span>
+        </a>
+        <a class="flex items-center gap-space-sm px-space-md py-space-sm text-secondary hover:bg-surface-container-highest hover:text-on-surface transition-all rounded-full font-label-md text-label-md" data-path="outreach" href="#" title="Applications">
+          <span class="material-symbols-outlined text-[20px]">file_document</span><span class="sidebar-label">Applications</span>
+        </a>
+        <a class="flex items-center gap-space-sm px-space-md py-space-sm text-secondary hover:bg-surface-container-highest hover:text-on-surface transition-all rounded-full font-label-md text-label-md" data-path="analytics" href="#" title="Analytics">
+          <span class="material-symbols-outlined text-[20px]">chart_bar_vertical_01</span><span class="sidebar-label">Analytics</span>
+        </a>
+      </nav>
+    </div>
+    <div class="flex flex-col gap-space-xs pt-space-md border-t border-surface-container-high/40">
+      <div id="header-linkedin-pill" class="flex items-center gap-2 px-3 py-2 bg-surface-container hover:bg-surface-container-high rounded-full text-secondary font-label-md text-[13px] transition-all cursor-pointer shadow-sm mb-1" title="LinkedIn Connection Status">
+        <span id="header-linkedin-dot" class="w-2 h-2 rounded-full bg-emerald-500 shrink-0"></span>
+        <span id="header-linkedin-label" class="font-bold text-on-surface truncate text-xs sidebar-label">LinkedIn: Checking...</span>
+      </div>
+      <nav data-active-classes="bg-primary-container text-on-primary-fixed font-bold rounded-full shadow-[0_4px_16px_rgba(182,244,56,0.25)]">
+        <a class="flex items-center gap-space-sm px-space-md py-space-sm text-secondary hover:bg-surface-container-highest hover:text-on-surface transition-all rounded-full font-label-md text-label-md" data-path="settings" href="#" title="Settings">
+          <span class="material-symbols-outlined text-[20px]">settings_1</span><span class="sidebar-label">Settings</span>
+        </a>
+      </nav>
+    </div>
+  </aside>
+
+  <div id="main-wrapper" class="pl-64">
+    <!-- Header -->
+    <header id="app-header" class="fixed top-0 left-64 right-0 h-16 bg-surface/80 backdrop-blur-xl border-b border-surface-container-high/40 z-40 flex items-center justify-between px-space-xl gap-space-md sm:gap-space-lg">
+      <div class="flex items-center gap-space-sm">
+        <h1 class="font-headline-sm text-headline-sm font-bold text-on-surface">Dashboard</h1>
+      </div>
+      <div class="flex items-center gap-6">
+        <div class="flex items-center gap-2.5">
+          <span class="font-code-header text-code-header uppercase tracking-wider text-tertiary">System Status</span>
+          <div class="status-pill status-pill-active" id="header-system-status">
+            <span class="status-pill-dot"></span>
+            <span class="status-pill-text">Operational</span>
+          </div>
+        </div>
+        <div class="flex items-center gap-3">
+          <button id="scrape-stop-btn" type="button" aria-label="Stop scrape session" class="hidden items-center gap-space-xs px-space-md py-space-xs bg-error text-on-error rounded-full font-label-md text-label-md font-bold shadow-sm transition-all hover:bg-error/90">
+            <span class="material-symbols-outlined text-[18px]">octagon_warning</span><span>Stop</span>
+          </button>
+          <button id="darkmode-toggle-header" data-darkmode-toggle aria-label="Toggle dark mode" class="w-9 h-9 rounded-full bg-surface-container-lowest flex items-center justify-center text-secondary hover:text-on-surface hover:bg-surface-container-high transition-colors shadow-[0_1px_4px_rgba(0,0,0,0.04)] cursor-pointer" type="button">
+            <span class="material-symbols-outlined text-[20px]">mode_-__dark</span>
+          </button>
+
+          <button id="app-exit-btn" aria-label="Exit Application" class="w-9 h-9 rounded-full bg-error flex items-center justify-center text-white hover:brightness-110 active:scale-95 transition-all shadow-[0_1px_4px_rgba(0,0,0,0.04)] cursor-pointer" type="button" title="Shutdown Application">
+            <span class="material-symbols-outlined text-[20px]">stop_sign</span>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <!-- Main Workspace -->
+    <main class="relative pt-20 w-full bg-surface px-space-xl py-space-xl">
+      <div class="grid grid-cols-1 xl:grid-cols-12 gap-space-lg w-full">
+        
+        <!-- Left / Main Operations Column (8 cols) -->
+        <div class="xl:col-span-8 flex flex-col gap-space-lg">
+          
+          <!-- Top Hero Search Pod -->
+          <div class="relative overflow-hidden rounded-[2rem] bg-surface-container-lowest p-space-xl md:p-10 shadow-[0_8px_32px_rgba(17,19,21,0.04)]">
+            <div class="absolute -top-24 -left-20 w-96 h-96 rounded-full bg-primary-container/25 blur-3xl pointer-events-none"></div>
+            <div class="absolute -bottom-24 -right-16 w-80 h-80 rounded-full bg-primary-fixed/20 blur-3xl pointer-events-none"></div>
+            <div class="relative z-10 flex flex-col gap-space-md w-full">
+              <!-- Live Search Persistent Status Banner -->
+              <div id="dashboard-crawler-banner" class="hidden flex flex-col sm:flex-row sm:items-center justify-between gap-3 p-4 bg-primary-container/20 border border-primary/40 rounded-2xl animate-fade-in shadow-sm">
+                <div class="flex items-center gap-3 min-w-0">
+                  <div class="w-10 h-10 rounded-xl bg-primary-container flex items-center justify-center text-on-primary-fixed shrink-0">
+                    <span class="material-symbols-outlined text-[24px] animate-spin">progress_activity</span>
+                  </div>
+                  <div class="flex flex-col min-w-0">
+                    <div class="flex items-center gap-2">
+                      <span class="font-headline-sm text-[15px] font-bold text-on-surface">Live Job Search Active in Chrome</span>
+                      <div class="status-pill status-pill-active"><span class="status-pill-dot"></span><span class="status-pill-text">Live</span></div>
+                    </div>
+                    <p id="dashboard-crawler-status-msg" class="text-secondary font-body-sm text-[13px] truncate">Navigating LinkedIn and extracting live listings...</p>
+                  </div>
+                </div>
+                <div class="flex items-center gap-2 shrink-0 self-end sm:self-auto">
+                  <button id="dashboard-crawler-stop-btn" type="button" class="inline-flex items-center gap-1.5 px-4 py-2 bg-error text-on-error rounded-full font-label-md text-[13px] font-bold hover:bg-error/90 transition-all shadow-sm cursor-pointer">
+                    <span class="material-symbols-outlined text-[16px]">stop_circle</span>
+                    <span>Stop Search</span>
+                  </button>
+                </div>
+              </div>
+
+              <div class="flex flex-col gap-2 items-center text-center">
+                <h1 class="font-display-hero text-display-hero text-on-surface tracking-tight text-center">
+                  Match Smarter. Apply Faster.
+                </h1>
+                <p class="font-body-lg text-body-lg text-secondary leading-relaxed max-w-2xl text-center">
+                  Paste a LinkedIn search URL to start scraping, matching, and sending applications.
+                </p>
+              </div>
+
+              <!-- Compound URL Search Pill -->
+              <form class="mt-4 flex flex-col items-center gap-4 w-full" id="scrape-form">
+                <!-- Center-aligned Mode and Score Toggles -->
+                <div class="flex items-center justify-center gap-3 flex-wrap w-full">
+                  <div class="flex items-center gap-1 bg-surface-container-low p-1 rounded-full shrink-0" data-mode="posts" id="mode-input">
+                    <button class="mode-btn active px-3.5 py-1 text-[12px] font-label-md font-bold rounded-full bg-primary-container text-on-primary-fixed transition-all cursor-pointer" data-value="posts" type="button">Posts</button>
+                    <button class="mode-btn px-3.5 py-1 text-[12px] font-label-md font-bold rounded-full text-secondary hover:text-on-surface transition-all cursor-pointer" data-value="jobs" type="button">Jobs</button>
+                  </div>
+                  <div class="flex items-center gap-1 bg-surface-container-low p-1 rounded-full shrink-0" data-score-mode="collect_and_score" id="score-mode-input" title="Collect only saves listings without spending AI credits; Collect+Score ranks them immediately">
+                    <button class="score-mode-btn active px-3.5 py-1 text-[12px] font-label-md font-bold rounded-full bg-primary-container text-on-primary-fixed transition-all cursor-pointer" data-value="collect_and_score" type="button">Score</button>
+                    <button class="score-mode-btn px-3.5 py-1 text-[12px] font-label-md font-bold rounded-full text-secondary hover:text-on-surface transition-all cursor-pointer" data-value="collect_only" type="button">Collect</button>
+                  </div>
+                </div>
+
+                <!-- Main Search Bar -->
+                <div id="search-pill-wrapper" class="w-full max-w-2xl flex items-center bg-surface-container-lowest rounded-full py-3 px-5 shadow-[0_4px_24px_rgba(0,0,0,0.06)] hover:shadow-[0_6px_28px_rgba(0,0,0,0.08)] transition-all">
+                  <div class="pr-3 flex items-center text-tertiary shrink-0">
+                    <span class="material-symbols-outlined text-[22px]">search</span>
+                  </div>
+                  <input class="flex-1 min-w-0 w-full bg-transparent font-body-md text-body-md text-on-surface placeholder:text-tertiary focus:outline-none" id="url-input" placeholder="Search role, keyword, or URL (press Find Matches to use saved profile)..." type="text">
+                </div>
+
+                <!-- Active Profile Criteria Preview -->
+                <div class="flex items-center gap-1.5 text-xs text-secondary font-medium -mt-1" id="dashboard-criteria-preview">
+                  <span class="material-symbols-outlined text-[15px] text-primary">user_circle</span>
+                  <span>Active Profile:</span>
+                  <span id="dashboard-criteria-text" class="text-on-surface font-semibold">Loading profile criteria...</span>
+                  <a class="text-primary hover:underline font-semibold ml-1 cursor-pointer" data-path="profile" href="#">Edit in Profile</a>
+                </div>
+
+                <!-- Center-aligned Action Button & Advanced Toggle -->
+                <div class="flex flex-col items-center justify-center gap-2 w-full">
+                  <button class="group inline-flex items-center justify-center gap-2 bg-primary-container text-on-primary-fixed font-label-md text-label-md font-bold px-8 py-3.5 rounded-full hover:brightness-105 active:scale-95 transition-all shadow-[0_4px_16px_rgba(182,244,56,0.35)] cursor-pointer" id="submit-btn" type="submit">
+                    <span>Find Matches</span>
+                    <span class="material-symbols-outlined text-[18px] group-hover:translate-x-0.5 transition-transform">arrow_right_1</span>
+                  </button>
+                  <button class="inline-flex items-center gap-1.5 font-label-md text-[13px] text-secondary hover:text-on-surface font-semibold transition-colors focus:outline-none cursor-pointer pt-0.5 group" id="advanced-toggle" type="button">
+                    <span class="material-symbols-outlined text-[16px]">tune</span>
+                    <span>Manual Overrides</span>
+                    <span class="material-symbols-outlined text-[16px] text-tertiary group-hover:text-on-surface transition-transform duration-200" id="advanced-toggle-icon">expand_more</span>
+                  </button>
+                </div>
+
+                <div class="hidden grid grid-cols-1 md:grid-cols-3 gap-space-sm p-space-md rounded-2xl bg-surface-container-low transition-all" id="advanced-panel">
+                  <div class="flex flex-col gap-1">
+                    <label class="font-label-md text-[12px] text-secondary font-semibold" for="keywords-input">Target Keywords</label>
+                    <div class="flex flex-wrap items-center gap-1.5 w-full bg-surface-container-lowest text-on-surface text-body-sm px-2 py-1.5 rounded-xl min-h-[38px]" id="keywords-tags"></div>
+                    <input class="w-full bg-surface-container-lowest text-on-surface text-body-sm px-3 py-2 rounded-xl focus:outline-none" id="keywords-input" type="text" placeholder="Type keyword, press Enter" value="">
+                  </div>
+                  <div class="flex flex-col gap-1">
+                    <label class="font-label-md text-[12px] text-secondary font-semibold" for="location-input">Location</label>
+                    <div class="flex flex-wrap items-center gap-1.5 w-full bg-surface-container-lowest text-on-surface text-body-sm px-2 py-1.5 rounded-xl min-h-[38px]" id="locations-tags"></div>
+                    <input class="w-full bg-surface-container-lowest text-on-surface text-body-sm px-3 py-2 rounded-xl focus:outline-none" id="location-input" type="text" placeholder="Type location, press Enter" value="">
+                  </div>
+                  <div class="flex flex-col gap-1">
+                    <label class="font-label-md text-[12px] text-secondary font-semibold" for="max-posts-input">Max Posts</label>
+                    <input class="w-full bg-surface-container-lowest text-on-surface text-body-sm px-3 py-2 rounded-xl focus:outline-none" id="max-posts-input" max="50" min="1" type="number" value="15">
+                  </div>
+                </div>
+
+                <div class="hidden flex flex-col gap-1.5 px-2 pt-1" id="scrape-progress">
+                  <div class="flex items-center justify-between text-[12px] font-code-terminal">
+                    <span class="text-primary font-semibold" id="scrape-progress-label">Opening Chrome…</span>
+                    <span class="text-tertiary">Live Status</span>
+                  </div>
+                  <div class="w-full h-2 bg-surface-container-high rounded-full overflow-hidden">
+                    <div class="h-full bg-primary-container rounded-full transition-all duration-300" id="scrape-progress-bar" style="width: 20%;"></div>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+
+          <!-- DYNAMIC CONTENT CONTAINER (Empty, Loading, Scored Matches, Error) -->
+          <div id="state-default" class="flex flex-col gap-space-lg">
+            <!-- Orbital Empty State Card (hidden by default to avoid FOUC before loadDashboard resolves) -->
+            <div class="hidden relative flex flex-col items-center justify-center min-h-[420px] rounded-[2rem] bg-surface-container-lowest p-space-xl shadow-[0_8px_32px_rgba(17,19,21,0.03)] overflow-hidden text-center" id="empty-matches">
+              <div class="relative w-44 h-44 flex items-center justify-center mb-space-md">
+                <div class="absolute inset-0 rounded-full border border-dashed border-outline-variant/60 animate-spin" style="animation-duration: 20s;"></div>
+                <div class="absolute w-32 h-32 rounded-full border border-dashed border-outline-variant/80"></div>
+                <div class="relative z-10 w-16 h-16 rounded-full bg-inverse-surface flex items-center justify-center text-primary-container shadow-[0_4px_20px_rgba(0,0,0,0.18)]">
+                  <span class="w-3.5 h-3.5 rounded-full bg-primary-container shadow-[0_0_12px_rgba(182,244,56,0.9)] animate-pulse"></span>
+                </div>
+              </div>
+              <div class="flex flex-col items-center gap-space-xs max-w-md">
+                <h2 class="font-headline-md text-headline-md text-on-surface tracking-tight">No matches yet</h2>
+                <p class="font-body-md text-body-md text-secondary max-w-sm">Your scraped jobs, match scores, and generated emails will appear here.</p>
+              </div>
+            </div>
+
+            <!-- Previous Session Matches Notice Bar -->
+            <div id="previous-session-matches" class="hidden flex flex-col sm:flex-row sm:items-center justify-between gap-3 p-4 rounded-2xl bg-surface-container-lowest border border-surface-container-high/60 shadow-sm">
+              <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-xl bg-primary-container/20 text-primary flex items-center justify-center shrink-0">
+                  <span class="material-symbols-outlined text-[22px]">history</span>
+                </div>
+                <div>
+                  <div class="font-headline-sm text-sm font-bold text-on-surface">Previous Session Matches Available</div>
+                  <div class="font-body-sm text-xs text-secondary"><span id="prev-session-count">0</span> matches stored from prior runs</div>
+                </div>
+              </div>
+              <a href="/matches" data-path="matches" class="inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-primary-container text-on-primary-fixed font-label-md text-xs font-bold hover:brightness-105 transition-all self-start sm:self-auto shadow-xs">
+                <span>View All Matches</span>
+                <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+              </a>
+            </div>
+
+            <!-- Recent Matches Feed Card (Dynamically shown by app.js when apps exist) -->
+            <div class="hidden rounded-[2rem] bg-surface-container-lowest p-space-xl shadow-[0_8px_32px_rgba(17,19,21,0.03)] flex flex-col gap-space-md" id="recent-matches">
+              <div class="flex items-center justify-between pb-space-sm border-b border-surface-container-high">
+                <div class="flex items-center gap-space-sm">
+                  <span class="material-symbols-outlined text-primary text-[22px]">auto_awesome</span>
+                  <h3 class="font-headline-sm text-headline-sm text-on-surface">Latest Discoveries</h3>
+                </div>
+                <a class="flex items-center gap-1 font-label-md text-label-md text-primary font-bold hover:underline" data-path="matches" href="#">
+                  <span id="view-all-matches-text">View all matches</span>
+                  <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+                </a>
+              </div>
+              <div class="flex flex-col gap-space-sm" id="recent-matches-list"></div>
+            </div>
+          </div>
+
+          <!-- Loading State (Toggled by __showState if crawler runs) -->
+          <div id="state-loading" class="hidden flex flex-col gap-space-lg">
+            <div class="relative flex flex-col items-center justify-center min-h-[420px] rounded-[2rem] bg-surface-container-lowest p-space-xl shadow-[0_8px_32px_rgba(17,19,21,0.03)] overflow-hidden text-center">
+              <div class="relative w-44 h-44 flex items-center justify-center mb-space-md">
+                <div class="absolute inset-0 rounded-full bg-primary-container/20 animate-ping duration-1000"></div>
+                <div class="absolute inset-2 rounded-full border-2 border-primary-container/40 animate-pulse"></div>
+                <div class="relative z-10 w-16 h-16 rounded-full bg-inverse-surface flex items-center justify-center text-primary-container shadow-[0_4px_20px_rgba(0,0,0,0.18)]">
+                  <span class="material-symbols-outlined text-[32px] animate-spin">radar</span>
+                </div>
+              </div>
+              <h2 class="font-headline-md text-headline-md text-on-surface tracking-tight">AI Search Ingesting Post Candidates</h2>
+              <p class="font-body-md text-body-md text-secondary max-w-sm mt-1">Evaluating resume fit, extracting direct recruiter emails, and scoring keywords...</p>
+            </div>
+          </div>
+
+          <!-- Success State -->
+          <div id="state-success" class="hidden flex flex-col gap-space-lg">
+            <div class="w-full flex flex-col md:flex-row items-center justify-between gap-space-md p-space-md px-space-lg rounded-2xl bg-inverse-surface text-surface shadow-[0_8px_32px_rgba(0,0,0,0.18)] border border-white/10">
+              <div class="flex items-center gap-space-md">
+                <div class="w-10 h-10 rounded-full bg-primary-container text-on-primary-fixed flex items-center justify-center shrink-0 shadow-[0_0_12px_rgba(182,244,56,0.8)]">
+                  <span class="material-symbols-outlined text-[24px] font-bold">check</span>
+                </div>
+                <div class="flex flex-col">
+                  <div class="flex items-center gap-space-xs">
+                    <span class="font-headline-sm text-headline-sm text-surface font-bold">Scrape Batch Complete!</span>
+                    <span id="batch-badge" class="px-2 py-0.5 rounded-full bg-primary-container/20 text-primary-fixed font-code-header text-[11px] font-bold tracking-wide uppercase">Posts Scored</span>
+                  </div>
+                  <p id="batch-desc" class="font-body-md text-body-md text-tertiary-fixed-dim">Verified posts scraped &amp; AI scored against your resume.</p>
+                </div>
+              </div>
+              <a class="group inline-flex items-center gap-space-xs bg-primary-container text-on-primary-fixed font-label-md text-label-md font-bold px-space-lg py-2.5 rounded-full hover:brightness-105 active:scale-95 transition-all shadow-[0_2px_12px_rgba(182,244,56,0.3)]" data-path="matches" href="#">
+                <span>Review Matches</span>
+                <span class="material-symbols-outlined text-[18px] group-hover:translate-x-0.5 transition-transform">arrow_right_1</span>
+              </a>
+            </div>
+          </div>
+
+          <!-- Error State -->
+          <div id="state-error" class="hidden flex flex-col gap-space-lg">
+            <div class="w-full p-space-md md:p-space-lg rounded-2xl bg-error-container/40 border border-error/30 text-on-surface flex flex-col md:flex-row md:items-center justify-between gap-space-md shadow-sm">
+              <div class="flex items-start gap-space-md">
+                <div class="w-10 h-10 rounded-xl bg-error/10 text-error flex items-center justify-center shrink-0">
+                  <span class="material-symbols-outlined text-[24px]">warning</span>
+                </div>
+                <div class="flex flex-col gap-1">
+                  <h3 class="font-headline-sm text-headline-sm font-bold text-on-surface">Connection Timeout</h3>
+                  <p class="font-body-md text-body-md text-secondary leading-relaxed">Could not complete scraping session. Ensure Chrome is running and check your connection settings.</p>
+                </div>
+              </div>
+              <div class="flex items-center gap-space-sm shrink-0">
+                <button class="inline-flex items-center gap-1.5 px-space-md py-2 rounded-full border border-error text-error font-label-md text-label-md font-bold hover:bg-error-container/60 active:scale-95 transition-all shadow-sm" onclick="window.location.reload()" type="button">
+                  <span>Retry</span>
+                </button>
+                <a class="inline-flex items-center gap-1.5 px-space-md py-2 rounded-full text-secondary hover:text-on-surface hover:bg-surface-container-highest font-label-md text-label-md font-semibold transition-all" data-path="settings" href="#">
+                  <span>Settings</span>
+                </a>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Right Auxiliary Column: Quick Setup & Activity Terminal (4 cols) -->
+        <div class="xl:col-span-4 flex flex-col gap-space-lg">
+          
+          <!-- Quick Setup Card -->
+          <div class="rounded-[2rem] bg-surface-container-lowest p-space-lg shadow-[0_8px_32px_rgba(17,19,21,0.03)] flex flex-col gap-space-md">
+            <div class="flex items-center justify-between px-space-xs">
+              <h3 class="font-headline-sm text-headline-sm text-on-surface">Quick Setup</h3>
+              <span class="font-code-header text-code-header uppercase tracking-wider text-tertiary" id="setup-progress">0 / 3 DONE</span>
+            </div>
+            <div class="flex flex-col gap-space-sm">
+              <button id="quick-setup-resume-btn" class="group w-full flex items-center justify-between p-space-md rounded-2xl bg-surface-container-low hover:bg-surface-container-high transition-all text-left cursor-pointer" data-path="profile" type="button">
+                <div class="flex items-center gap-space-sm min-w-0">
+                  <span class="material-symbols-outlined text-[26px] text-error/60 group-hover:scale-105 transition-transform shrink-0" id="quick-setup-resume-icon">files</span>
+                  <div class="flex flex-col min-w-0">
+                    <span class="font-label-md text-label-md text-on-surface truncate" id="quick-setup-resume-title">Upload Resume</span>
+                    <span class="font-body-sm text-body-sm text-secondary truncate card-sub" id="quick-setup-resume-sub">PDF, DOCX up to 10MB</span>
+                  </div>
+                </div>
+                <div class="w-8 h-8 rounded-full flex items-center justify-center text-secondary group-hover:text-on-surface group-hover:bg-surface-container-lowest transition-colors" id="quick-setup-resume-badge">
+                  <span class="material-symbols-outlined text-[20px]">add</span>
+                </div>
+              </button>
+              
+              <button id="quick-setup-gmail-btn" class="group w-full flex items-center justify-between p-space-md rounded-2xl bg-surface-container-low hover:bg-surface-container-high transition-all text-left cursor-pointer" data-path="settings" type="button">
+                <div class="flex items-center gap-space-sm min-w-0">
+                  <span class="material-symbols-outlined text-[26px] text-error/60 group-hover:scale-105 transition-transform shrink-0" id="quick-setup-gmail-icon">mail</span>
+                  <div class="flex flex-col min-w-0">
+                    <span class="font-label-md text-label-md text-on-surface truncate" id="quick-setup-gmail-title">Connect Gmail / SMTP</span>
+                    <span class="font-body-sm text-body-sm text-secondary truncate card-sub" id="quick-setup-gmail-sub">Automate applications direct</span>
+                  </div>
+                </div>
+                <div class="w-8 h-8 rounded-full flex items-center justify-center text-secondary group-hover:text-on-surface group-hover:bg-surface-container-lowest transition-colors" id="quick-setup-gmail-badge">
+                  <span class="material-symbols-outlined text-[18px]">link</span>
+                </div>
+              </button>
+
+              <button id="quick-setup-ai-btn" class="group w-full flex items-center justify-between p-space-md rounded-2xl bg-surface-container-low hover:bg-surface-container-high transition-all text-left cursor-pointer" data-path="settings" type="button">
+                <div class="flex items-center gap-space-sm min-w-0">
+                  <span class="material-symbols-outlined text-[26px] text-error/60 group-hover:scale-105 transition-transform shrink-0" id="quick-setup-ai-icon">gateway</span>
+                  <div class="flex flex-col min-w-0">
+                    <span class="font-label-md text-label-md text-on-surface truncate" id="quick-setup-ai-title">Set AI Gateway</span>
+                    <span class="font-body-sm text-body-sm text-secondary truncate card-sub" id="quick-setup-ai-sub">Connect AI provider for scoring</span>
+                  </div>
+                </div>
+                <div class="w-8 h-8 rounded-full flex items-center justify-center text-secondary group-hover:text-on-surface group-hover:bg-surface-container-lowest transition-colors" id="quick-setup-ai-badge">
+                  <span class="material-symbols-outlined text-[18px]">link</span>
+                </div>
+              </button>
+            </div>
+          </div>
+
+          <!-- Activity Log / Technical Terminal Card -->
+          <div class="bg-[#111315] text-[#DFE2E6] rounded-[28px] p-space-xl shadow-[0_12px_36px_rgba(0,0,0,0.16)] flex flex-col gap-space-md">
+            <div class="flex items-center justify-between pb-space-xs border-b border-[#23272B]">
+              <div class="flex items-center gap-2">
+                <span class="font-code-header text-code-header tracking-wider text-primary-container uppercase font-bold">Activity Console</span>
+              </div>
+              <div class="flex items-center gap-2.5">
+                <div class="status-pill status-pill-active">
+                  <span class="status-pill-dot"></span>
+                  <span class="status-pill-text">LIVE</span>
+                </div>
+                <div class="flex items-center gap-1 text-secondary">
+                  <button id="btn-clear-logs" class="btn-clear-logs p-1 hover:text-white transition-colors cursor-pointer flex items-center justify-center" type="button" title="Clear Console Logs">
+                    <span class="material-symbols-outlined text-[18px]">close</span>
+                  </button>
+                  <button id="btn-toggle-logs" class="btn-toggle-logs p-1 hover:text-white transition-colors cursor-pointer flex items-center justify-center" type="button" title="Toggle Console Size">
+                    <span class="material-symbols-outlined text-[18px]">unfold_less</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+            <!-- Terminal Log Rows -->
+            <div class="flex flex-col gap-2 font-code-terminal text-code-terminal pt-1 log-feed-scroll" id="log-feed">
+              <div class="flex items-start gap-2">
+                <span class="text-tertiary">--:--:--</span>
+                <span class="text-primary-container font-bold">SYS_INIT:</span>
+                <span class="text-slate-300">Waiting for live activity stream...</span>
+              </div>
+            </div>
+            <div class="mt-2 pt-space-xs flex items-center justify-between">
+              <span class="font-code-terminal text-code-terminal text-tertiary">LATENCY: 12ms</span>
+              <span class="font-code-terminal text-code-terminal text-primary-container font-bold">STORE: LOCAL</span>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+      <!-- Toast Feedback Popup Container -->
+      <div id="toast" class="fixed bottom-6 right-6 bg-on-background text-surface px-space-lg py-space-sm rounded-full font-label-md text-label-md shadow-2xl flex items-center gap-space-sm translate-y-24 opacity-0 transition-all duration-300 pointer-events-none z-50">
+        <span class="w-2 h-2 rounded-full bg-primary-container animate-ping"></span>
+        <span id="toast-message">Action processed</span>
+      </div>
+
+    </main>
+  </div>
+
+  <script>
+  (function(){
+    const STATES = ["default","loading","success","error"];
+    function showState(name){
+      STATES.forEach(s=>{
+        const el=document.getElementById("state-"+s);
+        if(el) el.classList.toggle("hidden", s!==name);
+      });
+    }
+    window.__showState = showState;
+  })();
+  </script>
+  <script src="/static/darkmode.js"></script>
+  <script src="/static/app.js"></script>
+</body>
+</html>

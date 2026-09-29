@@ -1,0 +1,6 @@
+<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <g transform="translate(-336, -56)">
+    <path xmlns="http://www.w3.org/2000/svg" d="M345 64H344C343.448 64 343 64.4477 343 65V68.3333C343 68.7661 343.14 69.1871 343.4 69.5333L345.6 72.4667C345.86 72.8129 346 73.2339 346 73.6667V75C346 76.1046 346.895 77 348 77C349.105 77 350 76.1046 350 75V73.6667C350 73.2339 350.14 72.8129 350.4 72.4667L352.6 69.5333C352.86 69.1871 353 68.7661 353 68.3333V65C353 64.4477 352.552 64 352 64H351M345 64V60M345 64H351M351 64V60" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+
+  </g>
+</svg>

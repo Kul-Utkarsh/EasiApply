@@ -1,0 +1,11 @@
+<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <g transform="translate(-336, -112)">
+    <g xmlns="http://www.w3.org/2000/svg">
+<rect x="339" y="118" width="16" height="12" rx="3" stroke="white" stroke-width="2" />
+<path d="M354.938 121.5H355.938C356.88 121.5 357.352 121.5 357.645 121.793C357.937 122.086 357.937 122.557 357.937 123.5V124.5C357.937 125.443 357.937 125.914 357.645 126.207C357.352 126.5 356.88 126.5 355.937 126.5H354.938" stroke="white" stroke-width="2" />
+<path d="M343 121.5V126.5" stroke="white" stroke-width="2" stroke-linecap="round" />
+<path d="M347 121.5V126.5" stroke="white" stroke-width="2" stroke-linecap="round" />
+</g>
+
+  </g>
+</svg>

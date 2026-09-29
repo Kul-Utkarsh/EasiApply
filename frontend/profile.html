@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>EasiApply — Candidate Profile &amp; Resume</title>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <script>(function(){try{var t=localStorage.getItem("easiapply-theme");if(t==="dark"||(!t&&window.matchMedia("(prefers-color-scheme: dark)").matches)){document.documentElement.setAttribute("data-theme","dark");}if(localStorage.getItem("easiapply-compact")==="1"){document.documentElement.classList.add("compact-view");}}catch(e){}})();</script>
+  <!-- Material Symbols replaced with Figma Simple Icons -->
+  <link href="https://fonts.googleapis.com" rel="preconnect">
+  <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
+  <!-- Material Symbols replaced with Figma Simple Icons -->
+  <style>
+    @layer base {
+      html, body { margin: 0; padding: 0; }
+      body { overscroll-behavior: none; }
+      main > :first-child { margin-top: 0 !important; }
+      main > :last-child { margin-bottom: 0 !important; }
+    }
+    ::-webkit-scrollbar { display: none; }
+  </style>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="/static/theme.css" rel="stylesheet">
+  <script src="/static/xicons.js"></script>
+  <script src="/static/theme-config.js"></script>
+  <script>
+    if (localStorage.getItem("easiapply_sidebar_minimized") === "true") {
+      document.documentElement.classList.add("sidebar-minimized");
+    }
+  </script>
+</head>
+<body class="bg-surface font-body-md text-body-md text-on-surface antialiased selection:bg-primary-container selection:text-on-primary-fixed">
+
+  <!-- Sidebar -->
+  <aside id="app-sidebar" class="fixed left-0 top-0 h-full w-64 bg-surface-container-low z-50 flex flex-col justify-between py-space-lg px-space-md shadow-[0_1px_8px_rgba(0,0,0,0.04)]">
+    <div class="flex flex-col gap-space-lg">
+      <div id="sidebar-header-row" class="flex items-center justify-between px-space-sm min-h-[36px]">
+        <div id="sidebar-brand-wrapper" class="relative group/brand cursor-pointer shrink-0" title="EasiApply">
+          <div id="sidebar-brand-icon" class="w-9 h-9 rounded-xl bg-on-background flex items-center justify-center text-primary-container font-headline-md text-headline-md font-bold shrink-0">
+            <span class="material-symbols-outlined text-[20px]">bolt</span>
+          </div>
+          <button id="sidebar-expand-btn" type="button" aria-label="Expand sidebar" title="Expand sidebar" class="w-9 h-9 rounded-xl bg-primary-container text-on-primary-fixed flex items-center justify-center font-bold shadow-sm hover:brightness-105 transition-all cursor-pointer">
+            <span class="material-symbols-outlined text-[20px]">arrow_right_4_square</span>
+          </button>
+        </div>
+        <span class="font-headline-md text-headline-md tracking-tight font-bold text-on-surface sidebar-label ml-space-sm flex-1 truncate">EasiApply</span>
+        <button id="sidebar-toggle-btn" type="button" aria-label="Minimize sidebar" title="Minimize sidebar" class="w-8 h-8 rounded-full flex items-center justify-center text-secondary hover:text-on-surface hover:bg-surface-container transition-all cursor-pointer shrink-0">
+          <span class="material-symbols-outlined text-[18px]">arrow_left_4_square</span>
+        </button>
+      </div>
+      <nav class="flex flex-col gap-space-xs" data-active-classes="bg-primary-container text-on-primary-fixed font-bold rounded-full shadow-[0_4px_16px_rgba(182,244,56,0.25)]">
+        <a class="flex items-center gap-space-sm px-space-md py-space-sm text-secondary hover:bg-surface-container-highest hover:text-on-surface transition-all rounded-full font-label-md text-label-md" data-path="dashboard" href="#" title="Dashboard">
+          <span class="material-symbols-outlined text-[20px]">category_3</span><span class="sidebar-label">Dashboard</span>
+        </a>
+        <a aria-current="page" class="flex items-center gap-space-sm px-space-md py-space-sm transition-all bg-primary-container text-on-primary-fixed font-bold rounded-full shadow-[0_4px_16px_rgba(182,244,56,0.25)]" data-path="profile" href="#" title="Profile">
+          <span class="material-symbols-outlined text-[20px]">user_02</span><span class="sidebar-label">Profile</span>
+        </a>
+        <a class="flex items-center gap-space-sm px-space-md py-space-sm text-secondary hover:bg-surface-container-highest hover:text-on-surface transition-all rounded-full font-label-md text-label-md" data-path="matches" href="#" title="Matches">
+          <span class="material-symbols-outlined text-[20px]">discover</span><span class="sidebar-label">Matches</span>
+        </a>
+        <a class="flex items-center gap-space-sm px-space-md py-space-sm text-secondary hover:bg-surface-container-highest hover:text-on-surface transition-all rounded-full font-label-md text-label-md" data-path="outreach" href="#" title="Applications">
+          <span class="material-symbols-outlined text-[20px]">file_document</span><span class="sidebar-label">Applications</span>
+        </a>
+        <a class="flex items-center gap-space-sm px-space-md py-space-sm text-secondary hover:bg-surface-container-highest hover:text-on-surface transition-all rounded-full font-label-md text-label-md" data-path="analytics" href="#" title="Analytics">
+          <span class="material-symbols-outlined text-[20px]">chart_bar_vertical_01</span><span class="sidebar-label">Analytics</span>
+        </a>
+      </nav>
+    </div>
+    <div class="flex flex-col gap-space-xs pt-space-md border-t border-surface-container-high/40">
+      <div id="header-linkedin-pill" class="flex items-center gap-2 px-3 py-2 bg-surface-container hover:bg-surface-container-high rounded-full text-secondary font-label-md text-[13px] transition-all cursor-pointer shadow-sm mb-1" title="LinkedIn Connection Status">
+        <span id="header-linkedin-dot" class="w-2 h-2 rounded-full bg-emerald-500 shrink-0"></span>
+        <span id="header-linkedin-label" class="font-bold text-on-surface truncate text-xs sidebar-label">LinkedIn: Checking...</span>
+      </div>
+      <nav data-active-classes="bg-primary-container text-on-primary-fixed font-bold rounded-full shadow-[0_4px_16px_rgba(182,244,56,0.25)]">
+        <a class="flex items-center gap-space-sm px-space-md py-space-sm text-secondary hover:bg-surface-container-highest hover:text-on-surface transition-all rounded-full font-label-md text-label-md" data-path="settings" href="#" title="Settings">
+          <span class="material-symbols-outlined text-[20px]">settings_1</span><span class="sidebar-label">Settings</span>
+        </a>
+      </nav>
+    </div>
+  </aside>
+
+  <div id="main-wrapper" class="pl-64">
+    <!-- Header -->
+    <header id="app-header" class="fixed top-0 left-64 right-0 h-16 bg-surface/80 backdrop-blur-xl border-b border-surface-container-high/40 z-40 flex items-center justify-between px-space-xl gap-space-md sm:gap-space-lg">
+      <div class="flex items-center gap-space-sm">
+        <h1 class="font-headline-sm text-headline-sm font-bold text-on-surface">Profile &amp; Resume Intelligence</h1>
+      </div>
+      <div class="flex items-center gap-6">
+        <div class="flex items-center gap-2.5">
+          <span class="font-code-header text-code-header uppercase tracking-wider text-tertiary">System Status</span>
+          <div class="status-pill status-pill-active" id="header-system-status">
+            <span class="status-pill-dot"></span>
+            <span class="status-pill-text">Operational</span>
+          </div>
+        </div>
+        <div class="flex items-center gap-3">
+          <button id="scrape-stop-btn" type="button" aria-label="Stop scrape session" class="hidden items-center gap-space-xs px-space-md py-space-xs bg-error text-on-error rounded-full font-label-md text-label-md font-bold shadow-sm transition-all hover:bg-error/90">
+            <span class="material-symbols-outlined text-[18px]">octagon_warning</span><span>Stop</span>
+          </button>
+          <button id="darkmode-toggle-header" data-darkmode-toggle aria-label="Toggle dark mode" class="w-9 h-9 rounded-full bg-surface-container-lowest flex items-center justify-center text-secondary hover:text-on-surface hover:bg-surface-container-high transition-colors shadow-[0_1px_4px_rgba(0,0,0,0.04)] cursor-pointer" type="button">
+            <span class="material-symbols-outlined text-[20px]">mode_-__dark</span>
+          </button>
+
+          <button id="app-exit-btn" aria-label="Exit Application" class="w-9 h-9 rounded-full bg-error flex items-center justify-center text-white hover:brightness-110 active:scale-95 transition-all shadow-[0_1px_4px_rgba(0,0,0,0.04)] cursor-pointer" type="button" title="Shutdown Application">
+            <span class="material-symbols-outlined text-[20px]">stop_sign</span>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <!-- Main Workspace (Responsive Multi-Column) -->
+    <main class="relative pt-20 w-full bg-surface px-space-xl py-space-xl">
+      <div class="grid grid-cols-1 xl:grid-cols-12 gap-space-lg w-full">
+        
+        <!-- Left / Primary Operations Column (8 cols) -->
+        <div class="xl:col-span-8 flex flex-col gap-space-lg">
+
+          <!-- Source Resumes & Specialized Portfolio Repository -->
+          <div class="bg-surface-container-lowest rounded-[28px] p-space-xl shadow-[0_8px_32px_rgba(17,19,21,0.03)] flex flex-col gap-space-md">
+            <div class="flex items-center justify-between">
+              <div class="flex items-center gap-space-sm">
+                <div class="w-10 h-10 rounded-2xl bg-surface-container flex items-center justify-center text-on-surface">
+                  <span class="material-symbols-outlined text-[22px]">files</span>
+                </div>
+                <div>
+                  <div class="flex items-center gap-2">
+                    <h2 class="font-headline-sm text-headline-sm font-semibold text-on-surface">Resume Repository &amp; Specializations</h2>
+                    <span id="resumes-count-badge" class="px-2 py-0.5 rounded-full bg-surface-container-high text-on-surface font-code-terminal text-[11px] font-bold">0 files</span>
+                  </div>
+                  <p class="font-body-sm text-body-sm text-secondary card-sub">Upload specialized resumes for different roles (e.g. Product Designer, UX Researcher). Jobs automatically route to the best matching resume.</p>
+                </div>
+              </div>
+              <div class="status-pill status-pill-active" id="resume-status-badge">
+                <span class="status-pill-dot"></span>
+                <span class="status-pill-text" id="resume-status-text">Repository Ready</span>
+              </div>
+            </div>
+
+            <!-- Resumes List Dynamic Container -->
+            <div id="resumes-list-container" class="flex flex-col gap-3">
+              <!-- Rendered dynamically by JavaScript -->
+            </div>
+
+            <!-- Fallback / Empty State when 0 resumes exist -->
+            <div id="resumes-empty-state" class="hidden flex flex-col items-center justify-center p-space-lg text-center gap-2 rounded-2xl border border-dashed border-surface-container-high bg-surface-container-low/50">
+              <span class="material-symbols-outlined text-[32px] text-tertiary">folder_open</span>
+              <p class="font-label-md text-label-md font-bold text-on-surface">No resumes uploaded yet</p>
+              <p class="font-body-sm text-body-sm text-secondary max-w-sm">Drop your primary resume below to calibrate candidate intelligence and start AI job scoring.</p>
+            </div>
+
+            <!-- Legacy compatibility hidden element -->
+            <div id="attached-file-pill" class="hidden" aria-hidden="true">
+              <span id="profile-resume-filename"></span>
+              <span id="resume-stats-line"></span>
+              <a id="download-resume-btn" href="#"></a>
+              <button id="delete-resume-btn" type="button"></button>
+            </div>
+
+            <!-- Animated Scanning / Processing State (shown during file upload & parsing) -->
+            <div id="resume-scanning-state" class="hidden rounded-2xl bg-surface-container-low p-space-xl flex flex-col items-center justify-center text-center gap-space-md border border-primary/40 relative overflow-hidden">
+              <div class="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-transparent via-primary to-transparent animate-pulse"></div>
+              <div class="relative w-16 h-16 rounded-2xl bg-primary-container/30 flex items-center justify-center text-primary">
+                <span class="material-symbols-outlined text-[36px] animate-bounce">document_scanner</span>
+                <span class="absolute -inset-1 rounded-2xl border-2 border-primary/50 animate-ping opacity-75 pointer-events-none"></span>
+              </div>
+              <div class="flex flex-col items-center gap-1 max-w-md">
+                <h3 class="font-headline-sm text-headline-sm font-bold text-on-surface" id="resume-scanning-title">Scanning &amp; Vectorizing Resume...</h3>
+                <p class="font-body-sm text-body-sm text-secondary" id="resume-scanning-stage">Analyzing document structure &amp; extracting competencies...</p>
+              </div>
+              <div class="w-full max-w-xs h-2 bg-surface-container rounded-full overflow-hidden">
+                <div id="resume-scanning-progress-bar" class="h-full bg-primary rounded-full w-1/3 transition-all duration-500"></div>
+              </div>
+              <div class="flex items-center gap-2 font-code-terminal text-code-terminal text-tertiary">
+                <span class="w-2 h-2 rounded-full bg-primary animate-ping"></span>
+                <span id="resume-scanning-subtext">Neural parsing engine active • Computing semantic tokens</span>
+              </div>
+            </div>
+
+            <!-- Upload Dropzone (Supports adding specialized resumes with role tags) -->
+            <div class="rounded-2xl bg-surface-container-low p-space-md border-2 border-dashed border-surface-container-high hover:border-primary/70 transition-all flex flex-col gap-3" id="dropzone-wrapper">
+              <div class="flex flex-col sm:flex-row items-center gap-3">
+                <div class="flex-1 flex items-center gap-2 bg-surface-container-lowest px-3 py-2 rounded-xl border border-surface-container-high/60 w-full sm:w-auto">
+                  <span class="material-symbols-outlined text-[18px] text-tertiary">tag</span>
+                  <input type="text" id="resume-role-tag-input" placeholder="Role Specialization (e.g. Product Designer, UX Lead)..." class="bg-transparent text-on-surface font-body-sm text-body-sm focus:outline-none w-full placeholder:text-tertiary">
+                </div>
+                <div class="relative cursor-pointer inline-flex items-center justify-center gap-2 px-5 py-2.5 bg-primary-container text-on-primary-fixed rounded-full font-label-md text-label-md font-bold hover:brightness-105 transition-all shadow-sm shrink-0 w-full sm:w-auto text-center" id="dropzone">
+                  <span class="material-symbols-outlined text-[18px]">cloud_upload</span>
+                  <span>Upload Resume</span>
+                  <input accept=".pdf,.docx,.txt,.md" class="absolute inset-0 opacity-0 cursor-pointer w-full h-full" id="resume-file-input" type="file">
+                </div>
+              </div>
+              <div class="flex items-center justify-between text-secondary font-body-sm text-[12px] px-1">
+                <span>PDF, DOCX, TXT, or MD up to 10MB</span>
+                <span class="text-tertiary">Tag is optional; automatically inferred if omitted</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Candidate Profile Live Preview Card -->
+          <div class="bg-surface-container-lowest rounded-[28px] p-space-xl shadow-[0_8px_32px_rgba(17,19,21,0.03)] flex flex-col gap-space-lg">
+            <div class="flex items-center justify-between">
+              <div class="flex items-center gap-space-sm">
+                <div class="w-10 h-10 rounded-2xl bg-surface-container flex items-center justify-center text-on-surface">
+                  <span class="material-symbols-outlined text-[22px]">user_02</span>
+                </div>
+                <div>
+                  <h2 class="font-headline-sm text-headline-sm font-semibold text-on-surface">Candidate Profile</h2>
+                  <p class="font-body-sm text-body-sm text-secondary card-sub" id="profile-card-sub">Upload resume to view all information</p>
+                </div>
+              </div>
+              <span class="px-space-sm py-1 bg-surface-container text-secondary font-code-header text-code-header font-bold rounded-full" id="profile-match-vector-badge">STANDBY</span>
+            </div>
+
+            <!-- Candidate Profile Identity Card -->
+            <div class="p-space-lg bg-surface-container-low rounded-2xl flex flex-col md:flex-row items-start md:items-center justify-between gap-space-md">
+              <div class="flex items-center gap-space-md min-w-0">
+                <div class="w-16 h-16 rounded-2xl bg-surface-container-high text-secondary flex items-center justify-center font-headline-lg font-bold shrink-0" id="profile-avatar">
+                  <span class="material-symbols-outlined text-[32px]">person</span>
+                </div>
+                <div class="flex flex-col min-w-0">
+                  <h3 class="font-headline-md text-headline-md font-bold text-on-surface truncate" id="profile-name">No Resume Uploaded</h3>
+                  <p class="font-label-md text-label-md text-secondary truncate" id="profile-headline">Upload your resume to view all information and calibrate AI matching</p>
+                  <span class="font-code-terminal text-code-terminal text-tertiary mt-0.5 truncate" id="profile-target-roles">Targeting: Configure your target roles below</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Keywords (Unified Extracted & Manual Stack) -->
+            <div class="flex flex-col gap-space-sm">
+              <div class="flex items-center justify-between">
+                <span class="font-code-header text-code-header uppercase tracking-wider text-tertiary">Keywords</span>
+                <button id="add-skill-btn" type="button" class="inline-flex items-center gap-1 px-3 py-1 bg-surface-container hover:bg-surface-container-high text-secondary hover:text-on-surface rounded-full font-label-md text-label-md transition-colors cursor-pointer">
+                  <span class="material-symbols-outlined text-[16px]">add</span>
+                  <span>Add Keyword Manually</span>
+                </button>
+              </div>
+
+              <!-- Inline Add Skill Box (toggled by Add Keyword Manually button) -->
+              <div id="manual-skill-form" class="hidden flex items-center gap-2 p-2 bg-surface-container-low rounded-xl">
+                <input id="manual-skill-input" type="text" placeholder="Type a keyword (e.g. Product Strategy, Figma, AI Systems)..." class="flex-1 bg-surface-container-lowest px-3 py-1.5 rounded-lg text-body-sm text-on-surface focus:outline-none">
+                <button id="save-skill-btn" type="button" class="px-4 py-1.5 bg-primary-container text-on-primary-fixed rounded-lg font-label-md text-label-md font-bold hover:brightness-105 transition-all cursor-pointer">Add</button>
+                <button id="cancel-skill-btn" type="button" class="px-2 py-1.5 text-secondary hover:text-on-surface font-label-md text-label-md cursor-pointer">Cancel</button>
+              </div>
+
+              <div class="flex flex-wrap gap-2" id="profile-skill-chips">
+                <div class="p-space-md w-full rounded-xl bg-surface-container/40 border border-dashed border-surface-container-high text-center text-body-sm text-secondary">
+                  Upload resume to view all information and extracted competencies, or click <strong class="text-on-surface">Add Keyword Manually</strong> above.
+                </div>
+              </div>
+            </div>
+
+            <!-- Profile Completeness Bar -->
+            <div class="flex flex-col gap-2 pt-space-xs">
+              <div class="flex items-center justify-between font-label-md text-label-md">
+                <span class="text-secondary flex items-center gap-1.5">
+                  <span class="material-symbols-outlined text-secondary text-[16px]" id="profile-completeness-icon">task_alt</span> Profile Completeness
+                </span>
+                <span class="font-bold text-secondary flex items-center gap-1" id="profile-completeness-text">
+                  0% • Awaiting Resume
+                </span>
+              </div>
+              <div class="w-full h-2.5 bg-surface-container rounded-full overflow-hidden p-0.5">
+                <div id="profile-completeness-bar" class="h-full bg-primary-container rounded-full transition-all duration-700" style="width: 0%;"></div>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Target Role & Seniority Preferences (Controls Scraping & Matching) -->
+          <div class="bg-surface-container-lowest rounded-[28px] p-space-xl shadow-[0_8px_32px_rgba(17,19,21,0.03)] flex flex-col gap-space-lg border border-surface-container-high/30">
+            <div class="flex items-center justify-between">
+              <div class="flex items-center gap-space-sm">
+                <div class="w-10 h-10 rounded-2xl bg-surface-container flex items-center justify-center text-on-surface">
+                  <span class="material-symbols-outlined text-[22px]">file_edit</span>
+                </div>
+                <div>
+                  <h2 class="font-headline-sm text-headline-sm font-semibold text-on-surface">Target Role &amp; Seniority Criteria</h2>
+                  <p class="font-body-sm text-body-sm text-secondary card-sub">Defines your target job search profile, domain competencies, and maximum YOE filter</p>
+                </div>
+              </div>
+              <span class="px-space-sm py-1 bg-surface-container text-secondary font-code-header text-code-header font-bold rounded-full" id="prefs-status-badge">AUTO-SYNCED</span>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-space-md">
+              <!-- Target Job Roles (Multiple supported) -->
+              <div class="flex flex-col gap-1.5">
+                <label for="pref-target-role" class="font-label-md text-label-md font-bold text-on-surface">Target Roles / Titles</label>
+                <input id="pref-target-role" type="text" placeholder="e.g. Product Designer, UI/UX Designer, UX Designer" class="w-full px-space-md py-2.5 rounded-xl bg-surface-container-low border border-surface-container-high text-on-surface font-body-sm text-body-sm focus:outline-none focus:border-primary transition-all">
+                <span class="text-[12px] text-secondary">Target roles separated by commas (used for search queries &amp; resume fit).</span>
+              </div>
+
+              <!-- Seniority Level -->
+              <div class="flex flex-col gap-1.5 relative custom-dropdown-wrapper" id="pref-seniority-wrapper">
+                <label for="pref-target-seniority-btn" class="font-label-md text-label-md font-bold text-on-surface">Target Seniority Level</label>
+                <select id="pref-target-seniority" class="hidden sr-only">
+                  <option value="Associate / Junior Professional">Associate / Junior (1–2 YOE)</option>
+                  <option value="Mid-Level Professional">Mid-Level (3–5 YOE)</option>
+                  <option value="Senior Practitioner">Senior (5+ YOE)</option>
+                  <option value="Lead / Principal Professional">Lead / Principal (8+ YOE)</option>
+                </select>
+                <button id="pref-target-seniority-btn" type="button" aria-haspopup="listbox" aria-expanded="false" class="w-full flex items-center justify-between px-space-md py-2.5 rounded-xl bg-surface-container-low border border-surface-container-high hover:border-primary/40 text-on-surface font-body-sm text-body-sm focus:outline-none focus:border-primary transition-all cursor-pointer">
+                  <span id="pref-target-seniority-label" class="font-medium text-on-surface truncate">Associate / Junior (1–2 YOE)</span>
+                  <span id="pref-target-seniority-arrow" class="material-symbols-outlined text-[20px] text-secondary transition-transform duration-200 shrink-0">expand_more</span>
+                </button>
+                <div id="pref-target-seniority-menu" class="hidden absolute left-0 right-0 top-full mt-1.5 bg-surface-container-high border border-outline-variant/30 rounded-2xl shadow-2xl z-50 p-1.5 space-y-0.5 backdrop-blur-md transition-all">
+                  <div class="custom-select-opt flex items-center justify-between px-3 py-2.5 rounded-xl cursor-pointer select-none text-xs font-semibold text-on-surface hover:bg-surface-container hover:text-primary transition-all" data-target="pref-target-seniority" data-val="Associate / Junior Professional">
+                    <span>Associate / Junior (1–2 YOE)</span>
+                    <span class="check-icon material-symbols-outlined text-[16px] text-primary hidden">check</span>
+                  </div>
+                  <div class="custom-select-opt flex items-center justify-between px-3 py-2.5 rounded-xl cursor-pointer select-none text-xs font-semibold text-on-surface hover:bg-surface-container hover:text-primary transition-all" data-target="pref-target-seniority" data-val="Mid-Level Professional">
+                    <span>Mid-Level (3–5 YOE)</span>
+                    <span class="check-icon material-symbols-outlined text-[16px] text-primary hidden">check</span>
+                  </div>
+                  <div class="custom-select-opt flex items-center justify-between px-3 py-2.5 rounded-xl cursor-pointer select-none text-xs font-semibold text-on-surface hover:bg-surface-container hover:text-primary transition-all" data-target="pref-target-seniority" data-val="Senior Practitioner">
+                    <span>Senior (5+ YOE)</span>
+                    <span class="check-icon material-symbols-outlined text-[16px] text-primary hidden">check</span>
+                  </div>
+                  <div class="custom-select-opt flex items-center justify-between px-3 py-2.5 rounded-xl cursor-pointer select-none text-xs font-semibold text-on-surface hover:bg-surface-container hover:text-primary transition-all" data-target="pref-target-seniority" data-val="Lead / Principal Professional">
+                    <span>Lead / Principal (8+ YOE)</span>
+                    <span class="check-icon material-symbols-outlined text-[16px] text-primary hidden">check</span>
+                  </div>
+                </div>
+                <span class="text-[12px] text-secondary">Filters out director/executive postings when targeting junior/mid roles.</span>
+              </div>
+
+              <!-- Max Acceptable YOE -->
+              <div class="flex flex-col gap-1.5">
+                <label for="pref-max-yoe" class="font-label-md text-label-md font-bold text-on-surface">Max Acceptable YOE in Post</label>
+                <div class="relative flex items-center">
+                  <input id="pref-max-yoe" type="number" min="0" max="25" value="" placeholder="3" class="w-full px-space-md py-2.5 rounded-xl bg-surface-container-low border border-surface-container-high text-on-surface font-body-sm text-body-sm focus:outline-none focus:border-primary transition-all pr-14">
+                  <span class="absolute right-3 text-secondary text-xs font-semibold pointer-events-none">Years</span>
+                </div>
+                <span class="text-[12px] text-secondary">Posts requiring more years (e.g. 10+ YOE) will be automatically skipped during scraping.</span>
+              </div>
+
+              <!-- Target Locations -->
+              <div class="flex flex-col gap-1.5">
+                <label for="pref-target-locations" class="font-label-md text-label-md font-bold text-on-surface">Target Locations / Remote</label>
+                <input id="pref-target-locations" type="text" placeholder="e.g. Remote, United States, San Francisco, Hybrid" class="w-full px-space-md py-2.5 rounded-xl bg-surface-container-low border border-surface-container-high text-on-surface font-body-sm text-body-sm focus:outline-none focus:border-primary transition-all">
+                <span class="text-[12px] text-secondary">Comma-separated locations or Remote status used automatically for searches.</span>
+              </div>
+
+              <!-- Exclude / Negative Keywords -->
+              <div class="flex flex-col gap-1.5">
+                <label for="pref-exclude-keywords" class="font-label-md text-label-md font-bold text-on-surface">Exclude Keywords (Negative Filter)</label>
+                <input id="pref-exclude-keywords" type="text" placeholder="e.g. CAD, SolidWorks, Manufacturing, Mechanical, Hardware" class="w-full px-space-md py-2.5 rounded-xl bg-surface-container-low border border-surface-container-high text-on-surface font-body-sm text-body-sm focus:outline-none focus:border-primary transition-all">
+                <span class="text-[12px] text-secondary">Comma-separated terms to reject posts from off-target industries.</span>
+              </div>
+
+              <!-- Domain / Required Tech Keywords -->
+              <div class="flex flex-col gap-1.5">
+                <label for="pref-domain-keywords" class="font-label-md text-label-md font-bold text-on-surface">Domain &amp; Technical Keywords</label>
+                <input id="pref-domain-keywords" type="text" placeholder="e.g. Figma, UI, UX, Design Systems, Wireframing, Prototyping, Web, Mobile" class="w-full px-space-md py-2.5 rounded-xl bg-surface-container-low border border-surface-container-high text-on-surface font-body-sm text-body-sm focus:outline-none focus:border-primary transition-all">
+                <span class="text-[12px] text-secondary">Posts with polysemous titles (e.g. "Product Designer") must match these competencies.</span>
+              </div>
+            </div>
+
+            <!-- Save Button Row -->
+            <div class="flex items-center justify-between pt-space-xs border-t border-surface-container-high/40">
+              <span class="text-xs text-secondary font-medium" id="pref-save-note">Preferences apply instantly to scraper filtering &amp; AI matching.</span>
+              <div class="flex items-center gap-3">
+                <span id="pref-save-toast" class="hidden text-xs text-emerald-500 font-bold flex items-center gap-1">
+                  <span class="material-symbols-outlined text-[16px]">circle_check</span> Preferences saved!
+                </span>
+                <button id="save-profile-prefs-btn" type="button" class="px-5 py-2.5 bg-primary-container text-on-primary-fixed rounded-full font-label-md text-label-md font-bold hover:brightness-105 transition-all shadow-sm cursor-pointer flex items-center justify-center">
+                  <span>Save Target Criteria</span>
+                </button>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Auxiliary Right Rail (Meta Info + Telemetry Terminal) (4 cols) -->
+        <div class="xl:col-span-4 flex flex-col gap-space-lg">
+          
+          <!-- Profile Overview Summary Card -->
+          <div class="bg-surface-container-lowest rounded-[28px] p-space-xl shadow-[0_8px_32px_rgba(17,19,21,0.03)] flex flex-col gap-space-md">
+            <div class="flex items-center justify-between">
+              <h2 class="font-headline-sm text-headline-sm font-semibold text-on-surface">Profile Overview</h2>
+              <div class="status-pill status-pill-active">
+                <span class="status-pill-dot"></span>
+                <span class="status-pill-text">Live Metrics</span>
+              </div>
+            </div>
+
+            <div class="grid grid-cols-2 gap-space-sm">
+              <div class="p-space-md bg-surface-container-low rounded-2xl flex flex-col">
+                <span class="font-code-header text-code-header text-tertiary uppercase">Years Experience</span>
+                <span class="font-headline-md text-headline-md font-bold text-on-surface mt-1" id="profile-yoe">— Yrs</span>
+                <span class="font-body-sm text-body-sm text-secondary" id="profile-yoe-sub">Awaiting CV</span>
+              </div>
+              <div class="p-space-md bg-surface-container-low rounded-2xl flex flex-col">
+                <span class="font-code-header text-code-header text-tertiary uppercase">Target Role</span>
+                <span class="font-headline-md text-headline-md font-bold text-primary mt-1" id="profile-salary">—</span>
+                <span class="font-body-sm text-body-sm text-secondary" id="profile-salary-sub">Awaiting CV</span>
+              </div>
+            </div>
+
+            <div class="p-space-md bg-surface-container-low rounded-2xl flex flex-col gap-2">
+              <div class="flex items-center justify-between">
+                <span class="font-code-header text-code-header text-tertiary uppercase">Active Match Vector</span>
+                <span class="font-label-md text-label-md text-primary font-bold" id="profile-match-vector">Calibrated</span>
+              </div>
+              <p class="font-body-sm text-body-sm text-secondary" id="profile-match-vector-sub">Vector embeddings indexed in ChromaDB for high-precision semantic matching.</p>
+            </div>
+
+            <!-- AI Matching & Semantic Vector Explainer Card -->
+            <div class="p-space-md bg-surface-container-low rounded-2xl flex flex-col gap-2">
+              <div class="flex items-center gap-2">
+                <span class="material-symbols-outlined text-[18px] text-primary">hub</span>
+                <span class="font-label-md text-label-md font-bold text-on-surface">How Active Match Vector Works</span>
+              </div>
+              <p class="font-body-sm text-body-sm text-secondary leading-relaxed">
+                Your resume is transformed into a high-dimensional vector in ChromaDB. When jobs and hiring posts are scraped, the AI calculates mathematical similarity (cosine distance) against your profile so you match even when recruiters use different wording.
+              </p>
+            </div>
+          </div>
+
+          <!-- Technical Telemetry Activity Console (Midnight Terminal) -->
+          <div class="bg-[#111315] text-[#DFE2E6] rounded-[28px] p-space-xl shadow-[0_12px_36px_rgba(0,0,0,0.16)] flex flex-col gap-space-md">
+            <div class="flex items-center justify-between pb-space-xs border-b border-[#23272B]">
+              <div class="flex items-center gap-2">
+                <span class="font-code-header text-code-header tracking-wider text-primary-container uppercase font-bold">Activity Console</span>
+              </div>
+              <div class="flex items-center gap-2.5">
+                <div class="status-pill status-pill-active">
+                  <span class="status-pill-dot"></span>
+                  <span class="status-pill-text">LIVE</span>
+                </div>
+                <div class="flex items-center gap-1 text-secondary">
+                  <button id="btn-clear-logs" class="btn-clear-logs p-1 hover:text-white transition-colors cursor-pointer flex items-center justify-center" type="button" title="Clear Console Logs">
+                    <span class="material-symbols-outlined text-[18px]">close</span>
+                  </button>
+                  <button id="btn-toggle-logs" class="btn-toggle-logs p-1 hover:text-white transition-colors cursor-pointer flex items-center justify-center" type="button" title="Toggle Console Size">
+                    <span class="material-symbols-outlined text-[18px]">unfold_less</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+            
+            <div class="flex flex-col gap-2 font-code-terminal text-code-terminal pt-1 log-feed-scroll" id="log-feed">
+              <div class="flex items-start gap-2">
+                <span class="text-tertiary">--:--:--</span>
+                <span class="text-primary-container font-bold">SYS_INIT:</span>
+                <span class="text-slate-300">Profile telemetry online.</span>
+              </div>
+            </div>
+
+            <div class="mt-2 pt-space-xs flex items-center justify-between">
+              <span class="font-code-terminal text-code-terminal text-tertiary">LATENCY: 12ms</span>
+              <span class="font-code-terminal text-code-terminal text-primary-container font-bold">STORE: LOCAL</span>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+      <!-- Toast Feedback Popup Container -->
+      <div id="toast" class="fixed bottom-6 right-6 bg-on-background text-surface px-space-lg py-space-sm rounded-full font-label-md text-label-md shadow-2xl flex items-center gap-space-sm translate-y-24 opacity-0 transition-all duration-300 pointer-events-none z-50">
+        <span class="w-2 h-2 rounded-full bg-primary-container animate-ping"></span>
+        <span id="toast-message">Action processed</span>
+      </div>
+
+    </main>
+  </div>
+
+  <script src="/static/darkmode.js"></script>
+  <script src="/static/app.js"></script>
+</body>
+</html>

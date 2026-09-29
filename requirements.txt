@@ -1,0 +1,16 @@
+playwright
+playwright-stealth
+pydantic
+pydantic-settings
+python-dotenv
+streamlit
+pandas
+sqlalchemy
+python-docx
+requests
+pyinstaller
+pypdf
+fastapi
+uvicorn
+python-multipart
+pytest

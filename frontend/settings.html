@@ -1,0 +1,775 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>EasiApply — Cockpit Settings &amp; Provisioning</title>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <script>(function(){try{var t=localStorage.getItem("easiapply-theme");if(t==="dark"||(!t&&window.matchMedia("(prefers-color-scheme: dark)").matches)){document.documentElement.setAttribute("data-theme","dark");}if(localStorage.getItem("easiapply-compact")==="1"){document.documentElement.classList.add("compact-view");}}catch(e){}})();</script>
+  <!-- Material Symbols replaced with Figma Simple Icons -->
+  <link href="https://fonts.googleapis.com" rel="preconnect">
+  <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
+  <!-- Material Symbols replaced with Figma Simple Icons -->
+  <style>
+    @layer base {
+      html, body { margin: 0; padding: 0; }
+      body { overscroll-behavior: none; }
+      main > :first-child { margin-top: 0 !important; }
+      main > :last-child { margin-bottom: 0 !important; }
+    }
+    ::-webkit-scrollbar { display: none; }
+  </style>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="/static/theme.css" rel="stylesheet">
+  <script src="/static/xicons.js"></script>
+  <script src="/static/theme-config.js"></script>
+  <script>
+    if (localStorage.getItem("easiapply_sidebar_minimized") === "true") {
+      document.documentElement.classList.add("sidebar-minimized");
+    }
+  </script>
+</head>
+<body class="bg-surface font-body-md text-body-md text-on-surface antialiased selection:bg-primary-container selection:text-on-primary-fixed">
+
+  <!-- Sidebar -->
+  <aside id="app-sidebar" class="fixed left-0 top-0 h-full w-64 bg-surface-container-low z-50 flex flex-col justify-between py-space-lg px-space-md shadow-[0_1px_8px_rgba(0,0,0,0.04)]">
+    <div class="flex flex-col gap-space-lg">
+      <div id="sidebar-header-row" class="flex items-center justify-between px-space-sm min-h-[36px]">
+        <div id="sidebar-brand-wrapper" class="relative group/brand cursor-pointer shrink-0" title="EasiApply">
+          <div id="sidebar-brand-icon" class="w-9 h-9 rounded-xl bg-on-background flex items-center justify-center text-primary-container font-headline-md text-headline-md font-bold shrink-0">
+            <span class="material-symbols-outlined text-[20px]">bolt</span>
+          </div>
+          <button id="sidebar-expand-btn" type="button" aria-label="Expand sidebar" title="Expand sidebar" class="w-9 h-9 rounded-xl bg-primary-container text-on-primary-fixed flex items-center justify-center font-bold shadow-sm hover:brightness-105 transition-all cursor-pointer">
+            <span class="material-symbols-outlined text-[20px]">arrow_right_4_square</span>
+          </button>
+        </div>
+        <span class="font-headline-md text-headline-md tracking-tight font-bold text-on-surface sidebar-label ml-space-sm flex-1 truncate">EasiApply</span>
+        <button id="sidebar-toggle-btn" type="button" aria-label="Minimize sidebar" title="Minimize sidebar" class="w-8 h-8 rounded-full flex items-center justify-center text-secondary hover:text-on-surface hover:bg-surface-container transition-all cursor-pointer shrink-0">
+          <span class="material-symbols-outlined text-[18px]">arrow_left_4_square</span>
+        </button>
+      </div>
+      <nav class="flex flex-col gap-space-xs" data-active-classes="bg-primary-container text-on-primary-fixed font-bold rounded-full shadow-[0_4px_16px_rgba(182,244,56,0.25)]">
+        <a class="flex items-center gap-space-sm px-space-md py-space-sm text-secondary hover:bg-surface-container-highest hover:text-on-surface transition-all rounded-full font-label-md text-label-md" data-path="dashboard" href="#" title="Dashboard">
+          <span class="material-symbols-outlined text-[20px]">category_3</span><span class="sidebar-label">Dashboard</span>
+        </a>
+        <a class="flex items-center gap-space-sm px-space-md py-space-sm text-secondary hover:bg-surface-container-highest hover:text-on-surface transition-all rounded-full font-label-md text-label-md" data-path="profile" href="#" title="Profile">
+          <span class="material-symbols-outlined text-[20px]">user_02</span><span class="sidebar-label">Profile</span>
+        </a>
+        <a class="flex items-center gap-space-sm px-space-md py-space-sm text-secondary hover:bg-surface-container-highest hover:text-on-surface transition-all rounded-full font-label-md text-label-md" data-path="matches" href="#" title="Matches">
+          <span class="material-symbols-outlined text-[20px]">discover</span><span class="sidebar-label">Matches</span>
+        </a>
+        <a class="flex items-center gap-space-sm px-space-md py-space-sm text-secondary hover:bg-surface-container-highest hover:text-on-surface transition-all rounded-full font-label-md text-label-md" data-path="outreach" href="#" title="Applications">
+          <span class="material-symbols-outlined text-[20px]">file_document</span><span class="sidebar-label">Applications</span>
+        </a>
+        <a class="flex items-center gap-space-sm px-space-md py-space-sm text-secondary hover:bg-surface-container-highest hover:text-on-surface transition-all rounded-full font-label-md text-label-md" data-path="analytics" href="#" title="Analytics">
+          <span class="material-symbols-outlined text-[20px]">chart_bar_vertical_01</span><span class="sidebar-label">Analytics</span>
+        </a>
+      </nav>
+    </div>
+    <div class="flex flex-col gap-space-xs pt-space-md border-t border-surface-container-high/40">
+      <div id="header-linkedin-pill" class="flex items-center gap-2 px-3 py-2 bg-surface-container hover:bg-surface-container-high rounded-full text-secondary font-label-md text-[13px] transition-all cursor-pointer shadow-sm mb-1" title="LinkedIn Connection Status">
+        <span id="header-linkedin-dot" class="w-2 h-2 rounded-full bg-emerald-500 shrink-0"></span>
+        <span id="header-linkedin-label" class="font-bold text-on-surface truncate text-xs sidebar-label">LinkedIn: Checking...</span>
+      </div>
+      <nav data-active-classes="bg-primary-container text-on-primary-fixed font-bold rounded-full shadow-[0_4px_16px_rgba(182,244,56,0.25)]">
+        <a aria-current="page" class="flex items-center gap-space-sm px-space-md py-space-sm transition-all bg-primary-container text-on-primary-fixed font-bold rounded-full shadow-[0_4px_16px_rgba(182,244,56,0.25)]" data-path="settings" href="#" title="Settings">
+          <span class="material-symbols-outlined text-[20px]">settings_1</span><span class="sidebar-label">Settings</span>
+        </a>
+      </nav>
+    </div>
+  </aside>
+
+  <div id="main-wrapper" class="pl-64">
+    <!-- Header -->
+    <header id="app-header" class="fixed top-0 left-64 right-0 h-16 bg-surface/80 backdrop-blur-xl border-b border-surface-container-high/40 z-40 flex items-center justify-between px-space-xl gap-space-md sm:gap-space-lg">
+      <div class="flex items-center gap-space-sm">
+        <h1 class="font-headline-sm text-headline-sm font-bold text-on-surface">System Settings</h1>
+      </div>
+      <div class="flex items-center gap-6">
+        <div class="flex items-center gap-2.5">
+          <span class="font-code-header text-code-header uppercase tracking-wider text-tertiary">System Status</span>
+          <div class="status-pill status-pill-active" id="header-system-status">
+            <span class="status-pill-dot"></span>
+            <span class="status-pill-text">Operational</span>
+          </div>
+        </div>
+        <div class="flex items-center gap-3">
+          <button id="scrape-stop-btn" type="button" aria-label="Stop scrape session" class="hidden items-center gap-space-xs px-space-md py-space-xs bg-error text-on-error rounded-full font-label-md text-label-md font-bold shadow-sm transition-all hover:bg-error/90">
+            <span class="material-symbols-outlined text-[18px]">octagon_warning</span><span>Stop</span>
+          </button>
+          <button id="darkmode-toggle-header" data-darkmode-toggle aria-label="Toggle dark mode" class="w-9 h-9 rounded-full bg-surface-container-lowest flex items-center justify-center text-secondary hover:text-on-surface hover:bg-surface-container-high transition-colors shadow-[0_1px_4px_rgba(0,0,0,0.04)] cursor-pointer" type="button">
+            <span class="material-symbols-outlined text-[20px]">mode_-__dark</span>
+          </button>
+
+          <button id="app-exit-btn" aria-label="Exit Application" class="w-9 h-9 rounded-full bg-error flex items-center justify-center text-white hover:brightness-110 active:scale-95 transition-all shadow-[0_1px_4px_rgba(0,0,0,0.04)] cursor-pointer" type="button" title="Shutdown Application">
+            <span class="material-symbols-outlined text-[20px]">stop_sign</span>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <!-- Main Workspace -->
+    <main class="relative pt-20 w-full bg-surface px-space-xl py-space-xl">
+      <div class="flex flex-col w-full gap-space-lg pb-28">
+        
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-space-lg">
+          
+          <!-- Left Column: Operations & Credentials (8 Cols) -->
+          <div class="lg:col-span-8 flex flex-col gap-space-lg">
+            
+            <!-- LinkedIn Account & Browser Session -->
+            <div class="bg-surface-container-lowest p-space-xl rounded-[28px] shadow-[0_8px_32px_rgba(17,19,21,0.03)] flex flex-col gap-space-md" id="linkedin-card">
+              <div class="flex items-center justify-between">
+                <div class="flex items-center gap-space-sm">
+                  <div class="w-10 h-10 rounded-2xl bg-surface-container flex items-center justify-center text-on-surface">
+                    <span class="material-symbols-outlined text-[22px]">account_circle</span>
+                  </div>
+                  <div>
+                    <h2 class="font-headline-sm text-headline-sm font-bold text-on-surface">LinkedIn Account &amp; Browser Session</h2>
+                    <p class="font-body-sm text-body-sm text-secondary card-sub">Persistent Chrome session used to automatically search, scan candidates, and dispatch applications.</p>
+                  </div>
+                </div>
+                <div class="status-pill status-pill-inactive linkedin-login-status"><span class="status-pill-dot"></span><span class="status-pill-text">Checking...</span></div>
+              </div>
+              <div class="linkedin-login-row flex flex-col sm:flex-row sm:items-center justify-between gap-space-md p-space-lg bg-surface-container-low rounded-2xl">
+                <div class="flex items-center gap-3">
+                  <div class="w-10 h-10 rounded-full bg-surface-container-lowest flex items-center justify-center text-primary shadow-sm shrink-0">
+                    <span class="material-symbols-outlined text-[22px]">badge</span>
+                  </div>
+                  <div class="flex flex-col">
+                    <span id="linkedin-account-label" class="font-label-md text-label-md text-on-surface font-bold text-[15px]">Account: Checking...</span>
+                    <span class="linkedin-login-help text-[12px] text-secondary">Checking local Chrome profile session...</span>
+                  </div>
+                </div>
+                <div class="flex items-center gap-2.5 shrink-0 self-end sm:self-auto">
+                  <button id="test-conn-btn" type="button" class="inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-surface-container-lowest hover:bg-surface-container text-secondary hover:text-on-surface font-label-md text-label-md font-semibold transition-all shadow-sm cursor-pointer">
+                    <span class="material-symbols-outlined text-[16px]">sync</span>
+                    <span>Verify Session</span>
+                  </button>
+                  <button id="launch-chrome-login-btn" type="button" class="inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-primary-container text-on-primary-fixed hover:brightness-105 font-label-md text-label-md font-bold transition-all shadow-sm cursor-pointer text-center">
+                    <span class="material-symbols-outlined text-[16px]">open_in_new</span>
+                    <span>Open Chrome Session</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <!-- AI Gateway Connection -->
+            <div class="bg-surface-container-lowest p-space-xl rounded-[28px] shadow-[0_8px_32px_rgba(17,19,21,0.03)] flex flex-col gap-space-lg" id="ai-gateway-card">
+              <div class="flex items-center justify-between">
+                <div class="flex items-center gap-space-sm">
+                  <div class="w-10 h-10 rounded-2xl bg-surface-container flex items-center justify-center text-on-surface">
+                    <span class="material-symbols-outlined text-[22px]">smart_toy</span>
+                  </div>
+                  <div>
+                    <h2 class="font-headline-sm text-headline-sm font-bold text-on-surface">AI Gateway Connection</h2>
+                    <p class="font-body-sm text-body-sm text-secondary card-sub">Connect an OpenAI-compatible provider for scoring, parsing, and application email generation.</p>
+                  </div>
+                </div>
+                <div class="status-pill status-pill-inactive" id="ai-gateway-status"><span class="status-pill-dot"></span><span class="status-pill-text">Checking...</span></div>
+              </div>
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-space-md">
+                <div class="flex flex-col gap-1.5 relative custom-dropdown-wrapper" id="ai-provider-wrapper">
+                  <label class="font-label-md text-label-md text-on-surface font-semibold" for="ai-provider-btn">Provider</label>
+                  <select id="ai-provider" class="hidden sr-only">
+                    <option value="openrouter">OpenRouter</option>
+                    <option value="omniroute">OmniRoute Gateway</option>
+                    <option value="openai">OpenAI</option>
+                    <option value="ollama">Ollama (local)</option>
+                    <option value="custom" selected>Custom / Self-hosted</option>
+                  </select>
+                  <button id="ai-provider-btn" type="button" aria-haspopup="listbox" aria-expanded="false" class="w-full flex items-center justify-between bg-surface-container-low pl-space-md pr-space-md py-3 rounded-full font-body-md text-body-md text-on-surface hover:bg-surface-container transition-all cursor-pointer border border-transparent focus:border-primary/40 focus:ring-2 focus:ring-primary/10">
+                    <span id="ai-provider-label" class="font-medium text-on-surface truncate">Custom / Self-hosted</span>
+                    <span id="ai-provider-arrow" class="material-symbols-outlined text-[20px] text-secondary transition-transform duration-200 shrink-0">expand_more</span>
+                  </button>
+                  <div id="ai-provider-menu" class="hidden absolute left-0 right-0 top-full mt-1.5 bg-surface-container-high border border-outline-variant/30 rounded-2xl shadow-2xl z-50 p-1.5 space-y-0.5 backdrop-blur-md transition-all">
+                    <div class="custom-select-opt flex items-center justify-between px-3 py-2.5 rounded-xl cursor-pointer select-none text-xs font-semibold text-on-surface hover:bg-surface-container hover:text-primary transition-all" data-target="ai-provider" data-val="openrouter">
+                      <div class="flex items-center gap-2">
+                        <span class="material-symbols-outlined text-[18px] text-secondary">hub</span>
+                        <span>OpenRouter</span>
+                      </div>
+                      <span class="check-icon material-symbols-outlined text-[16px] text-primary hidden">check</span>
+                    </div>
+                    <div class="custom-select-opt flex items-center justify-between px-3 py-2.5 rounded-xl cursor-pointer select-none text-xs font-semibold text-on-surface hover:bg-surface-container hover:text-primary transition-all" data-target="ai-provider" data-val="omniroute">
+                      <div class="flex items-center gap-2">
+                        <span class="material-symbols-outlined text-[18px] text-secondary">alt_route</span>
+                        <span>OmniRoute Gateway</span>
+                      </div>
+                      <span class="check-icon material-symbols-outlined text-[16px] text-primary hidden">check</span>
+                    </div>
+                    <div class="custom-select-opt flex items-center justify-between px-3 py-2.5 rounded-xl cursor-pointer select-none text-xs font-semibold text-on-surface hover:bg-surface-container hover:text-primary transition-all" data-target="ai-provider" data-val="openai">
+                      <div class="flex items-center gap-2">
+                        <span class="material-symbols-outlined text-[18px] text-secondary">psychology</span>
+                        <span>OpenAI</span>
+                      </div>
+                      <span class="check-icon material-symbols-outlined text-[16px] text-primary hidden">check</span>
+                    </div>
+                    <div class="custom-select-opt flex items-center justify-between px-3 py-2.5 rounded-xl cursor-pointer select-none text-xs font-semibold text-on-surface hover:bg-surface-container hover:text-primary transition-all" data-target="ai-provider" data-val="ollama">
+                      <div class="flex items-center gap-2">
+                        <span class="material-symbols-outlined text-[18px] text-secondary">terminal</span>
+                        <span>Ollama (local)</span>
+                      </div>
+                      <span class="check-icon material-symbols-outlined text-[16px] text-primary hidden">check</span>
+                    </div>
+                    <div class="custom-select-opt flex items-center justify-between px-3 py-2.5 rounded-xl cursor-pointer select-none text-xs font-semibold text-on-surface hover:bg-surface-container hover:text-primary transition-all" data-target="ai-provider" data-val="custom">
+                      <div class="flex items-center gap-2">
+                        <span class="material-symbols-outlined text-[18px] text-secondary">tune</span>
+                        <span>Custom / Self-hosted</span>
+                      </div>
+                      <span class="check-icon material-symbols-outlined text-[16px] text-primary hidden">check</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="flex flex-col gap-1.5 relative model-dropdown-container" data-target-input="ai-model">
+                  <div class="flex items-center justify-between">
+                    <label class="font-label-md text-label-md text-on-surface font-semibold" for="ai-model">Model</label>
+                    <button id="fetch-gateway-models-btn" type="button" class="text-[12px] text-primary hover:underline flex items-center gap-1 cursor-pointer" title="Query gateway for active models">
+                      <span class="material-symbols-outlined text-[14px]">refresh</span>
+                      <span>Auto-Fetch</span>
+                    </button>
+                  </div>
+                  <div class="flex items-center bg-surface-container-low rounded-full px-space-md border border-transparent focus-within:border-primary/40 focus-within:ring-2 focus-within:ring-primary/10 transition-all">
+                    <span class="material-symbols-outlined text-secondary text-[20px] mr-2">psychology</span>
+                    <input class="w-full bg-transparent py-3 font-body-md text-body-md text-on-surface outline-none placeholder:text-secondary pr-1" id="ai-model" placeholder="Auto-select from gateway (or type name)" autocomplete="off" type="text" value="">
+                    <button type="button" class="model-dropdown-toggle p-1 rounded-full text-secondary hover:text-on-surface hover:bg-surface-container-highest transition-all cursor-pointer shrink-0" aria-label="Toggle models list" title="Browse available models">
+                      <span class="material-symbols-outlined text-[20px] transition-transform duration-200">expand_more</span>
+                    </button>
+                  </div>
+                  <!-- Floating Custom Dropdown Menu -->
+                  <div class="model-dropdown-menu hidden absolute left-0 right-0 top-full mt-1.5 bg-surface-container-high border border-outline-variant/30 rounded-2xl shadow-2xl z-50 overflow-hidden backdrop-blur-md transition-all">
+                    <div class="p-2.5 border-b border-outline-variant/20 flex items-center gap-2 bg-surface-container/60">
+                      <span class="material-symbols-outlined text-secondary text-[18px]">search</span>
+                      <input type="text" class="model-search-input w-full bg-transparent text-xs font-body-sm text-on-surface outline-none placeholder:text-secondary" placeholder="Search models (e.g. claude, gpt, deepseek)...">
+                      <span class="model-count-badge text-[11px] font-mono text-secondary px-2 py-0.5 rounded-full bg-surface-container shrink-0">0 models</span>
+                    </div>
+                    <div class="px-2.5 py-1.5 border-b border-outline-variant/15 flex items-center gap-1 overflow-x-auto text-[11px] no-scrollbar">
+                      <button type="button" class="model-filter-chip active px-2 py-0.5 rounded-full bg-primary/20 text-primary font-semibold cursor-pointer" data-filter="all">All</button>
+                      <button type="button" class="model-filter-chip px-2 py-0.5 rounded-full bg-surface-container text-secondary font-medium cursor-pointer hover:text-on-surface" data-filter="claude">Claude</button>
+                      <button type="button" class="model-filter-chip px-2 py-0.5 rounded-full bg-surface-container text-secondary font-medium cursor-pointer hover:text-on-surface" data-filter="gpt">GPT</button>
+                      <button type="button" class="model-filter-chip px-2 py-0.5 rounded-full bg-surface-container text-secondary font-medium cursor-pointer hover:text-on-surface" data-filter="deepseek">DeepSeek</button>
+                      <button type="button" class="model-filter-chip px-2 py-0.5 rounded-full bg-surface-container text-secondary font-medium cursor-pointer hover:text-on-surface" data-filter="free">Free</button>
+                    </div>
+                    <div class="model-options-list max-h-56 overflow-y-auto p-1.5 space-y-0.5 text-xs font-mono"></div>
+                    <div class="model-empty-msg hidden p-3 text-center text-xs text-secondary font-sans">No matching models found. Type any custom model name.</div>
+                  </div>
+                </div>
+              </div>
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-space-md">
+                <div class="flex flex-col gap-1.5 relative model-dropdown-container" data-target-input="ai-model-scoring">
+                  <label class="font-label-md text-label-md text-on-surface font-semibold" for="ai-model-scoring">Scoring model (optional)</label>
+                  <div class="flex items-center bg-surface-container-low rounded-full px-space-md border border-transparent focus-within:border-primary/40 focus-within:ring-2 focus-within:ring-primary/10 transition-all">
+                    <span class="material-symbols-outlined text-secondary text-[20px] mr-2">speed</span>
+                    <input class="w-full bg-transparent py-3 font-body-md text-body-md text-on-surface outline-none placeholder:text-secondary pr-1" id="ai-model-scoring" placeholder="Defaults to main model" autocomplete="off" type="text" value="">
+                    <button type="button" class="model-dropdown-toggle p-1 rounded-full text-secondary hover:text-on-surface hover:bg-surface-container-highest transition-all cursor-pointer shrink-0" aria-label="Toggle scoring models list" title="Browse available models">
+                      <span class="material-symbols-outlined text-[20px] transition-transform duration-200">expand_more</span>
+                    </button>
+                  </div>
+                  <!-- Floating Custom Dropdown Menu -->
+                  <div class="model-dropdown-menu hidden absolute left-0 right-0 top-full mt-1.5 bg-surface-container-high border border-outline-variant/30 rounded-2xl shadow-2xl z-50 overflow-hidden backdrop-blur-md transition-all">
+                    <div class="p-2.5 border-b border-outline-variant/20 flex items-center gap-2 bg-surface-container/60">
+                      <span class="material-symbols-outlined text-secondary text-[18px]">search</span>
+                      <input type="text" class="model-search-input w-full bg-transparent text-xs font-body-sm text-on-surface outline-none placeholder:text-secondary" placeholder="Search models...">
+                      <span class="model-count-badge text-[11px] font-mono text-secondary px-2 py-0.5 rounded-full bg-surface-container shrink-0">0 models</span>
+                    </div>
+                    <div class="px-2.5 py-1.5 border-b border-outline-variant/15 flex items-center gap-1 overflow-x-auto text-[11px] no-scrollbar">
+                      <button type="button" class="model-filter-chip active px-2 py-0.5 rounded-full bg-primary/20 text-primary font-semibold cursor-pointer" data-filter="all">All</button>
+                      <button type="button" class="model-filter-chip px-2 py-0.5 rounded-full bg-surface-container text-secondary font-medium cursor-pointer hover:text-on-surface" data-filter="claude">Claude</button>
+                      <button type="button" class="model-filter-chip px-2 py-0.5 rounded-full bg-surface-container text-secondary font-medium cursor-pointer hover:text-on-surface" data-filter="gpt">GPT</button>
+                      <button type="button" class="model-filter-chip px-2 py-0.5 rounded-full bg-surface-container text-secondary font-medium cursor-pointer hover:text-on-surface" data-filter="deepseek">DeepSeek</button>
+                      <button type="button" class="model-filter-chip px-2 py-0.5 rounded-full bg-surface-container text-secondary font-medium cursor-pointer hover:text-on-surface" data-filter="free">Free</button>
+                    </div>
+                    <div class="model-options-list max-h-56 overflow-y-auto p-1.5 space-y-0.5 text-xs font-mono"></div>
+                    <div class="model-empty-msg hidden p-3 text-center text-xs text-secondary font-sans">No matching models found. Type any custom model name.</div>
+                  </div>
+                </div>
+                <div class="flex flex-col gap-1.5 relative model-dropdown-container" data-target-input="ai-model-drafts">
+                  <label class="font-label-md text-label-md text-on-surface font-semibold" for="ai-model-drafts">Drafts model (optional)</label>
+                  <div class="flex items-center bg-surface-container-low rounded-full px-space-md border border-transparent focus-within:border-primary/40 focus-within:ring-2 focus-within:ring-primary/10 transition-all">
+                    <span class="material-symbols-outlined text-secondary text-[20px] mr-2">edit_note</span>
+                    <input class="w-full bg-transparent py-3 font-body-md text-body-md text-on-surface outline-none placeholder:text-secondary pr-1" id="ai-model-drafts" placeholder="Defaults to main model" autocomplete="off" type="text" value="">
+                    <button type="button" class="model-dropdown-toggle p-1 rounded-full text-secondary hover:text-on-surface hover:bg-surface-container-highest transition-all cursor-pointer shrink-0" aria-label="Toggle drafts models list" title="Browse available models">
+                      <span class="material-symbols-outlined text-[20px] transition-transform duration-200">expand_more</span>
+                    </button>
+                  </div>
+                  <!-- Floating Custom Dropdown Menu -->
+                  <div class="model-dropdown-menu hidden absolute left-0 right-0 top-full mt-1.5 bg-surface-container-high border border-outline-variant/30 rounded-2xl shadow-2xl z-50 overflow-hidden backdrop-blur-md transition-all">
+                    <div class="p-2.5 border-b border-outline-variant/20 flex items-center gap-2 bg-surface-container/60">
+                      <span class="material-symbols-outlined text-secondary text-[18px]">search</span>
+                      <input type="text" class="model-search-input w-full bg-transparent text-xs font-body-sm text-on-surface outline-none placeholder:text-secondary" placeholder="Search models...">
+                      <span class="model-count-badge text-[11px] font-mono text-secondary px-2 py-0.5 rounded-full bg-surface-container shrink-0">0 models</span>
+                    </div>
+                    <div class="px-2.5 py-1.5 border-b border-outline-variant/15 flex items-center gap-1 overflow-x-auto text-[11px] no-scrollbar">
+                      <button type="button" class="model-filter-chip active px-2 py-0.5 rounded-full bg-primary/20 text-primary font-semibold cursor-pointer" data-filter="all">All</button>
+                      <button type="button" class="model-filter-chip px-2 py-0.5 rounded-full bg-surface-container text-secondary font-medium cursor-pointer hover:text-on-surface" data-filter="claude">Claude</button>
+                      <button type="button" class="model-filter-chip px-2 py-0.5 rounded-full bg-surface-container text-secondary font-medium cursor-pointer hover:text-on-surface" data-filter="gpt">GPT</button>
+                      <button type="button" class="model-filter-chip px-2 py-0.5 rounded-full bg-surface-container text-secondary font-medium cursor-pointer hover:text-on-surface" data-filter="deepseek">DeepSeek</button>
+                      <button type="button" class="model-filter-chip px-2 py-0.5 rounded-full bg-surface-container text-secondary font-medium cursor-pointer hover:text-on-surface" data-filter="free">Free</button>
+                    </div>
+                    <div class="model-options-list max-h-56 overflow-y-auto p-1.5 space-y-0.5 text-xs font-mono"></div>
+                    <div class="model-empty-msg hidden p-3 text-center text-xs text-secondary font-sans">No matching models found. Type any custom model name.</div>
+                  </div>
+                </div>
+              </div>
+              <div class="flex items-center gap-1.5 text-xs text-secondary bg-surface-container-low/60 px-3 py-2 rounded-xl">
+                <span class="material-symbols-outlined text-[16px] text-primary shrink-0">auto_mode</span>
+                <span><strong>Dynamic Gateway Failover:</strong> If left empty or if a model hits rate limits (429/402/503), the agent automatically discovers and rotates to the next available working model in real time.</span>
+              </div>
+              <div class="flex flex-col gap-1.5">
+                <label class="font-label-md text-label-md text-on-surface font-semibold" for="ai-base-url">Base URL</label>
+                <div class="flex items-center bg-surface-container-low rounded-full px-space-md transition-all">
+                  <span class="material-symbols-outlined text-secondary text-[20px] mr-2">link</span>
+                  <input class="w-full bg-transparent py-3 font-body-md text-body-md text-on-surface outline-none placeholder:text-secondary" id="ai-base-url" placeholder="https://openrouter.ai/api/v1" type="text" value="">
+                </div>
+              </div>
+              <div class="flex flex-col md:flex-row items-stretch gap-space-sm">
+                <div class="relative flex-1 flex items-center bg-surface-container-low rounded-full px-space-md transition-all">
+                  <span class="material-symbols-outlined text-secondary text-[20px] mr-2">key</span>
+                  <input class="w-full bg-transparent py-3 font-code-terminal text-code-terminal text-on-surface outline-none placeholder:text-secondary" id="ai-api-key" placeholder="Paste provider API key" type="password" value="">
+                  <button aria-label="Toggle API key visibility" class="toggle-pwd-btn text-secondary hover:text-on-surface transition-colors ml-2 cursor-pointer" id="toggle-ai-key-btn" type="button">
+                    <span class="material-symbols-outlined text-[18px]">visibility</span>
+                  </button>
+                </div>
+                <button class="flex items-center justify-center gap-space-xs px-space-lg py-3 bg-surface-container-high hover:bg-surface-container-highest text-on-surface rounded-full font-label-md text-label-md font-bold transition-all whitespace-nowrap cursor-pointer border border-outline-variant/30 hover:border-primary/40" id="test-ai-btn" type="button">
+                  <span class="material-symbols-outlined text-[18px] text-primary">synchronize</span>
+                  <span>Test Connection</span>
+                </button>
+                <button class="flex items-center justify-center gap-space-xs px-space-lg py-3 bg-primary-container text-on-primary-fixed rounded-full font-label-md text-label-md font-bold shadow-[0_4px_16px_rgba(182,244,56,0.28)] hover:brightness-105 active:scale-95 transition-all whitespace-nowrap cursor-pointer" id="save-ai-btn" type="button">
+                  <span>Save Connection</span>
+                </button>
+              </div>
+
+              <!-- Live Model Diagnostics Results -->
+              <div id="ai-diagnostic-results" class="hidden flex flex-col gap-2 pt-1">
+                <!-- Injected dynamically by app.js -->
+              </div>
+
+              <!-- Interactive Model Sandbox / Playground -->
+              <div class="mt-1 bg-surface-container-low/70 border border-outline-variant/30 rounded-2xl p-4 transition-all">
+                <div class="flex items-center justify-between cursor-pointer" id="toggle-sandbox-btn">
+                  <div class="flex items-center gap-2">
+                    <span class="material-symbols-outlined text-primary text-[20px]">science</span>
+                    <span class="font-label-md text-label-md font-bold text-on-surface">Interactive Model Playground</span>
+                    <span class="text-xs px-2 py-0.5 rounded-full bg-primary/10 text-primary font-mono font-medium">Live Test</span>
+                  </div>
+                  <span class="material-symbols-outlined text-secondary transform transition-transform" id="sandbox-chevron">expand_more</span>
+                </div>
+
+                <div id="sandbox-body" class="hidden flex flex-col gap-3 pt-3">
+                  <p class="font-body-sm text-body-sm text-secondary">
+                    Send a direct prompt to any of your configured models to verify token generation, latency, and response quality.
+                  </p>
+
+                  <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                    <div class="flex items-center gap-2">
+                      <label class="text-xs font-semibold text-secondary uppercase tracking-wider" for="sandbox-model-select">Model:</label>
+                      <div class="relative inline-flex items-center">
+                        <select id="sandbox-model-select" class="appearance-none bg-surface-container-high text-on-surface text-xs font-mono font-semibold rounded-full pl-3.5 pr-8 py-1.5 outline-none border border-outline-variant/30 hover:border-primary/40 focus:ring-2 focus:ring-primary/20 cursor-pointer transition-all">
+                          <option value="main">Main Model</option>
+                        </select>
+                        <span class="material-symbols-outlined text-[16px] text-secondary absolute right-2.5 pointer-events-none select-none">expand_more</span>
+                      </div>
+                    </div>
+                    <div class="flex items-center gap-1.5 flex-wrap">
+                      <span class="text-[11px] text-secondary font-medium mr-1">Presets:</span>
+                      <button type="button" class="sandbox-preset-btn text-[11px] px-2.5 py-1 rounded-full bg-surface-container-high hover:bg-surface-container-highest text-on-surface transition-colors cursor-pointer" data-prompt="Ping! Confirm you are operational in under 10 words.">👋 Say Hello</button>
+                      <button type="button" class="sandbox-preset-btn text-[11px] px-2.5 py-1 rounded-full bg-surface-container-high hover:bg-surface-container-highest text-on-surface transition-colors cursor-pointer" data-prompt="Return a JSON object with keys 'status': 'ok' and 'model_ready': true.">⚡ Test JSON</button>
+                      <button type="button" class="sandbox-preset-btn text-[11px] px-2.5 py-1 rounded-full bg-surface-container-high hover:bg-surface-container-highest text-on-surface transition-colors cursor-pointer" data-prompt="Rate candidate fit (0-100) for Senior Software Engineer: 5 years Python, Docker, AWS. Return JSON.">🎯 Matcher Test</button>
+                    </div>
+                  </div>
+
+                  <div class="flex flex-col sm:flex-row items-stretch gap-2">
+                    <div class="relative flex-1 flex items-center bg-surface-container-high rounded-xl px-3 py-2 border border-outline-variant/30">
+                      <input type="text" id="sandbox-prompt-input" class="w-full bg-transparent font-mono text-xs text-on-surface outline-none placeholder:text-secondary" placeholder="Type a custom prompt to test model..." value="Ping! Confirm you are operational in under 10 words.">
+                    </div>
+                    <button type="button" id="sandbox-send-btn" class="flex items-center justify-center gap-1.5 px-4 py-2 bg-primary text-on-primary rounded-xl font-label-md text-xs font-bold hover:brightness-105 active:scale-95 transition-all cursor-pointer whitespace-nowrap">
+                      <span class="material-symbols-outlined text-[16px]">send</span>
+                      <span>Send Test</span>
+                    </button>
+                  </div>
+
+                  <div id="sandbox-response-container" class="hidden flex flex-col gap-1.5 p-3 rounded-xl bg-inverse-surface text-inverse-on-surface font-mono text-xs overflow-x-auto">
+                    <div class="flex items-center justify-between text-[11px] opacity-75 border-b border-white/10 pb-1.5">
+                      <span id="sandbox-res-model">Model: -</span>
+                      <span id="sandbox-res-metrics">Latency: - | Tokens: -</span>
+                    </div>
+                    <pre id="sandbox-res-body" class="whitespace-pre-wrap font-mono text-xs leading-relaxed pt-1 select-text"></pre>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+
+            <!-- AI Prompts & Directives Accordion -->
+            <div class="bg-surface-container-lowest p-space-xl rounded-[28px] shadow-[0_8px_32px_rgba(17,19,21,0.03)] flex flex-col gap-space-lg">
+              <div class="flex items-center justify-between">
+                <div class="flex items-center gap-space-sm">
+                  <div class="w-10 h-10 rounded-2xl bg-surface-container flex items-center justify-center text-on-surface">
+                    <span class="material-symbols-outlined text-[22px]">file_edit</span>
+                  </div>
+                  <div>
+                    <h2 class="font-headline-sm text-headline-sm font-bold text-on-surface">AI Prompts &amp; Directives</h2>
+                    <p class="font-body-sm text-body-sm text-secondary card-sub">Tune generative heuristics for parsing, fit qualification, and automated pitch drafts.</p>
+                  </div>
+                </div>
+                <div class="flex items-center gap-space-sm shrink-0">
+                  <span class="hidden sm:inline font-code-header text-code-header uppercase tracking-wider text-primary">Automated AI Directives</span>
+                  <button class="flex items-center justify-center px-3 py-1.5 bg-surface-container hover:bg-surface-container-high text-secondary hover:text-on-surface rounded-full font-label-md text-[12px] font-bold transition-all whitespace-nowrap cursor-pointer border border-outline-variant/30" id="reset-prompts-btn" type="button" title="Restore system default heuristic prompts">
+                    <span>Restore Defaults</span>
+                  </button>
+                  <button class="flex items-center justify-center px-3 py-1.5 bg-surface-container-high hover:bg-surface-container-highest text-on-surface rounded-full font-label-md text-[12px] font-bold transition-all whitespace-nowrap cursor-pointer border border-outline-variant/30 hover:border-primary/40" id="save-prompts-btn" type="button">
+                    <span>Save Prompts</span>
+                  </button>
+                </div>
+              </div>
+              <div class="flex flex-col gap-space-sm" id="prompt-accordion">
+                <div class="group bg-surface-container-low rounded-2xl p-space-md transition-all">
+                  <button class="w-full flex items-center justify-between text-left cursor-pointer accordion-toggle" data-target="panel-extraction" type="button">
+                    <div class="flex items-center gap-space-sm">
+                      <span class="w-7 h-7 rounded-xl bg-surface-container-high flex items-center justify-center text-primary">
+                        <span class="material-symbols-outlined text-[18px]">code_blocks</span>
+                      </span>
+                      <div>
+                        <span class="font-label-md text-label-md font-bold text-on-surface">Job Data Extraction Prompt</span>
+                        <span class="ml-2 font-code-terminal text-code-terminal text-tertiary">SYSTEM_PROMPT_EXTRACTION</span>
+                      </div>
+                    </div>
+                    <span class="material-symbols-outlined text-secondary transform transition-transform chevron-icon">expand_more</span>
+                  </button>
+                  <div class="accordion-content hidden pt-space-md flex flex-col gap-space-sm" id="panel-extraction">
+                    <p class="font-body-sm text-body-sm text-secondary">Identifies critical stack requirements, seniority tier, base salary ranges, and hiring team member handles from raw markup.</p>
+                    <div class="relative bg-inverse-surface text-inverse-on-surface rounded-xl p-space-md font-code-terminal text-code-terminal overflow-hidden h-[400px] border border-surface-container-high/40 flex flex-col">
+                      <textarea id="prompt-extraction" class="w-full h-full bg-transparent text-inverse-on-surface focus:outline-none resize-none font-code-terminal text-code-terminal selection:bg-primary-container selection:text-on-primary-fixed terminal-scroll overflow-y-auto leading-relaxed" placeholder="Enter custom extraction prompt or leave empty for default..."></textarea>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="group bg-surface-container-low rounded-2xl p-space-md transition-all">
+                  <button class="w-full flex items-center justify-between text-left cursor-pointer accordion-toggle" data-target="panel-scoring" type="button">
+                    <div class="flex items-center gap-space-sm">
+                      <span class="w-7 h-7 rounded-xl bg-surface-container-high flex items-center justify-center text-primary">
+                        <span class="material-symbols-outlined text-[18px]">calculate-1</span>
+                      </span>
+                      <div>
+                        <span class="font-label-md text-label-md font-bold text-on-surface">Match Scoring Engine</span>
+                        <span class="ml-2 font-code-terminal text-code-terminal text-tertiary">SYSTEM_PROMPT_SCORING</span>
+                      </div>
+                    </div>
+                    <span class="material-symbols-outlined text-secondary transform transition-transform chevron-icon">expand_more</span>
+                  </button>
+                  <div class="accordion-content hidden pt-space-md flex flex-col gap-space-sm" id="panel-scoring">
+                    <p class="font-body-sm text-body-sm text-secondary">Computes semantic compatibility vectors between uploaded master CV and ingested role briefs.</p>
+                    <div class="relative bg-inverse-surface text-inverse-on-surface rounded-xl p-space-md font-code-terminal text-code-terminal overflow-hidden h-[400px] border border-surface-container-high/40 flex flex-col">
+                      <textarea id="prompt-scoring" class="w-full h-full bg-transparent text-inverse-on-surface focus:outline-none resize-none font-code-terminal text-code-terminal selection:bg-primary-container selection:text-on-primary-fixed terminal-scroll overflow-y-auto leading-relaxed" placeholder="Enter scoring criteria prompt or leave empty for default..."></textarea>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="group bg-surface-container-low rounded-2xl p-space-md transition-all">
+                  <button class="w-full flex items-center justify-between text-left cursor-pointer accordion-toggle" data-target="panel-email" type="button">
+                    <div class="flex items-center gap-space-sm">
+                      <span class="w-7 h-7 rounded-xl bg-surface-container-high flex items-center justify-center text-primary">
+                        <span class="material-symbols-outlined text-[18px]">edit_note</span>
+                      </span>
+                      <div>
+                        <span class="font-label-md text-label-md font-bold text-on-surface">Email Pitch Generation</span>
+                        <span class="ml-2 font-code-terminal text-code-terminal text-tertiary">SYSTEM_PROMPT_EMAIL</span>
+                      </div>
+                    </div>
+                    <span class="material-symbols-outlined text-secondary transform transition-transform chevron-icon">expand_more</span>
+                  </button>
+                  <div class="accordion-content hidden pt-space-md flex flex-col gap-space-sm" id="panel-email">
+                    <p class="font-body-sm text-body-sm text-secondary">Crafts concise, contextual opening hooks tailored to hiring manager's background and recent company milestones.</p>
+                    <div class="relative bg-inverse-surface text-inverse-on-surface rounded-xl p-space-md font-code-terminal text-code-terminal overflow-hidden h-[400px] border border-surface-container-high/40 flex flex-col">
+                      <textarea id="prompt-email" class="w-full h-full bg-transparent text-inverse-on-surface focus:outline-none resize-none font-code-terminal text-code-terminal selection:bg-primary-container selection:text-on-primary-fixed terminal-scroll overflow-y-auto leading-relaxed" placeholder="Enter custom application email prompt or leave empty for default..."></textarea>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Email Configuration & Dispatch -->
+            <div class="bg-surface-container-lowest p-space-xl rounded-[28px] shadow-[0_8px_32px_rgba(17,19,21,0.03)] flex flex-col gap-space-lg" id="email-card">
+              <div class="flex items-center justify-between">
+                <div class="flex items-center gap-space-sm">
+                  <div class="w-10 h-10 rounded-2xl bg-surface-container flex items-center justify-center text-on-surface">
+                    <span class="material-symbols-outlined text-[22px]">mail</span>
+                  </div>
+                  <div>
+                    <h2 class="font-headline-sm text-headline-sm font-bold text-on-surface">Email Configuration &amp; Dispatch</h2>
+                    <p class="font-body-sm text-body-sm text-secondary card-sub">Connect your sender address and Google App Password for direct automated outreach.</p>
+                  </div>
+                </div>
+                <!-- Status Pill -->
+                <div class="status-pill status-pill-inactive" id="email-status-pill">
+                  <span class="status-pill-dot" id="email-status-dot"></span>
+                  <span class="status-pill-text" id="email-status-text">Checking...</span>
+                </div>
+              </div>
+
+              <!-- Primary Fields (Always Visible): Connected Email & App Password -->
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-space-md">
+                <div class="flex flex-col gap-1.5">
+                  <label class="font-label-md text-label-md text-on-surface font-semibold flex items-center justify-between" for="sender-email">
+                    <span>Connected Email Address</span>
+                    <span class="font-code-terminal text-code-terminal text-secondary flex items-center gap-1">
+                      <span class="material-symbols-outlined text-[14px]">mail</span> Applications Sender
+                    </span>
+                  </label>
+                  <div class="flex items-center bg-surface-container-low rounded-full px-space-md py-space-xs transition-all">
+                    <span class="material-symbols-outlined text-secondary text-[20px] mr-2">mail</span>
+                    <input class="w-full bg-transparent py-2.5 font-body-md text-body-md text-on-surface outline-none placeholder:text-secondary" id="sender-email" placeholder="you@domain.com" type="email" value="">
+                  </div>
+                </div>
+
+                <div class="flex flex-col gap-1.5">
+                  <label class="font-label-md text-label-md text-on-surface font-semibold flex items-center justify-between" for="smtp-password">
+                    <span>App Password / Passkey</span>
+                    <a href="https://myaccount.google.com/apppasswords" target="_blank" class="font-label-md text-label-md text-primary hover:underline cursor-pointer">Generate Google Key</a>
+                  </label>
+                  <div class="flex items-center bg-surface-container-low rounded-full px-space-md py-space-xs transition-all">
+                    <span class="material-symbols-outlined text-secondary text-[20px] mr-2">key</span>
+                    <input class="w-full bg-transparent py-2.5 font-code-terminal text-code-terminal text-on-surface outline-none placeholder:text-secondary" id="smtp-password" placeholder="••••••••••••••••" type="password" value="">
+                    <button aria-label="Toggle password visibility" class="text-secondary hover:text-on-surface transition-colors ml-2 cursor-pointer" id="toggle-pwd-btn" type="button">
+                      <span class="material-symbols-outlined text-[18px]">visibility</span>
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Collapsible Advanced Options Toggle -->
+              <div class="border-t border-outline-variant/30 pt-space-xs">
+                <button type="button" id="email-advanced-toggle" class="flex items-center justify-between w-full py-2.5 px-space-md rounded-2xl bg-surface-container-low hover:bg-surface-container text-on-surface font-label-md font-semibold transition-all cursor-pointer">
+                  <div class="flex items-center gap-2">
+                    <span class="material-symbols-outlined text-[20px] text-tertiary">tune</span>
+                    <span>Advanced Configuration (Custom SMTP, Velocity &amp; Limits)</span>
+                  </div>
+                  <span class="material-symbols-outlined transition-transform duration-200 text-secondary" id="email-advanced-arrow">expand_more</span>
+                </button>
+
+                <!-- Advanced Options Container (Hidden by default) -->
+                <div id="email-advanced-panel" class="hidden flex flex-col gap-space-md pt-space-md">
+                  <div class="grid grid-cols-1 md:grid-cols-2 gap-space-md">
+                    <div class="flex flex-col gap-space-xs">
+                      <label class="font-label-md text-label-md text-on-surface font-semibold" for="sender-name">Sender Name</label>
+                      <input class="w-full bg-surface-container-low px-space-md py-3 rounded-full font-body-md text-body-md text-on-surface focus:outline-none" id="sender-name" placeholder="e.g. Alex Morgan" type="text" value="">
+                    </div>
+                    <div class="flex flex-col gap-space-xs">
+                      <label class="font-label-md text-label-md text-on-surface font-semibold" for="smtp-user">SMTP Username (if different)</label>
+                      <input class="w-full bg-surface-container-low px-space-md py-3 rounded-full font-body-md text-body-md text-on-surface focus:outline-none" id="smtp-user" placeholder="Defaults to Connected Email" type="text" value="">
+                    </div>
+                  </div>
+
+                  <div class="grid grid-cols-1 md:grid-cols-2 gap-space-md">
+                    <div class="flex flex-col gap-space-xs">
+                      <label class="font-label-md text-label-md text-on-surface font-semibold" for="smtp-host">SMTP Host / Server</label>
+                      <input class="w-full bg-surface-container-low px-space-md py-3 rounded-full font-body-md text-body-md text-on-surface focus:outline-none" id="smtp-host" placeholder="smtp.gmail.com" type="text" value="">
+                    </div>
+                    <div class="flex flex-col gap-space-xs">
+                      <label class="font-label-md text-label-md text-on-surface font-semibold" for="smtp-port">SMTP Port</label>
+                      <input class="w-full bg-surface-container-low px-space-md py-3 rounded-full font-body-md text-body-md text-on-surface focus:outline-none" id="smtp-port" placeholder="587" type="text" value="">
+                    </div>
+                  </div>
+
+                  <div class="grid grid-cols-1 md:grid-cols-2 gap-space-md">
+                    <div class="flex flex-col gap-1.5">
+                      <label class="font-label-md text-label-md text-on-surface font-semibold" for="send-daily-cap">Auto-send daily cap</label>
+                      <div class="flex items-center bg-surface-container-low rounded-full px-space-md transition-all">
+                        <span class="material-symbols-outlined text-secondary text-[20px] mr-2">schedule</span>
+                        <input class="w-full bg-transparent py-3 font-body-md text-body-md text-on-surface outline-none placeholder:text-secondary" id="send-daily-cap" placeholder="25 mails/day" type="number" min="1" max="200" value="">
+                      </div>
+                    </div>
+                    <div class="flex flex-col gap-1.5">
+                      <label class="font-label-md text-label-md text-on-surface font-semibold" for="send-interval-sec">Send interval (seconds)</label>
+                      <div class="flex items-center bg-surface-container-low rounded-full px-space-md transition-all">
+                        <span class="material-symbols-outlined text-secondary text-[20px] mr-2">timer</span>
+                        <input class="w-full bg-transparent py-3 font-body-md text-body-md text-on-surface outline-none placeholder:text-secondary" id="send-interval-sec" placeholder="240 + jitter" type="number" min="30" max="3600" value="">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Daily Dispatch Quota Meter -->
+              <div id="email-daily-quota-banner" class="flex flex-col sm:flex-row sm:items-center justify-between gap-space-sm p-space-md bg-surface-container-low rounded-2xl">
+                <div class="flex items-center gap-space-sm">
+                  <div class="w-8 h-8 rounded-full bg-surface-container flex items-center justify-center text-primary">
+                    <span class="material-symbols-outlined text-[18px]">chat_check</span>
+                  </div>
+                  <div class="flex flex-col">
+                    <span class="font-label-md font-bold text-on-surface">Daily Send Budget</span>
+                    <span id="email-quota-detail" class="text-[12px] text-secondary">0 dispatched today (Safe Limit: 50)</span>
+                  </div>
+                </div>
+                <div class="flex items-center gap-3 sm:w-48">
+                  <div class="w-full bg-surface-container h-2 rounded-full overflow-hidden">
+                    <div id="email-quota-bar" class="bg-primary h-full rounded-full transition-all duration-300" style="width: 0%;"></div>
+                  </div>
+                  <span id="email-quota-pct" class="font-code-terminal text-code-terminal text-xs text-secondary font-bold whitespace-nowrap">0%</span>
+                </div>
+              </div>
+
+              <!-- Footer: Zero Storage Note + Action Buttons -->
+              <div class="flex flex-col sm:flex-row items-center justify-between pt-space-xs gap-space-md">
+                <div class="flex items-center gap-2 text-secondary font-body-sm text-body-sm">
+                  <span class="material-symbols-outlined text-[18px] text-tertiary">shield</span>
+                  <span>Zero-storage protocol: credentials stored securely in local workspace (.env).</span>
+                </div>
+                <div class="flex items-center gap-space-sm w-full sm:w-auto justify-end">
+                  <button class="w-full sm:w-auto flex items-center justify-center gap-space-xs px-space-lg py-2.5 bg-surface-container-high hover:bg-surface-container-highest text-on-surface rounded-full font-label-md text-label-md font-bold transition-all shadow-sm cursor-pointer" id="send-test-btn" type="button">
+                    <span class="material-symbols-outlined text-[18px]">synchronize</span>
+                    <span>Test Connection</span>
+                  </button>
+                  <button class="w-full sm:w-auto flex items-center justify-center gap-space-xs px-space-lg py-2.5 bg-primary-container text-on-primary-fixed hover:brightness-105 rounded-full font-label-md text-label-md font-bold transition-all shadow-[0_4px_20px_rgba(182,244,56,0.4)] cursor-pointer" id="save-credentials-btn" type="button">
+                    <span>Save Credentials</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Right Column: System Status, Appearance, Factory Tools (4 Cols) -->
+          <div class="lg:col-span-4 flex flex-col gap-space-lg">
+            
+            <!-- Appearance Card -->
+            <div class="bg-surface-container-lowest p-space-xl rounded-[28px] shadow-[0_8px_32px_rgba(17,19,21,0.03)] flex flex-col gap-space-md">
+              <div class="flex items-center gap-space-sm">
+                <div class="w-10 h-10 rounded-2xl bg-surface-container flex items-center justify-center text-on-surface">
+                  <span class="material-symbols-outlined text-[22px]">palette</span>
+                </div>
+                <div>
+                  <h2 class="font-headline-sm text-headline-sm font-bold text-on-surface">Appearance</h2>
+                  <p class="font-body-sm text-body-sm text-secondary card-sub">Interface styling and telemetry density</p>
+                </div>
+              </div>
+              <div class="flex flex-col gap-space-sm pt-space-xs">
+                <div class="flex items-center justify-between p-space-md bg-surface-container-low rounded-2xl">
+                  <div class="flex items-center gap-space-sm">
+                    <span class="material-symbols-outlined text-secondary text-[20px]">dark_mode</span>
+                    <div>
+                      <span class="font-label-md text-label-md font-bold text-on-surface block">Dark Mode</span>
+                      <span class="font-body-sm text-body-sm text-secondary card-sub">Deep graphite cockpit theme</span>
+                    </div>
+                  </div>
+                  <button aria-checked="false" class="w-12 h-6 bg-surface-container-highest rounded-full p-0.5 transition-colors relative flex items-center cursor-pointer" id="darkmode-toggle" data-darkmode-toggle role="switch" type="button">
+                    <span class="w-5 h-5 bg-surface-container-lowest rounded-full shadow-md transform translate-x-0 transition-transform"></span>
+                  </button>
+                </div>
+                <div class="flex items-center justify-between p-space-md bg-surface-container-low rounded-2xl">
+                  <div class="flex items-center gap-space-sm">
+                    <span class="material-symbols-outlined text-secondary text-[20px]">arrow_shrink</span>
+                    <div>
+                      <span class="font-label-md text-label-md font-bold text-on-surface block">Compact View</span>
+                      <span class="font-body-sm text-body-sm text-secondary card-sub">High-density telemetry logs</span>
+                    </div>
+                  </div>
+                  <button aria-checked="false" class="w-12 h-6 bg-surface-container-highest rounded-full p-0.5 transition-colors relative flex items-center cursor-pointer" id="compact-toggle" role="switch" type="button">
+                    <span class="w-5 h-5 bg-surface-container-lowest rounded-full shadow-md transform translate-x-0 transition-transform"></span>
+                  </button>
+                </div>
+              </div>
+            </div>
+
+
+            <!-- Terminal Activity Stream -->
+            <div class="bg-[#111315] text-[#DFE2E6] rounded-[28px] p-space-xl shadow-[0_12px_36px_rgba(0,0,0,0.16)] flex flex-col gap-space-md">
+              <div class="flex items-center justify-between pb-space-xs border-b border-[#23272B]">
+                <div class="flex items-center gap-2">
+                  <span class="font-code-header text-code-header tracking-wider text-primary-container uppercase font-bold">Activity Console</span>
+                </div>
+                <div class="flex items-center gap-2.5">
+                  <div class="status-pill status-pill-active">
+                    <span class="status-pill-dot"></span>
+                    <span class="status-pill-text">LIVE</span>
+                  </div>
+                  <div class="flex items-center gap-1 text-secondary">
+                    <button id="btn-clear-logs" class="btn-clear-logs p-1 hover:text-white transition-colors cursor-pointer flex items-center justify-center" type="button" title="Clear Console Logs">
+                      <span class="material-symbols-outlined text-[18px]">close</span>
+                    </button>
+                    <button id="btn-toggle-logs" class="btn-toggle-logs p-1 hover:text-white transition-colors cursor-pointer flex items-center justify-center" type="button" title="Toggle Console Size">
+                      <span class="material-symbols-outlined text-[18px]">unfold_less</span>
+                    </button>
+                  </div>
+                </div>
+              </div>
+              <div class="flex flex-col gap-2 font-code-terminal text-code-terminal pt-1 log-feed-scroll" id="log-feed">
+                <div class="flex items-start gap-2">
+                  <span class="text-tertiary">--:--:--</span>
+                  <span class="text-primary-container font-bold">SYS_INIT:</span>
+                  <span class="text-slate-300">Configuration panel synchronized.</span>
+                </div>
+              </div>
+              <div class="mt-2 pt-space-xs flex items-center justify-between">
+                <span class="font-code-terminal text-code-terminal text-tertiary">LATENCY: 12ms</span>
+                <span class="font-code-terminal text-code-terminal text-primary-container font-bold">STORE: LOCAL</span>
+              </div>
+            </div>
+
+            <!-- Factory Data & Maintenance -->
+            <div class="bg-surface-container-lowest p-space-xl rounded-[28px] shadow-[0_8px_32px_rgba(17,19,21,0.03)] flex flex-col gap-space-md">
+              <div class="flex items-center gap-space-sm">
+                <div class="w-10 h-10 rounded-2xl bg-surface-container flex items-center justify-center text-on-surface">
+                  <span class="material-symbols-outlined text-[22px]">database</span>
+                </div>
+                <div>
+                  <h2 class="font-headline-sm text-headline-sm font-bold text-on-surface">Data Management</h2>
+                  <p class="font-body-sm text-body-sm text-secondary card-sub">Export backups or reset workspace records</p>
+                </div>
+              </div>
+              <div class="flex flex-col gap-space-sm pt-space-xs">
+                <button class="w-full flex items-center justify-between px-4 py-2.5 sm:py-3 bg-surface-container-low hover:bg-surface-container text-on-surface rounded-full font-label-md text-[13px] sm:text-label-md font-bold shadow-sm transition-all cursor-pointer" id="export-data-btn" type="button">
+                  <div class="flex items-center gap-space-xs">
+                    <span class="material-symbols-outlined text-[18px] text-primary">share_2</span>
+                    <span>Export Workspace</span>
+                  </div>
+                  <span class="font-code-terminal text-code-terminal text-primary font-bold bg-primary-container/20 px-2.5 py-0.5 rounded-full text-[11px]">.JSON</span>
+                </button>
+                <button class="w-full flex items-center justify-between px-4 py-2.5 sm:py-3 bg-surface-container-low hover:bg-surface-container text-on-surface rounded-full font-label-md text-[13px] sm:text-label-md font-bold shadow-sm transition-colors gap-2 cursor-pointer" id="reset-apps-btn" type="button">
+                  <div class="flex items-center gap-space-xs min-w-0">
+                    <span class="material-symbols-outlined text-[18px] shrink-0 text-error">delete_sweep</span>
+                    <span class="text-[13px]">Clear Job Data</span>
+                  </div>
+                  <span class="font-code-terminal text-code-terminal text-secondary bg-surface-container-high px-2 py-0.5 rounded-full whitespace-nowrap shrink-0 text-[10px]">Resumes + Matches</span>
+                </button>
+
+                <!-- Dedicated Danger Zone Box -->
+                <div class="p-3.5 rounded-2xl bg-error/5 border border-error/20 flex flex-col gap-2.5 mt-1">
+                  <span class="font-code-header text-[11px] text-error uppercase font-bold tracking-wider">Danger Zone</span>
+                  <button class="w-full flex items-center justify-between px-4 py-2.5 sm:py-3 bg-error text-white hover:brightness-110 rounded-full font-label-md text-[13px] sm:text-label-md font-bold shadow-sm transition-transform active:scale-95 gap-2 cursor-pointer" id="reset-all-btn" type="button">
+                    <div class="flex items-center gap-space-xs min-w-0">
+                      <span class="material-symbols-outlined text-[18px] shrink-0 text-white">restart_alt</span>
+                      <span class="truncate text-white">Factory Reset</span>
+                    </div>
+                    <span class="font-code-terminal text-code-terminal text-white bg-black/30 px-2 py-0.5 rounded-full whitespace-nowrap shrink-0 text-[11px] font-semibold">Full Wipe</span>
+                  </button>
+                  <button class="w-full flex items-center justify-between px-4 py-2.5 sm:py-3 bg-error text-white hover:brightness-110 rounded-full font-label-md text-[13px] sm:text-label-md font-bold shadow-sm transition-transform active:scale-95 gap-2 cursor-pointer" id="settings-exit-btn" type="button">
+                    <div class="flex items-center gap-space-xs min-w-0">
+                      <span class="material-symbols-outlined text-[18px] shrink-0 text-white">stop_sign</span>
+                      <span class="truncate">Exit Application</span>
+                    </div>
+                    <span class="font-code-terminal text-code-terminal text-white bg-black/30 px-2 py-0.5 rounded-full whitespace-nowrap shrink-0 text-[11px] font-semibold">Stop Server</span>
+                  </button>
+                </div>
+
+                <p class="font-body-sm text-[12px] text-secondary px-2 text-center mt-1">Clear Job Data removes resumes, matches & sent apps. Factory Reset also removes API keys, mail config & LinkedIn session.</p>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+
+        <!-- Toast Feedback Popup Container -->
+        <div id="toast" class="fixed bottom-6 right-6 bg-on-background text-surface px-space-lg py-space-sm rounded-full font-label-md text-label-md shadow-2xl flex items-center gap-space-sm translate-y-24 opacity-0 transition-all duration-300 pointer-events-none z-50">
+          <span class="w-2 h-2 rounded-full bg-primary-container animate-ping"></span>
+          <span id="toast-message">Configuration saved successfully.</span>
+        </div>
+
+      </div>
+    </main>
+  </div>
+
+  <script src="/static/darkmode.js"></script>
+  <script src="/static/app.js"></script>
+</body>
+</html>

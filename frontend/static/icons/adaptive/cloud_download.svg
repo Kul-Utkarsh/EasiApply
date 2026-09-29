@@ -1,0 +1,9 @@
+<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <g transform="translate(-224, -56)">
+    <g xmlns="http://www.w3.org/2000/svg">
+<path d="M226 70.5C226 72.9853 228.014 75 230.5 75H242.5C244.433 75 246 73.433 246 71.5C246 69.7367 244.696 68.278 243 68.0354C243.009 66.2322 242.325 64.4261 240.95 63.0503C238.216 60.3166 233.784 60.3166 231.05 63.0503C230.151 63.9496 229.547 65.0328 229.24 66.1788C227.368 66.7238 226 68.4522 226 70.5Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round" />
+<path d="M234 67L236 65L238 67M236 65L236 71" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+</g>
+
+  </g>
+</svg>

@@ -1,0 +1,6 @@
+<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <g transform="translate(-112, -112)">
+    <path xmlns="http://www.w3.org/2000/svg" d="M126 125C126 126.105 125.105 127 124 127M129 118H129.01M129 125C129 127.761 126.761 130 124 130C121.239 130 119 127.761 119 125C119 122.239 121.239 120 124 120C126.761 120 129 122.239 129 125ZM118 133H130C131.105 133 132 132.105 132 131V117C132 115.895 131.105 115 130 115H118C116.895 115 116 115.895 116 117V131C116 132.105 116.895 133 118 133Z" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+
+  </g>
+</svg>

@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>EasiApply — Matched Opportunities</title>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <script>(function(){try{var t=localStorage.getItem("easiapply-theme");if(t==="dark"||(!t&&window.matchMedia("(prefers-color-scheme: dark)").matches)){document.documentElement.setAttribute("data-theme","dark");}if(localStorage.getItem("easiapply-compact")==="1"){document.documentElement.classList.add("compact-view");}}catch(e){}})();</script>
+  <!-- Material Symbols replaced with Figma Simple Icons -->
+  <link href="https://fonts.googleapis.com" rel="preconnect">
+  <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
+  <!-- Material Symbols replaced with Figma Simple Icons -->
+  <style>
+    @layer base {
+      html, body { margin: 0; padding: 0; }
+      body { overscroll-behavior: none; }
+      main > :first-child { margin-top: 0 !important; }
+      main > :last-child { margin-bottom: 0 !important; }
+    }
+    ::-webkit-scrollbar { display: none; }
+  </style>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="/static/theme.css" rel="stylesheet">
+  <script src="/static/xicons.js"></script>
+  <script src="/static/theme-config.js"></script>
+  <script>
+    if (localStorage.getItem("easiapply_sidebar_minimized") === "true") {
+      document.documentElement.classList.add("sidebar-minimized");
+    }
+  </script>
+</head>
+<body class="bg-surface font-body-md text-body-md text-on-surface antialiased selection:bg-primary-container selection:text-on-primary-fixed">
+
+  <!-- Sidebar -->
+  <aside id="app-sidebar" class="fixed left-0 top-0 h-full w-64 bg-surface-container-low z-50 flex flex-col justify-between py-space-lg px-space-md shadow-[0_1px_8px_rgba(0,0,0,0.04)]">
+    <div class="flex flex-col gap-space-lg">
+      <div id="sidebar-header-row" class="flex items-center justify-between px-space-sm min-h-[36px]">
+        <div id="sidebar-brand-wrapper" class="relative group/brand cursor-pointer shrink-0" title="EasiApply">
+          <div id="sidebar-brand-icon" class="w-9 h-9 rounded-xl bg-on-background flex items-center justify-center text-primary-container font-headline-md text-headline-md font-bold shrink-0">
+            <span class="material-symbols-outlined text-[20px]">bolt</span>
+          </div>
+          <button id="sidebar-expand-btn" type="button" aria-label="Expand sidebar" title="Expand sidebar" class="w-9 h-9 rounded-xl bg-primary-container text-on-primary-fixed flex items-center justify-center font-bold shadow-sm hover:brightness-105 transition-all cursor-pointer">
+            <span class="material-symbols-outlined text-[20px]">arrow_right_4_square</span>
+          </button>
+        </div>
+        <span class="font-headline-md text-headline-md tracking-tight font-bold text-on-surface sidebar-label ml-space-sm flex-1 truncate">EasiApply</span>
+        <button id="sidebar-toggle-btn" type="button" aria-label="Minimize sidebar" title="Minimize sidebar" class="w-8 h-8 rounded-full flex items-center justify-center text-secondary hover:text-on-surface hover:bg-surface-container transition-all cursor-pointer shrink-0">
+          <span class="material-symbols-outlined text-[18px]">arrow_left_4_square</span>
+        </button>
+      </div>
+      <nav class="flex flex-col gap-space-xs" data-active-classes="bg-primary-container text-on-primary-fixed font-bold rounded-full shadow-[0_4px_16px_rgba(182,244,56,0.25)]">
+        <a class="flex items-center gap-space-sm px-space-md py-space-sm text-secondary hover:bg-surface-container-highest hover:text-on-surface transition-all rounded-full font-label-md text-label-md" data-path="dashboard" href="#" title="Dashboard">
+          <span class="material-symbols-outlined text-[20px]">category_3</span><span class="sidebar-label">Dashboard</span>
+        </a>
+        <a class="flex items-center gap-space-sm px-space-md py-space-sm text-secondary hover:bg-surface-container-highest hover:text-on-surface transition-all rounded-full font-label-md text-label-md" data-path="profile" href="#" title="Profile">
+          <span class="material-symbols-outlined text-[20px]">user_02</span><span class="sidebar-label">Profile</span>
+        </a>
+        <a aria-current="page" class="flex items-center gap-space-sm px-space-md py-space-sm transition-all bg-primary-container text-on-primary-fixed font-bold rounded-full shadow-[0_4px_16px_rgba(182,244,56,0.25)]" data-path="matches" href="#" title="Matches">
+          <span class="material-symbols-outlined text-[20px]">discover</span><span class="sidebar-label">Matches</span>
+        </a>
+        <a class="flex items-center gap-space-sm px-space-md py-space-sm text-secondary hover:bg-surface-container-highest hover:text-on-surface transition-all rounded-full font-label-md text-label-md" data-path="outreach" href="#" title="Applications">
+          <span class="material-symbols-outlined text-[20px]">file_document</span><span class="sidebar-label">Applications</span>
+        </a>
+        <a class="flex items-center gap-space-sm px-space-md py-space-sm text-secondary hover:bg-surface-container-highest hover:text-on-surface transition-all rounded-full font-label-md text-label-md" data-path="analytics" href="#" title="Analytics">
+          <span class="material-symbols-outlined text-[20px]">chart_bar_vertical_01</span><span class="sidebar-label">Analytics</span>
+        </a>
+      </nav>
+    </div>
+    <div class="flex flex-col gap-space-xs pt-space-md border-t border-surface-container-high/40">
+      <div id="header-linkedin-pill" class="flex items-center gap-2 px-3 py-2 bg-surface-container hover:bg-surface-container-high rounded-full text-secondary font-label-md text-[13px] transition-all cursor-pointer shadow-sm mb-1" title="LinkedIn Connection Status">
+        <span id="header-linkedin-dot" class="w-2 h-2 rounded-full bg-emerald-500 shrink-0"></span>
+        <span id="header-linkedin-label" class="font-bold text-on-surface truncate text-xs sidebar-label">LinkedIn: Checking...</span>
+      </div>
+      <nav data-active-classes="bg-primary-container text-on-primary-fixed font-bold rounded-full shadow-[0_4px_16px_rgba(182,244,56,0.25)]">
+        <a class="flex items-center gap-space-sm px-space-md py-space-sm text-secondary hover:bg-surface-container-highest hover:text-on-surface transition-all rounded-full font-label-md text-label-md" data-path="settings" href="#" title="Settings">
+          <span class="material-symbols-outlined text-[20px]">settings_1</span><span class="sidebar-label">Settings</span>
+        </a>
+      </nav>
+    </div>
+  </aside>
+
+  <div id="main-wrapper" class="pl-64">
+    <!-- Header -->
+    <header id="app-header" class="fixed top-0 left-64 right-0 h-16 bg-surface/80 backdrop-blur-xl border-b border-surface-container-high/40 z-40 flex items-center justify-between px-space-xl gap-space-md sm:gap-space-lg">
+      <div class="flex items-center gap-space-sm">
+        <h1 class="font-headline-sm text-headline-sm font-bold text-on-surface">Matched Opportunities</h1>
+      </div>
+      <div class="flex items-center gap-6">
+        <div class="flex items-center gap-2.5">
+          <span class="font-code-header text-code-header uppercase tracking-wider text-tertiary">System Status</span>
+          <div class="status-pill status-pill-active" id="header-system-status">
+            <span class="status-pill-dot"></span>
+            <span class="status-pill-text">Operational</span>
+          </div>
+        </div>
+        <div class="flex items-center gap-3">
+          <button id="scrape-stop-btn" type="button" aria-label="Stop scrape session" class="hidden items-center gap-space-xs px-space-md py-space-xs bg-error text-on-error rounded-full font-label-md text-label-md font-bold shadow-sm transition-all hover:bg-error/90">
+            <span class="material-symbols-outlined text-[18px]">octagon_warning</span><span>Stop</span>
+          </button>
+          <button id="darkmode-toggle-header" data-darkmode-toggle aria-label="Toggle dark mode" class="w-9 h-9 rounded-full bg-surface-container-lowest flex items-center justify-center text-secondary hover:text-on-surface hover:bg-surface-container-high transition-colors shadow-[0_1px_4px_rgba(0,0,0,0.04)] cursor-pointer" type="button">
+            <span class="material-symbols-outlined text-[20px]">mode_-__dark</span>
+          </button>
+
+          <button id="app-exit-btn" aria-label="Exit Application" class="w-9 h-9 rounded-full bg-error flex items-center justify-center text-white hover:brightness-110 active:scale-95 transition-all shadow-[0_1px_4px_rgba(0,0,0,0.04)] cursor-pointer" type="button" title="Shutdown Application">
+            <span class="material-symbols-outlined text-[20px]">stop_sign</span>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <!-- Main Workspace -->
+    <main class="relative pt-20 w-full bg-surface px-space-xl py-space-xl">
+      <div class="flex flex-col w-full gap-space-lg pb-space-xl">
+        <div class="grid grid-cols-1 xl:grid-cols-12 gap-space-lg w-full items-start">
+          
+          <!-- Center / Left Workspace Feed (8 cols on XL) -->
+          <div class="xl:col-span-8 flex flex-col gap-space-lg">
+            
+            <!-- Top Action Bar & Filter Pills -->
+            <div class="flex items-center justify-between gap-space-md">
+              <div class="flex items-center bg-surface-container-high p-1 rounded-full shadow-sm" id="matches-filter-bar" role="tablist" aria-label="Match candidate filters">
+                <button class="px-space-md py-1.5 rounded-full bg-primary-container text-on-primary-fixed font-label-md text-label-md font-bold transition-all cursor-pointer filter-pill active" data-filter="all" role="tab" aria-selected="true" type="button">
+                  All
+                </button>
+                <button class="px-space-md py-1.5 rounded-full text-secondary hover:text-on-surface font-label-md text-label-md transition-colors cursor-pointer filter-pill" data-filter="strong" role="tab" aria-selected="false" type="button">
+                  Strong Match (&ge;70%)
+                </button>
+                <button class="px-space-md py-1.5 rounded-full text-secondary hover:text-on-surface font-label-md text-label-md transition-colors cursor-pointer filter-pill" data-filter="review" role="tab" aria-selected="false" type="button">
+                  Review (&lt;70%)
+                </button>
+              </div>
+            </div>
+
+            <!-- Search, Timeline Filter & Sorting Toolbar -->
+            <div class="flex flex-col gap-space-sm p-space-md bg-surface-container-lowest rounded-2xl shadow-sm">
+              <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-space-sm">
+                <!-- Search within matches -->
+                <div class="relative flex-1 flex items-center">
+                  <span class="material-symbols-outlined absolute left-3 text-secondary text-[18px]">search</span>
+                  <input id="matches-search-input" type="text" placeholder="Search matches by role, company, or keywords..." class="w-full bg-surface-container-low pl-9 pr-4 py-2 rounded-full font-body-sm text-body-sm text-on-surface focus:outline-none transition-all">
+                </div>
+                <!-- Sort Dropdown -->
+                <div class="relative inline-flex items-center gap-2 shrink-0" id="matches-sort-wrapper">
+                  <span class="font-code-header text-code-header text-tertiary uppercase text-[11px]">Sort:</span>
+                  <select id="matches-sort-select" class="hidden sr-only">
+                    <option value="newest">Newest Scraped</option>
+                    <option value="score_desc">Highest Match Score</option>
+                    <option value="oldest">Oldest Scraped</option>
+                  </select>
+                  <button id="matches-sort-btn" type="button" aria-haspopup="listbox" aria-expanded="false" class="inline-flex items-center justify-between gap-2 px-3.5 py-1.5 bg-surface-container-low hover:bg-surface-container-high text-on-surface rounded-full font-label-md text-label-md font-semibold transition-all shadow-xs cursor-pointer border border-outline-variant/30">
+                    <span id="matches-sort-label" class="text-xs font-semibold text-on-surface">Newest Scraped</span>
+                    <span id="matches-sort-arrow" class="material-symbols-outlined text-[18px] text-secondary transition-transform duration-200">expand_more</span>
+                  </button>
+                  <div id="matches-sort-menu" class="hidden absolute right-0 top-full mt-1.5 w-48 bg-surface-container-high border border-outline-variant/30 rounded-2xl shadow-2xl z-50 p-1.5 space-y-0.5 backdrop-blur-md transition-all">
+                    <div class="matches-sort-opt flex items-center justify-between px-3 py-2 rounded-xl cursor-pointer select-none text-xs font-semibold text-on-surface hover:bg-surface-container hover:text-primary transition-all bg-primary/15 text-primary" data-val="newest">
+                      <span>Newest Scraped</span>
+                      <span class="check-icon material-symbols-outlined text-[16px] text-primary">check</span>
+                    </div>
+                    <div class="matches-sort-opt flex items-center justify-between px-3 py-2 rounded-xl cursor-pointer select-none text-xs font-semibold text-on-surface hover:bg-surface-container hover:text-primary transition-all" data-val="score_desc">
+                      <span>Highest Match Score</span>
+                      <span class="check-icon material-symbols-outlined text-[16px] text-primary hidden">check</span>
+                    </div>
+                    <div class="matches-sort-opt flex items-center justify-between px-3 py-2 rounded-xl cursor-pointer select-none text-xs font-semibold text-on-surface hover:bg-surface-container hover:text-primary transition-all" data-val="oldest">
+                      <span>Oldest Scraped</span>
+                      <span class="check-icon material-symbols-outlined text-[16px] text-primary hidden">check</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Timeline Filter Chips -->
+              <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-space-xs pt-1 border-t border-surface-container-high/40">
+                <div class="flex items-center gap-1.5 flex-wrap" id="matches-timeline-chips">
+                  <span class="font-code-header text-code-header text-tertiary uppercase text-[11px] mr-1">Timeline:</span>
+                  <button class="matches-timeline-btn active px-3 py-1 rounded-full font-label-md text-[12px] font-semibold bg-primary-container text-on-primary-fixed cursor-pointer transition-all" data-timeline="all" type="button">All Time</button>
+                  <button class="matches-timeline-btn px-3 py-1 rounded-full font-label-md text-[12px] font-semibold bg-surface-container text-secondary hover:text-on-surface cursor-pointer transition-all" data-timeline="today" type="button">Today</button>
+                  <button class="matches-timeline-btn px-3 py-1 rounded-full font-label-md text-[12px] font-semibold bg-surface-container text-secondary hover:text-on-surface cursor-pointer transition-all" data-timeline="yesterday" type="button">Yesterday</button>
+                  <button class="matches-timeline-btn px-3 py-1 rounded-full font-label-md text-[12px] font-semibold bg-surface-container text-secondary hover:text-on-surface cursor-pointer transition-all" data-timeline="7d" type="button">Last 7 Days</button>
+                  <button class="matches-timeline-btn px-3 py-1 rounded-full font-label-md text-[12px] font-semibold bg-surface-container text-secondary hover:text-on-surface cursor-pointer transition-all" data-timeline="custom" type="button">Custom Range</button>
+                </div>
+
+                <!-- Custom Date Inputs (hidden by default) -->
+                <div id="matches-custom-date-container" class="hidden flex items-center gap-2 pt-1 sm:pt-0 flex-wrap">
+                  <input type="date" id="matches-start-date" class="bg-surface-container-low text-on-surface text-[12px] px-2.5 py-1 rounded-lg">
+                  <span class="text-tertiary text-[12px]">to</span>
+                  <input type="date" id="matches-end-date" class="bg-surface-container-low text-on-surface text-[12px] px-2.5 py-1 rounded-lg">
+                  <button id="matches-clear-date-btn" type="button" class="text-xs text-secondary hover:text-on-surface px-2 py-1 rounded-lg bg-surface-container hover:bg-surface-container-high transition-colors font-label-md cursor-pointer" title="Reset date filters">Clear</button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Master Card Container for Matched Opportunities (Separated by Divider Lines & Custom Scroller) -->
+            <div class="bg-surface-container-lowest rounded-3xl shadow-sm overflow-hidden">
+              <div class="flex flex-col max-h-[720px] overflow-y-auto custom-card-scroll divide-y divide-surface-container-high/50" id="matches-list">
+                <!-- Dynamically populated by app.js -->
+              </div>
+            </div>
+
+
+          </div>
+
+          <!-- Right Rail: Metrics, Directives & Console (4 cols on XL) -->
+          <div class="xl:col-span-4 flex flex-col gap-space-md sticky top-20">
+            
+            <!-- Vertically Stacked Metric Cards -->
+            <div class="flex flex-col gap-space-sm">
+              <!-- Discovered -->
+              <div class="relative overflow-hidden bg-surface-container-lowest p-space-md rounded-2xl shadow-[0_2px_12px_rgba(0,0,0,0.03)] flex flex-col justify-between">
+                <div class="flex items-center justify-between">
+                  <span class="font-code-header text-code-header text-tertiary uppercase">Discovered</span>
+                  <div class="w-7 h-7 rounded-full bg-surface-container-low flex items-center justify-center text-secondary">
+                    <span class="material-symbols-outlined text-[16px]">travel_explore</span>
+                  </div>
+                </div>
+                <div class="mt-space-sm flex items-baseline gap-space-xs">
+                  <span class="font-headline-lg text-headline-lg font-bold text-on-surface" id="stat-matches-discovered">0</span>
+                  <span class="font-label-md text-label-md text-tertiary">roles indexed</span>
+                </div>
+              </div>
+
+              <!-- High Fit -->
+              <div class="relative overflow-hidden bg-surface-container-lowest p-space-md rounded-2xl shadow-[0_2px_12px_rgba(0,0,0,0.03)] flex flex-col justify-between">
+                <div class="flex items-center justify-between">
+                  <span class="font-code-header text-code-header text-tertiary uppercase">High Fit</span>
+                  <div class="w-7 h-7 rounded-full bg-surface-container-low flex items-center justify-center text-secondary">
+                    <span class="material-symbols-outlined text-[16px]">check</span>
+                  </div>
+                </div>
+                <div class="mt-space-sm flex items-baseline gap-space-xs">
+                  <span class="font-headline-lg text-headline-lg font-bold text-on-surface" id="stat-matches-strong">0</span>
+                  <span class="font-label-md text-label-md text-tertiary font-normal">Score &ge; 70%</span>
+                </div>
+              </div>
+
+              <!-- Compatibility -->
+              <div class="relative overflow-hidden bg-surface-container-lowest p-space-md rounded-2xl shadow-[0_2px_12px_rgba(0,0,0,0.03)] flex flex-col justify-between">
+                <div class="flex items-center justify-between">
+                  <span class="font-code-header text-code-header text-tertiary uppercase">Compatibility</span>
+                  <div class="w-7 h-7 rounded-full bg-surface-container-low flex items-center justify-center text-secondary">
+                    <span class="material-symbols-outlined text-[16px]">calculate-1</span>
+                  </div>
+                </div>
+                <div class="mt-space-sm flex items-baseline gap-space-xs">
+                  <span class="font-headline-lg text-headline-lg font-bold text-on-surface" id="stat-matches-avg">--</span>
+                  <span class="font-label-md text-label-md text-tertiary">avg fit score</span>
+                </div>
+              </div>
+
+              <!-- Scan Timing Pill Card -->
+              <div id="matches-scan-time-card" class="hidden relative overflow-hidden bg-surface-container-lowest p-3 px-4 rounded-2xl shadow-[0_2px_12px_rgba(0,0,0,0.03)] flex items-center justify-between text-xs">
+                <div class="flex items-center gap-2 text-secondary">
+                  <span class="material-symbols-outlined text-[18px] text-primary">timer</span>
+                  <span class="font-semibold text-on-surface">Last Scan Duration</span>
+                </div>
+                <span id="matches-scan-time-text" class="font-mono text-secondary font-medium truncate max-w-[170px]">--</span>
+              </div>
+            </div>
+
+
+
+            <!-- Iconic Pitch-Black Process Console -->
+            <div class="bg-[#111315] text-[#DFE2E6] rounded-[28px] p-space-lg shadow-[0_12px_36px_rgba(0,0,0,0.22)] flex flex-col relative overflow-hidden">
+              <div class="flex items-center justify-between pb-space-xs border-b border-[#23272B]">
+                <div class="flex items-center gap-2">
+                  <span class="font-code-header text-code-header tracking-wider text-primary-container uppercase font-bold">Activity Console</span>
+                </div>
+                <div class="flex items-center gap-2.5">
+                  <div class="status-pill status-pill-active">
+                    <span class="status-pill-dot"></span>
+                    <span class="status-pill-text">LIVE</span>
+                  </div>
+                  <div class="flex items-center gap-1 text-secondary">
+                    <button id="btn-clear-logs" class="btn-clear-logs p-1 hover:text-white transition-colors cursor-pointer flex items-center justify-center" type="button" title="Clear Console Logs">
+                      <span class="material-symbols-outlined text-[18px]">close</span>
+                    </button>
+                    <button id="btn-toggle-logs" class="btn-toggle-logs p-1 hover:text-white transition-colors cursor-pointer flex items-center justify-center" type="button" title="Toggle Console Size">
+                      <span class="material-symbols-outlined text-[18px]">unfold_less</span>
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Terminal Logs Body -->
+              <div class="flex flex-col gap-2 font-code-terminal text-code-terminal pt-1 log-feed-scroll" id="log-feed">
+                <div class="flex items-start gap-2">
+                  <span class="text-tertiary">--:--:--</span>
+                  <span class="text-primary-container font-bold">SYS_INIT:</span>
+                  <span class="text-slate-300">Matching engine online.</span>
+                </div>
+              </div>
+
+              <!-- Telemetry Stats Footer in Console -->
+              <div class="mt-2 pt-space-xs flex items-center justify-between">
+                <span class="font-code-terminal text-code-terminal text-tertiary">LATENCY: 18ms</span>
+                <span class="font-code-terminal text-code-terminal text-primary-container font-bold">STORE: LOCAL</span>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+
+        <!-- Toast Feedback Popup Container -->
+        <div id="toast" class="fixed bottom-6 right-6 bg-on-background text-surface px-space-lg py-space-sm rounded-full font-label-md text-label-md shadow-2xl flex items-center gap-space-sm translate-y-24 opacity-0 transition-all duration-300 pointer-events-none z-50">
+          <span class="w-2 h-2 rounded-full bg-primary-container animate-ping"></span>
+          <span id="toast-message">Action processed</span>
+        </div>
+
+      </div>
+    </main>
+  </div>
+
+  <script src="/static/darkmode.js"></script>
+  <script src="/static/app.js"></script>
+</body>
+</html>

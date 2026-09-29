@@ -1,0 +1,12 @@
+<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <g transform="translate(-56, -280)">
+    <g xmlns="http://www.w3.org/2000/svg">
+<path d="M76 292H60" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+<path d="M72 284H74C75.1046 284 76 284.895 76 286V288" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+<path d="M64 300L62 300C60.8954 300 60 299.104 60 298L60 296" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+<path d="M76 296V298C76 299.104 75.1046 300 74 300H72" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+<path d="M60 288L60 286C60 284.895 60.8954 284 62 284L64 284" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+</g>
+
+  </g>
+</svg>

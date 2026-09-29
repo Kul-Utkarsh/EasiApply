@@ -1,0 +1,13 @@
+<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <g transform="translate(-112, -56)">
+    <g xmlns="http://www.w3.org/2000/svg">
+<rect x="124.588" y="59" width="7" height="7" rx="3.5" transform="rotate(90 124.588 59)" stroke="white" stroke-width="2" />
+<path d="M115 62.2354L117.118 62.2354" stroke="white" stroke-width="2" stroke-linecap="round" />
+<path d="M125.059 62.2354L132.47 62.2354" stroke="white" stroke-width="2" stroke-linecap="round" />
+<rect x="122.882" y="77" width="7" height="7" rx="3.5" transform="rotate(-90 122.882 77)" stroke="white" stroke-width="2" />
+<path d="M132.47 73.7646L130.353 73.7646" stroke="white" stroke-width="2" stroke-linecap="round" />
+<path d="M122.412 73.7646L115 73.7646" stroke="white" stroke-width="2" stroke-linecap="round" />
+</g>
+
+  </g>
+</svg>

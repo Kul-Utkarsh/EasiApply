@@ -1,0 +1,8 @@
+<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <g transform="translate(-336, -112)">
+    <path xmlns="http://www.w3.org/2000/svg" d="M350 116.371C350 114.658 347.988 113.738 346.693 114.857L343.363 117.733C343 118.047 342.536 118.22 342.056 118.22L340.5 118.22C339.119 118.22 338 119.339 338 120.72V124.013C338 125.393 339.119 126.513 340.5 126.513H342.056C342.536 126.513 343 126.685 343.363 126.999L346.693 129.875C347.988 130.995 350 130.074 350 128.362V122.366V116.371Z" stroke="white" stroke-width="2" />
+<path xmlns="http://www.w3.org/2000/svg" d="M354 124.122L358.243 119.879" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+<path xmlns="http://www.w3.org/2000/svg" d="M354 119.879L358.243 124.122" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+
+  </g>
+</svg>

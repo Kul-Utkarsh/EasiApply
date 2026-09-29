@@ -1,0 +1,11 @@
+<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <g transform="translate(-168, 0)">
+    <g xmlns="http://www.w3.org/2000/svg">
+<circle cx="185" cy="7" r="3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+<circle cx="175" cy="17" r="3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+<path d="M182 14H188V19C188 19.5523 187.552 20 187 20H183C182.448 20 182 19.5523 182 19V14Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+<path d="M172 4H178V9C178 9.55228 177.552 10 177 10H173C172.448 10 172 9.55228 172 9V4Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+</g>
+
+  </g>
+</svg>

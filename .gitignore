@@ -1,0 +1,43 @@
+# Python & Environment
+.env
+.env.local
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.pytest_cache/
+.coverage
+htmlcov/
+
+# User Data & LinkedIn Session (CRITICAL PRIVACY)
+user_data/
+logs/
+*.log
+
+# Databases & Runtime State
+data/*.db
+data/*.db-journal
+data/*.sqlite
+data/*.sqlite3
+data/scraped_jobs.json
+data/user_profile.json
+data/linkedin_session.json
+data/jobs.db
+
+# Private Resumes (only keep sample and .gitkeep)
+data/resumes/*.pdf
+data/resumes/*.docx
+!data/resumes/.gitkeep
+!data/resumes/Sample_*.txt
+!data/resumes/Sample_*.pdf
+data/tailored/*
+!data/tailored/.gitkeep
+
+# OS & Editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.swp
+*.swo
+graft/

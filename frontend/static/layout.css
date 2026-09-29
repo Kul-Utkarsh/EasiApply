@@ -1,0 +1,7 @@
+.container{ max-width:1440px; margin:0 auto; padding:0 var(--space-lg); }
+.grid{ display:grid; gap:var(--space-lg); }
+.grid-cols-12{ grid-template-columns:repeat(12,1fr); }
+@media(min-width:1280px){ .xl\:col-span-8{ grid-column:span 8; } .xl\:col-span-4{ grid-column:span 4; } }
+.stack{ display:flex; flex-direction:column; gap:var(--space-md); }
+.inline{ display:inline-flex; align-items:center; gap:var(--space-sm); }
+.cluster{ display:flex; flex-wrap:wrap; gap:var(--space-sm); }

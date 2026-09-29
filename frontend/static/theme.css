@@ -1,0 +1,857 @@
+/* ==========================================================================
+   Kinetic Neo-Tech — Universal Theme File (single source of truth)
+   Tokens: colors, typography, spacing, radii, easing, z-index.
+   Themes toggle via [data-theme="dark"] on <html> (see darkmode.js).
+   Spec: root DESIGN.md.
+   ========================================================================== */
+
+/* ---------- Self-hosted typefaces (no CDN dependency) ---------- */
+@font-face { font-family: "Space Grotesk"; font-style: normal; font-weight: 400; font-display: swap; src: url("/static/fonts/space-grotesk-400.woff2") format("woff2"); }
+@font-face { font-family: "Space Grotesk"; font-style: normal; font-weight: 500; font-display: swap; src: url("/static/fonts/space-grotesk-500.woff2") format("woff2"); }
+@font-face { font-family: "Space Grotesk"; font-style: normal; font-weight: 600; font-display: swap; src: url("/static/fonts/space-grotesk-600.woff2") format("woff2"); }
+@font-face { font-family: "Space Grotesk"; font-style: normal; font-weight: 700; font-display: swap; src: url("/static/fonts/space-grotesk-700.woff2") format("woff2"); }
+@font-face { font-family: "Geist"; font-style: normal; font-weight: 400; font-display: swap; src: url("/static/fonts/geist-400.woff2") format("woff2"); }
+@font-face { font-family: "Geist"; font-style: normal; font-weight: 500; font-display: swap; src: url("/static/fonts/geist-500.woff2") format("woff2"); }
+@font-face { font-family: "Geist"; font-style: normal; font-weight: 600; font-display: swap; src: url("/static/fonts/geist-600.woff2") format("woff2"); }
+@font-face { font-family: "Geist"; font-style: normal; font-weight: 700; font-display: swap; src: url("/static/fonts/geist-700.woff2") format("woff2"); }
+@font-face { font-family: "JetBrains Mono"; font-style: normal; font-weight: 500; font-display: swap; src: url("/static/fonts/jetbrains-mono-500.woff2") format("woff2"); }
+@font-face { font-family: "JetBrains Mono"; font-style: normal; font-weight: 700; font-display: swap; src: url("/static/fonts/jetbrains-mono-700.woff2") format("woff2"); }
+
+/* ---------- Token layer: light (default) ---------- */
+:root, [data-theme="light"] {
+  color-scheme: light;
+  --surface: #f8f9fc;
+  --surface-container-lowest: #ffffff;
+  --surface-container-low: #f3f3f6;
+  --surface-container: #edeef1;
+  --surface-container-high: #e7e8eb;
+  --surface-container-highest: #e1e2e5;
+  --on-surface: #191c1e;
+  --secondary: #5d5e61;
+  --tertiary: #595f67;
+  --outline: #737a63;
+  --outline-variant: #c3caaf;
+  --primary: #496800;
+  --primary-container: #b6f438;
+  --on-primary-fixed: #131f00;
+  --error: #ba1a1a;
+  --error-container: #ffdad6;
+  --on-error-container: #93000a;
+  --inverse-surface: #2e3133;
+  --canvas-base: #ebecef;
+  --canvas-card: #f8f9fa;
+
+  --font-display: "Space Grotesk", system-ui, "Noto Sans", sans-serif;
+  --font-body: "Geist", system-ui, "Noto Sans", sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, "Noto Sans Mono", monospace;
+
+  --space-xs: 0.25rem; --space-sm: 0.5rem; --space-md: 1rem;
+  --space-lg: 1.5rem; --space-xl: 2rem;
+  --radius-sm: 0.25rem; --radius-md: 0.75rem; --radius-lg: 1rem;
+  --radius-xl: 1.5rem; --radius-card: 28px; --radius-full: 9999px;
+
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --dur-fast: 120ms; --dur-med: 240ms; --dur-slow: 480ms;
+
+  --z-content: 1; --z-sticky: 30; --z-dropdown: 40; --z-toast: 50;
+  --z-modal: 60; --z-nav-loader: 70;
+
+  --chart-seq-1: #4d6d00; --chart-seq-2: #7fae1a; --chart-seq-3: #b6f438; --chart-seq-4: #d7fa8a;
+  --chart-ink: #5d5e61; --chart-grid: #e1e2e5;
+  --chart-cat-1: #b6f438; --chart-cat-2: #38bdf8; --chart-cat-3: #fcd34d;
+  --chart-cat-4: #f472b6; --chart-cat-5: #a78bfa; --chart-cat-6: #595f67;
+
+  --focus-ring: none;
+  --overlay-scrim: rgba(17, 19, 21, 0.55);
+  --skeleton-base: #e7e8eb;
+  --skeleton-shine: rgba(255, 255, 255, 0.7);
+}
+
+/* ---------- Token layer: dark ---------- */
+[data-theme="dark"] {
+  color-scheme: dark;
+  --surface: #101214;
+  --surface-container-lowest: #1a1d20;
+  --surface-container-low: #1e2125;
+  --surface-container: #24282d;
+  --surface-container-high: #2a2f35;
+  --surface-container-highest: #33383f;
+  --on-surface: #e8eaed;
+  --secondary: #b6bcc4;
+  --tertiary: #b6bcc4;
+  --outline: #3a4048;
+  --outline-variant: #434935;
+  --error-container: #3a1d20;
+  --error: #f2b8c6;
+  --inverse-surface: #0b0d0f;
+  --canvas-base: #121416;
+  --canvas-card: #1e2022;
+  --chart-ink: #9aa1ab; --chart-grid: #2a2f35;
+  --overlay-scrim: rgba(0, 0, 0, 0.65);
+  --skeleton-base: #24282d;
+  --skeleton-shine: rgba(255, 255, 255, 0.08);
+}
+
+/* ---------- Base ---------- */
+html, body { margin: 0; padding: 0; }
+body {
+  font-family: var(--font-body);
+  background-color: var(--surface);
+  color: var(--on-surface);
+  overscroll-behavior: none;
+}
+h1, h2, h3, .font-display-hero, .font-headline-lg, .font-headline-md, .font-headline-sm {
+  font-family: var(--font-display);
+}
+code, kbd, samp, .font-code-terminal, .font-code-header { font-family: var(--font-mono); }
+
+/* ---------- Canonical component states (new code; legacy tailwind
+   markup keeps working via the override layer below) ---------- */
+.btn-lime {
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  background: var(--primary-container); color: #131f00;
+  font-weight: 700; border-radius: var(--radius-full);
+  padding: 0.65rem 1.4rem; border: none; cursor: pointer;
+  transition: transform var(--dur-fast) var(--ease-out), filter var(--dur-fast) var(--ease-out);
+}
+.btn-lime:hover { filter: brightness(1.05); transform: scale(1.02); }
+.btn-lime:active { transform: scale(0.97); filter: brightness(0.97); }
+.btn-lime:disabled { opacity: 0.4; cursor: not-allowed; transform: none; filter: none; }
+.btn-outline {
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  background: var(--surface-container-lowest); color: var(--on-surface);
+  border: 1px solid var(--outline-variant); border-radius: var(--radius-full);
+  padding: 0.65rem 1.4rem; font-weight: 600; cursor: pointer;
+  transition: background var(--dur-fast) var(--ease-out), transform var(--dur-fast) var(--ease-out);
+}
+.btn-outline:hover { background: var(--surface-container-high); }
+.btn-outline:active { transform: scale(0.97); }
+.btn-outline:disabled { opacity: 0.4; cursor: not-allowed; transform: none; }
+.card {
+  background: var(--surface-container);
+  border: none;
+  border-radius: var(--radius-xl);
+}
+.card-elevated { box-shadow: 0 8px 32px rgba(18, 22, 20, 0.12); }
+:focus, :focus-visible { outline: none !important; box-shadow: none !important; }
+.search-pod:focus-within { box-shadow: none !important; background: var(--surface-container-lowest); }
+input:disabled, button:disabled, select:disabled, textarea:disabled { cursor: not-allowed; }
+
+/* ---------- Toast / modal / tooltip architecture ---------- */
+.app-toast { z-index: var(--z-toast); }
+.app-modal { z-index: var(--z-modal); }
+.app-modal__scrim { background: var(--overlay-scrim); backdrop-filter: blur(6px); }
+.app-tooltip { z-index: var(--z-dropdown); }
+.app-dropdown { z-index: var(--z-dropdown); }
+
+/* ---------- Skeleton loaders ---------- */
+.skeleton {
+  position: relative; overflow: hidden; background: var(--skeleton-base);
+  border-radius: var(--radius-md); min-height: 1rem;
+}
+.skeleton::after {
+  content: ""; position: absolute; inset: 0;
+  background: linear-gradient(100deg, transparent 20%, var(--skeleton-shine) 50%, transparent 80%);
+  animation: skeleton-shimmer 1.6s var(--ease-out) infinite;
+}
+.skeleton--round { border-radius: var(--radius-full); }
+.skeleton--card { border-radius: var(--radius-card); min-height: 120px; }
+@keyframes skeleton-shimmer { from { transform: translateX(-100%); } to { transform: translateX(100%); } }
+
+/* ---------- Terminal scrollbars (dark-canvas optimized) ---------- */
+.terminal-scroll { scrollbar-width: thin; scrollbar-color: #3a4048 transparent; }
+.terminal-scroll::-webkit-scrollbar { width: 8px; height: 8px; display: block; }
+.terminal-scroll::-webkit-scrollbar-track { background: transparent; }
+.terminal-scroll::-webkit-scrollbar-thumb { background: #3a4048; border-radius: 9999px; }
+.terminal-scroll::-webkit-scrollbar-thumb:hover { background: #4a525c; }
+
+/* ---------- Telemetry text truncation ---------- */
+.log-clamp-2 { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.log-ellipsis { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; min-width: 0; }
+
+/* ---------- Chart primitives ---------- */
+.chart-axis { stroke: var(--chart-grid); }
+.chart-ink { fill: var(--chart-ink); }
+.sparkline { fill: none; stroke: var(--chart-seq-3); stroke-width: 2; stroke-linecap: round; }
+
+/* ---------- RTL ---------- */
+[dir="rtl"] .flip-rtl { transform: scaleX(-1); }
+[dir="rtl"] .no-flip { transform: none !important; }
+
+/* ---------- Reduced motion (strict fallback) ---------- */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  .skeleton::after { animation: none; }
+}
+
+/* ---------- Print (clean PDF export) ---------- */
+@media print {
+  aside, header button, .no-print { display: none !important; }
+  body { background: #fff !important; color: #000 !important; }
+  .bg-surface-container-lowest, .bg-surface-container-low,
+  .bg-surface-container, .bg-inverse-surface { background: #fff !important; color: #000 !important; box-shadow: none !important; }
+  * { animation: none !important; transition: none !important; }
+}
+
+/* ==========================================================================
+   Legacy override layer: remaps light-token Tailwind utilities under
+   [data-theme="dark"] (CDN config has no dark: variants).
+   ========================================================================== */
+[data-theme="dark"] body,
+[data-theme="dark"] .bg-surface {
+  background-color: #101214 !important;
+  color: #e8eaed !important;
+}
+[data-theme="dark"] .bg-surface-container-lowest { background-color: #1a1d20 !important; }
+[data-theme="dark"] .bg-surface-container-low { background-color: #1e2125 !important; }
+[data-theme="dark"] .bg-surface-container { background-color: #24282d !important; }
+[data-theme="dark"] .bg-surface-container-high { background-color: #2a2f35 !important; }
+[data-theme="dark"] .bg-surface-container-highest { background-color: #33383f !important; }
+[data-theme="dark"] .text-on-surface,
+[data-theme="dark"] .text-on-surface-variant { color: #e8eaed !important; }
+[data-theme="dark"] .text-secondary,
+[data-theme="dark"] .text-tertiary { color: #b6bcc4 !important; }
+[data-theme="dark"] aside { background-color: #16181b !important; }
+
+/* Clean input styling in dark mode - no rectangular background mismatches */
+[data-theme="dark"] input,
+[data-theme="dark"] textarea,
+[data-theme="dark"] select {
+  color: #e8eaed !important;
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+}
+[data-theme="dark"] input.bg-transparent,
+[data-theme="dark"] textarea.bg-transparent,
+[data-theme="dark"] select.bg-transparent,
+input.bg-transparent,
+textarea.bg-transparent,
+select.bg-transparent {
+  background-color: transparent !important;
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+[data-theme="dark"] input:not(.bg-transparent),
+[data-theme="dark"] textarea:not(.bg-transparent),
+[data-theme="dark"] select:not(.bg-transparent) {
+  background-color: #1e2125 !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+[data-theme="dark"] input::placeholder,
+[data-theme="dark"] textarea::placeholder { color: #8a919a !important; }
+
+/* Remove inset shadows and rectangular highlights across all inputs/containers */
+.shadow-inner,
+[class*="shadow-inner"] {
+  box-shadow: none !important;
+}
+
+/* Universal focus removal - NO green borders, rings, or outlines on click/focus in any color */
+*:focus,
+*:focus-visible,
+*:focus-within,
+input:focus,
+textarea:focus,
+select:focus,
+button:focus,
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible,
+input:focus-within,
+div:focus-within,
+.search-pod:focus-within,
+[class*="focus-within:"],
+[class*="focus:ring"],
+[class*="focus:border"],
+[class*="ring-"] {
+  outline: none !important;
+  box-shadow: none !important;
+  border-color: transparent !important;
+  --tw-ring-shadow: 0 0 #0000 !important;
+  --tw-ring-offset-shadow: 0 0 #0000 !important;
+  --tw-shadow: 0 0 #0000 !important;
+  --focus-ring: none !important;
+}
+
+/* Remove all card borders in dark mode across all sections */
+[data-theme="dark"] .bg-surface-container-lowest,
+[data-theme="dark"] .bg-surface-container,
+[data-theme="dark"] .bg-surface-container-low,
+[data-theme="dark"] .rounded-\[32px\],
+[data-theme="dark"] .rounded-\[28px\],
+[data-theme="dark"] .rounded-\[24px\],
+[data-theme="dark"] .rounded-3xl,
+[data-theme="dark"] .rounded-2xl,
+[data-theme="dark"] .card,
+[data-theme="dark"] [id$="-card"],
+[data-theme="dark"] [class*="border-surface-container"],
+[data-theme="dark"] [class*="border-secondary-container"] {
+  border: none !important;
+  border-color: transparent !important;
+}
+[data-theme="dark"] header#app-header {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05) !important;
+}
+[data-theme="dark"] .bg-inverse-surface { background-color: #0b0d0f !important; }
+[data-theme="dark"] header { background-color: rgba(16,18,20,.88) !important; }
+[data-theme="dark"] main { background-color: #101214 !important; }
+[data-theme="dark"] .hover\:bg-surface-container-highest:hover { background-color: #33383f !important; }
+[data-theme="dark"] .hover\:bg-surface-container-high:hover { background-color: #2a2f35 !important; }
+[data-theme="dark"] .hover\:bg-surface-container-low:hover { background-color: #1e2125 !important; }
+[data-theme="dark"] .hover\:bg-surface-container:hover { background-color: #24282d !important; }
+[data-theme="dark"] .hover\:bg-surface-container-lowest:hover { background-color: #1a1d20 !important; }
+[data-theme="dark"] .hover\:text-on-surface:hover { color: #e8eaed !important; }
+[data-theme="dark"] .hover\:text-on-primary-fixed:hover { color: #131f00 !important; }
+[data-theme="dark"] .group:hover .group-hover\:text-on-surface { color: #e8eaed !important; }
+[data-theme="dark"] .group:hover .group-hover\:bg-surface-container-lowest { background-color: #1a1d20 !important; }
+[data-theme="dark"] .bg-white { background-color: #1a1d20 !important; }
+[data-theme="dark"] .bg-slate-50 { background-color: #1e2125 !important; }
+[data-theme="dark"] .bg-slate-100, [data-theme="dark"] .bg-slate-200 { background-color: #2a2f35 !important; }
+[data-theme="dark"] .bg-slate-800, [data-theme="dark"] .bg-slate-900 { background-color: #16181b !important; }
+[data-theme="dark"] .text-slate-200, [data-theme="dark"] .text-slate-300 { color: #d4d9df !important; }
+[data-theme="dark"] .text-slate-400, [data-theme="dark"] .text-slate-500 { color: #9aa1ab !important; }
+[data-theme="dark"] .text-slate-600, [data-theme="dark"] .text-slate-700,
+[data-theme="dark"] .text-slate-800, [data-theme="dark"] .text-slate-900 { color: #e8eaed !important; }
+[data-theme="dark"] .border-slate-100, [data-theme="dark"] .border-slate-200 { border-color: #33383f !important; }
+[data-theme="dark"] .border-slate-300 { border-color: #3a4048 !important; }
+[data-theme="dark"] .border-slate-800 { border-color: #2a2f35 !important; }
+[data-theme="dark"] .hover\:bg-slate-50:hover { background-color: #24282d !important; }
+[data-theme="dark"] .hover\:bg-slate-100:hover, [data-theme="dark"] .hover\:bg-slate-200\/80:hover { background-color: #33383f !important; }
+[data-theme="dark"] .bg-zinc-950 { background-color: #0b0d0f !important; }
+[data-theme="dark"] .bg-zinc-800 { background-color: #2a2f35 !important; }
+[data-theme="dark"] .text-zinc-400, [data-theme="dark"] .text-zinc-500 { color: #9aa1ab !important; }
+[data-theme="dark"] .border-zinc-800 { border-color: #2a2f35 !important; }
+[data-theme="dark"] .bg-lime-100 { background-color: #242a12 !important; }
+[data-theme="dark"] .bg-lime-200\/80 { background-color: rgba(157,217,21,.25) !important; }
+[data-theme="dark"] .bg-lime-400 { background-color: #9dd915 !important; }
+[data-theme="dark"] .text-lime-950, [data-theme="dark"] .text-lime-900\/80, [data-theme="dark"] .text-lime-900 { color: #e4f5b5 !important; }
+[data-theme="dark"] .text-lime-400 { color: #b6f438 !important; }
+[data-theme="dark"] .border-lime-400 { border-color: #4d6d00 !important; }
+
+
+[data-theme="dark"] .bg-red-50, [data-theme="dark"] .bg-red-50\/40, [data-theme="dark"] .bg-red-100 { background-color: #2b1518 !important; }
+[data-theme="dark"] .bg-red-600 { background-color: #ba1a1a !important; }
+[data-theme="dark"] .text-red-950, [data-theme="dark"] .text-red-800\/90,
+[data-theme="dark"] .text-red-800, [data-theme="dark"] .text-red-700\/80, [data-theme="dark"] .text-red-600 { color: #f2b8c6 !important; }
+[data-theme="dark"] .border-red-200\/80, [data-theme="dark"] .border-red-200\/90, [data-theme="dark"] .border-red-200, [data-theme="dark"] .border-red-300 { border-color: #5c222b !important; }
+[data-theme="dark"] .hover\:bg-red-50:hover { background-color: #2b1518 !important; }
+[data-theme="dark"] .bg-error-container { background-color: #3a1d20 !important; }
+[data-theme="dark"] .text-error { color: #f2b8c6 !important; }
+[data-theme="dark"] .bg-primary-container { background-color: #b6f438 !important; }
+[data-theme="dark"] .text-on-primary-fixed { color: #131f00 !important; }
+[data-theme="dark"] #dropzone,
+[data-theme="dark"] .bg-surface-container-low\/60,
+[data-theme="dark"] .bg-surface-container-low\/40,
+[data-theme="dark"] .bg-surface-container-low\/20 {
+  background-color: #1e2125 !important;
+  border-color: #33383f !important;
+}
+[data-theme="dark"] #dropzone:hover {
+  background-color: #24282d !important;
+  border-color: #b6f438 !important;
+}
+
+/* Live activity log: fixed height with internal scroll so the card never
+   grows as rows stream in (app.js prepends rows + trims to 40).
+   - No horizontal scroll: long log lines wrap inside the card width.
+   - Scrollbar permanently hidden across all states & hover; wheel/touch scroll always works. */
+.log-feed-scroll,
+#log-feed {
+  max-height: 320px;
+  max-width: 100%;
+  overflow-y: auto;
+  overflow-x: hidden;
+  overscroll-behavior: contain;
+  -ms-overflow-style: none !important; /* IE and Edge */
+  scrollbar-width: none !important; /* Firefox */
+  padding-right: 0px;
+}
+.log-feed-scroll:hover,
+#log-feed:hover {
+  scrollbar-width: none !important;
+}
+.log-feed-scroll::-webkit-scrollbar,
+.log-feed-scroll:hover::-webkit-scrollbar,
+#log-feed::-webkit-scrollbar,
+#log-feed:hover::-webkit-scrollbar {
+  display: none !important;
+  width: 0px !important;
+  height: 0px !important;
+  background: transparent !important;
+}
+.log-feed-scroll > div { min-width: 0; max-width: 100%; }
+.log-feed-scroll span { overflow-wrap: anywhere; word-break: break-word; }
+.log-feed-scroll .flex-col { min-width: 0; }
+
+/* Top-bar scrape Stop button pulse while a session is running. */
+#scrape-stop-btn:not(.hidden) { animation: stopbtn-pulse 1.6s ease-in-out infinite; }
+@keyframes stopbtn-pulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(186,26,26,.45); }
+  50% { box-shadow: 0 0 0 6px rgba(186,26,26,0); }
+}
+
+/* Compact Telemetry Cockpit Mode */
+html.compact-view {
+  --space-lg: 1rem;
+  --space-xl: 1.25rem;
+}
+html.compact-view main {
+  padding-top: 4.75rem !important;
+  padding-left: 1.25rem !important;
+  padding-right: 1.25rem !important;
+}
+html.compact-view .rounded-\[28px\] {
+  border-radius: 18px !important;
+}
+html.compact-view .p-space-xl {
+  padding: 1.15rem !important;
+}
+html.compact-view .p-space-lg {
+  padding: 0.85rem !important;
+}
+html.compact-view .gap-space-lg {
+  gap: 0.85rem !important;
+}
+html.compact-view .gap-space-md {
+  gap: 0.65rem !important;
+}
+html.compact-view .log-feed-scroll {
+  max-height: 460px;
+}
+/* Hide card subheadings in compact mode (not hero subtitle) */
+html.compact-view .card-sub {
+  display: none !important;
+}
+
+/* Custom card scrollbar (clean, subtle on right side of container) */
+.custom-card-scroll {
+  scrollbar-width: thin;
+  scrollbar-color: #cbd5e1 transparent;
+}
+.custom-card-scroll::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+  display: block;
+}
+.custom-card-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+.custom-card-scroll::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 9999px;
+}
+.custom-card-scroll::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+[data-theme="dark"] .custom-card-scroll {
+  scrollbar-color: #3a4048 transparent;
+}
+[data-theme="dark"] .custom-card-scroll::-webkit-scrollbar-thumb {
+  background: #3a4048;
+}
+/* ==========================================================================
+   Collapsible Icon-Only Sidebar & Modular Auto-Layout
+   ========================================================================== */
+:root {
+  --sidebar-width: 16rem; /* 256px */
+}
+:root.sidebar-minimized, body.sidebar-minimized {
+  --sidebar-width: 4.75rem; /* 76px */
+}
+
+/* Sidebar structure */
+#app-sidebar {
+  width: var(--sidebar-width) !important;
+  transition: width 0.28s cubic-bezier(0.4, 0, 0.2, 1), padding 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+  overflow-x: hidden;
+}
+
+/* Header dynamic left position */
+#app-header {
+  left: var(--sidebar-width) !important;
+  transition: left 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Main workspace dynamic padding-left */
+#main-wrapper {
+  padding-left: var(--sidebar-width) !important;
+  transition: padding-left 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Elements inside sidebar in both states */
+#app-sidebar nav a {
+  height: 44px !important;
+  display: flex !important;
+  align-items: center !important;
+  box-sizing: border-box !important;
+  transition: all 0.2s ease;
+}
+
+#header-linkedin-pill {
+  height: 44px !important;
+  box-sizing: border-box !important;
+  display: flex !important;
+  align-items: center !important;
+  margin-bottom: 0.25rem !important;
+}
+
+/* Elements inside sidebar in minimized state */
+:root.sidebar-minimized #app-sidebar,
+body.sidebar-minimized #app-sidebar {
+  padding-left: 0.625rem !important;
+  padding-right: 0.625rem !important;
+}
+
+:root.sidebar-minimized .sidebar-label,
+body.sidebar-minimized .sidebar-label,
+:root.sidebar-minimized #sidebar-toggle-btn,
+body.sidebar-minimized #sidebar-toggle-btn {
+  display: none !important;
+}
+
+:root.sidebar-minimized #app-sidebar nav,
+body.sidebar-minimized #app-sidebar nav {
+  align-items: center;
+}
+
+:root.sidebar-minimized #app-sidebar nav a,
+body.sidebar-minimized #app-sidebar nav a {
+  justify-content: center !important;
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+  width: 44px !important;
+  height: 44px !important;
+  margin: 0 auto !important;
+}
+
+/* Minimized LinkedIn Pill */
+:root.sidebar-minimized #header-linkedin-pill,
+body.sidebar-minimized #header-linkedin-pill {
+  justify-content: center !important;
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+  width: 44px !important;
+  height: 44px !important;
+  margin: 0 auto 0.25rem auto !important;
+}
+:root.sidebar-minimized #header-linkedin-label,
+body.sidebar-minimized #header-linkedin-label {
+  display: none !important;
+}
+
+/* Brand header layout */
+#sidebar-brand-wrapper {
+  position: relative;
+  width: 36px;
+  height: 36px;
+}
+
+#sidebar-brand-icon {
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+#sidebar-expand-btn {
+  display: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 36px;
+  height: 36px;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+:root.sidebar-minimized #sidebar-header-row,
+body.sidebar-minimized #sidebar-header-row {
+  justify-content: center !important;
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+}
+
+/* Hover reveal on EasiApply icon when minimized */
+:root.sidebar-minimized #sidebar-brand-wrapper:hover #sidebar-brand-icon,
+body.sidebar-minimized #sidebar-brand-wrapper:hover #sidebar-brand-icon {
+  opacity: 0;
+  pointer-events: none;
+}
+:root.sidebar-minimized #sidebar-brand-wrapper:hover #sidebar-expand-btn,
+body.sidebar-minimized #sidebar-brand-wrapper:hover #sidebar-expand-btn {
+  display: flex !important;
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* ==========================================================================
+   Unified Status Pill System (Neo-Tech Capsule)
+   Consistent size, padding, typography, and glowing left-side indicator dots
+   ========================================================================== */
+
+@keyframes status-dot-pulse {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.55;
+    transform: scale(0.85);
+  }
+}
+
+.status-pill {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 6px !important;
+  height: 24px !important;
+  min-height: 24px !important;
+  max-height: 24px !important;
+  padding: 0 10px !important;
+  border-radius: 9999px !important;
+  font-family: var(--font-mono) !important;
+  font-size: 11px !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.03em !important;
+  line-height: 1 !important;
+  white-space: nowrap !important;
+  flex-shrink: 0 !important;
+  box-sizing: border-box !important;
+  user-select: none !important;
+  transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease, box-shadow 0.2s ease !important;
+}
+
+.status-pill-dot {
+  width: 6px !important;
+  height: 6px !important;
+  border-radius: 9999px !important;
+  flex-shrink: 0 !important;
+  display: inline-block !important;
+  transition: background-color 0.2s ease, box-shadow 0.2s ease !important;
+}
+
+.status-pill-text {
+  display: inline-block !important;
+  line-height: 1 !important;
+}
+
+/* --- State: Active / Connected / Live --- */
+.status-pill.status-pill-active {
+  background: rgba(182, 244, 56, 0.22) !important;
+  border: 1px solid rgba(73, 104, 0, 0.2) !important;
+  color: #334b00 !important;
+}
+.status-pill.status-pill-active .status-pill-dot {
+  background: #496800 !important;
+  box-shadow: 0 0 6px rgba(73, 104, 0, 0.7), 0 0 1px #496800 !important;
+  animation: status-dot-pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite !important;
+}
+
+[data-theme="dark"] .status-pill.status-pill-active {
+  background: rgba(182, 244, 56, 0.12) !important;
+  border: 1px solid rgba(182, 244, 56, 0.28) !important;
+  color: #b6f438 !important;
+}
+[data-theme="dark"] .status-pill.status-pill-active .status-pill-dot {
+  background: #b6f438 !important;
+  box-shadow: 0 0 8px #b6f438, 0 0 2px #b6f438 !important;
+  animation: status-dot-pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite !important;
+}
+
+/* Activity Console Terminal is dark in both themes */
+.bg-\[\#111315\] .status-pill.status-pill-active,
+[class*="bg-[#111315]"] .status-pill.status-pill-active {
+  background: rgba(182, 244, 56, 0.15) !important;
+  border: 1px solid rgba(182, 244, 56, 0.3) !important;
+  color: #b6f438 !important;
+}
+.bg-\[\#111315\] .status-pill.status-pill-active .status-pill-dot,
+[class*="bg-[#111315]"] .status-pill.status-pill-active .status-pill-dot {
+  background: #b6f438 !important;
+  box-shadow: 0 0 8px #b6f438, 0 0 2px #b6f438 !important;
+  animation: status-dot-pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite !important;
+}
+
+/* --- State: Inactive / Disconnected / Deactive (Grey) --- */
+.status-pill.status-pill-inactive {
+  background: var(--surface-container-high) !important;
+  border: 1px solid rgba(0, 0, 0, 0.06) !important;
+  color: var(--secondary) !important;
+}
+.status-pill.status-pill-inactive .status-pill-dot {
+  background: #9ca3af !important;
+  box-shadow: none !important;
+  animation: none !important;
+}
+
+[data-theme="dark"] .status-pill.status-pill-inactive {
+  background: var(--surface-container-high) !important;
+  border: 1px solid rgba(255, 255, 255, 0.06) !important;
+  color: var(--secondary) !important;
+}
+[data-theme="dark"] .status-pill.status-pill-inactive .status-pill-dot {
+  background: #6b7280 !important;
+  box-shadow: none !important;
+  animation: none !important;
+}
+
+/* --- State: Warning / Partially Operational / Testing --- */
+.status-pill.status-pill-warning {
+  background: rgba(245, 158, 11, 0.12) !important;
+  border: 1px solid rgba(217, 119, 6, 0.25) !important;
+  color: #b45309 !important;
+}
+.status-pill.status-pill-warning .status-pill-dot {
+  background: #d97706 !important;
+  box-shadow: 0 0 6px rgba(217, 119, 6, 0.6) !important;
+  animation: status-dot-pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite !important;
+}
+
+[data-theme="dark"] .status-pill.status-pill-warning {
+  background: rgba(245, 158, 11, 0.15) !important;
+  border: 1px solid rgba(245, 158, 11, 0.3) !important;
+  color: #fbbf24 !important;
+}
+[data-theme="dark"] .status-pill.status-pill-warning .status-pill-dot {
+  background: #f59e0b !important;
+  box-shadow: 0 0 8px rgba(245, 158, 11, 0.8) !important;
+  animation: status-dot-pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite !important;
+}
+
+/* --- State: Error / Setup Required --- */
+.status-pill.status-pill-error {
+  background: rgba(239, 68, 68, 0.1) !important;
+  border: 1px solid rgba(220, 38, 38, 0.2) !important;
+  color: #dc2626 !important;
+}
+.status-pill.status-pill-error .status-pill-dot {
+  background: #dc2626 !important;
+  box-shadow: none !important;
+  animation: none !important;
+}
+
+[data-theme="dark"] .status-pill.status-pill-error {
+  background: rgba(239, 68, 68, 0.15) !important;
+  border: 1px solid rgba(239, 68, 68, 0.3) !important;
+  color: #f87171 !important;
+}
+[data-theme="dark"] .status-pill.status-pill-error .status-pill-dot {
+  background: #ef4444 !important;
+  box-shadow: none !important;
+  animation: none !important;
+}
+
+/* --- Sidebar LinkedIn Indicator Dot Enhancement --- */
+#header-linkedin-dot.dot-connected {
+  background-color: #496800 !important;
+  box-shadow: 0 0 6px rgba(73, 104, 0, 0.7) !important;
+  animation: status-dot-pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite !important;
+}
+[data-theme="dark"] #header-linkedin-dot.dot-connected {
+  background-color: #b6f438 !important;
+  box-shadow: 0 0 8px #b6f438, 0 0 2px #b6f438 !important;
+  animation: status-dot-pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite !important;
+}
+#header-linkedin-dot.dot-disconnected {
+  background-color: #9ca3af !important;
+  box-shadow: none !important;
+  animation: none !important;
+}
+[data-theme="dark"] #header-linkedin-dot.dot-disconnected {
+  background-color: #6b7280 !important;
+  box-shadow: none !important;
+  animation: none !important;
+}
+
+/* ==========================================================================
+   Kinetic Neo-Tech Cockpit — Schedule Datetime Picker UI
+   ========================================================================== */
+.schedule-picker-wrapper {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+}
+
+.schedule-datetime-input {
+  font-family: var(--font-body), -apple-system, BlinkMacSystemFont, sans-serif !important;
+  font-size: 13px !important;
+  font-weight: 600 !important;
+  letter-spacing: -0.01em !important;
+  color: var(--on-surface) !important;
+  background-color: var(--surface-container) !important;
+  border: 1px solid var(--outline-variant) !important;
+  border-radius: var(--radius-full) !important;
+  padding: 6px 14px 6px 14px !important;
+  transition: all var(--dur-fast) var(--ease-out) !important;
+  cursor: pointer !important;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04) !important;
+}
+
+.schedule-datetime-input:hover {
+  background-color: var(--surface-container-high) !important;
+  border-color: var(--primary) !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08) !important;
+}
+
+.schedule-datetime-input:focus,
+.schedule-datetime-input:focus-visible {
+  outline: none !important;
+  background-color: var(--surface-container-lowest) !important;
+  border-color: var(--primary) !important;
+  box-shadow: 0 0 0 2px rgba(182, 244, 56, 0.45) !important;
+}
+
+/* Chrome/Safari calendar picker indicator */
+.schedule-datetime-input::-webkit-calendar-picker-indicator {
+  cursor: pointer !important;
+  filter: invert(0.35) !important;
+  opacity: 0.8 !important;
+  margin-left: 8px !important;
+  border-radius: 4px !important;
+  padding: 2px !important;
+  transition: transform var(--dur-fast) var(--ease-out), opacity var(--dur-fast) var(--ease-out) !important;
+}
+
+.schedule-datetime-input:hover::-webkit-calendar-picker-indicator {
+  opacity: 1 !important;
+  transform: scale(1.15) !important;
+  filter: invert(0.2) !important;
+}
+
+/* Dark mode overrides aligned to Cockpit tokens */
+[data-theme="dark"] .schedule-datetime-input {
+  background-color: var(--surface-container) !important;
+  border-color: var(--outline) !important;
+  color: var(--on-surface) !important;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.25) !important;
+}
+
+[data-theme="dark"] .schedule-datetime-input:hover {
+  background-color: var(--surface-container-high) !important;
+  border-color: var(--primary-container) !important;
+}
+
+[data-theme="dark"] .schedule-datetime-input:focus,
+[data-theme="dark"] .schedule-datetime-input:focus-visible {
+  background-color: #111315 !important;
+  border-color: var(--primary-container) !important;
+  box-shadow: 0 0 0 2px rgba(182, 244, 56, 0.35) !important;
+}
+
+[data-theme="dark"] .schedule-datetime-input::-webkit-calendar-picker-indicator {
+  filter: invert(0.85) sepia(0.35) hue-rotate(45deg) brightness(1.2) !important;
+  opacity: 0.9 !important;
+}
+
+[data-theme="dark"] .schedule-datetime-input:hover::-webkit-calendar-picker-indicator {
+  opacity: 1 !important;
+  filter: invert(0.9) sepia(0.5) hue-rotate(45deg) brightness(1.4) !important;
+  transform: scale(1.15) !important;
+}
+

@@ -1,0 +1,12 @@
+<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <g transform="translate(-112, -168)">
+    <g xmlns="http://www.w3.org/2000/svg">
+<rect x="115" y="174" width="16" height="12" rx="3" stroke="white" stroke-width="2" />
+<path d="M130.938 177.5H131.938C132.88 177.5 133.352 177.5 133.645 177.793C133.937 178.086 133.937 178.557 133.937 179.5V180.5C133.937 181.443 133.937 181.914 133.645 182.207C133.352 182.5 132.88 182.5 131.937 182.5H130.938" stroke="white" stroke-width="2" />
+<path d="M119 177.5V182.5" stroke="white" stroke-width="2" stroke-linecap="round" />
+<path d="M123 177.5V182.5" stroke="white" stroke-width="2" stroke-linecap="round" />
+<path d="M127 177.5V182.5" stroke="white" stroke-width="2" stroke-linecap="round" />
+</g>
+
+  </g>
+</svg>

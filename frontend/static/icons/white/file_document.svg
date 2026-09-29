@@ -1,0 +1,11 @@
+<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <g transform="translate(-336, 0)">
+    <g xmlns="http://www.w3.org/2000/svg">
+<path d="M343 21C341.895 21 341 20.1046 341 19V3H350L355 8V19C355 20.1046 354.105 21 353 21H343Z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+<path d="M342 20L348 14L354 20" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+<rect x="345.5" y="10.5" width="0.01" height="0.01" stroke="white" stroke-width="3" stroke-linejoin="round" />
+<path d="M349 3V9H355" stroke="white" stroke-width="2" stroke-linejoin="round" />
+</g>
+
+  </g>
+</svg>

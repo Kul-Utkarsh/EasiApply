@@ -1,0 +1,6 @@
+<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <g transform="translate(0, -56)">
+    <path xmlns="http://www.w3.org/2000/svg" d="M14.5 66C14.5 64.8954 13.6046 64 12.5 64H12M12 64H11.5C10.3954 64 9.5 64.8954 9.5 66C9.5 67.1046 10.3954 68 11.5 68H12M12 64V62.5M12 64V68M12 68H12.5C13.6046 68 14.5 68.8954 14.5 70C14.5 71.1046 13.6046 72 12.5 72H12M12 68V72M12 72H11.5C10.3954 72 9.5 71.1046 9.5 70M12 72V73.5M21 68C21 72.9706 16.9706 77 12 77C7.02944 77 3 72.9706 3 68C3 63.0294 7.02944 59 12 59C16.9706 59 21 63.0294 21 68Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+
+  </g>
+</svg>

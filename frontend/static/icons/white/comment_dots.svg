@@ -1,0 +1,11 @@
+<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <g transform="translate(-280, -56)">
+    <g xmlns="http://www.w3.org/2000/svg">
+<path d="M292 77C296.971 77 301 72.9706 301 68C301 63.0294 296.971 59 292 59C287.029 59 283 63.0294 283 68C283 69.4876 283.361 70.891 284 72.1272L283 77L287.873 76C289.109 76.6391 290.512 77 292 77Z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+<rect x="287.5" y="68" width="0.01" height="0.01" stroke="white" stroke-width="3" stroke-linejoin="round" />
+<rect x="292" y="68" width="0.01" height="0.01" stroke="white" stroke-width="3" stroke-linejoin="round" />
+<rect x="296.5" y="68" width="0.01" height="0.01" stroke="white" stroke-width="3" stroke-linejoin="round" />
+</g>
+
+  </g>
+</svg>

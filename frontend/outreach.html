@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>EasiApply — Applications &amp; Email Drafter</title>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <script>(function(){try{var t=localStorage.getItem("easiapply-theme");if(t==="dark"||(!t&&window.matchMedia("(prefers-color-scheme: dark)").matches)){document.documentElement.setAttribute("data-theme","dark");}if(localStorage.getItem("easiapply-compact")==="1"){document.documentElement.classList.add("compact-view");}}catch(e){}})();</script>
+  <!-- Material Symbols replaced with Figma Simple Icons -->
+  <link href="https://fonts.googleapis.com" rel="preconnect">
+  <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
+  <!-- Material Symbols replaced with Figma Simple Icons -->
+  <style>
+    @layer base {
+      html, body { margin: 0; padding: 0; }
+      body { overscroll-behavior: none; }
+      main > :first-child { margin-top: 0 !important; }
+      main > :last-child { margin-bottom: 0 !important; }
+    }
+    ::-webkit-scrollbar { display: none; }
+  </style>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="/static/theme.css" rel="stylesheet">
+  <script src="/static/xicons.js"></script>
+  <script src="/static/theme-config.js"></script>
+  <script>
+    if (localStorage.getItem("easiapply_sidebar_minimized") === "true") {
+      document.documentElement.classList.add("sidebar-minimized");
+    }
+  </script>
+</head>
+<body class="bg-surface font-body-md text-body-md text-on-surface antialiased selection:bg-primary-container selection:text-on-primary-fixed">
+
+  <!-- Sidebar -->
+  <aside id="app-sidebar" class="fixed left-0 top-0 h-full w-64 bg-surface-container-low z-50 flex flex-col justify-between py-space-lg px-space-md shadow-[0_1px_8px_rgba(0,0,0,0.04)]">
+    <div class="flex flex-col gap-space-lg">
+      <div id="sidebar-header-row" class="flex items-center justify-between px-space-sm min-h-[36px]">
+        <div id="sidebar-brand-wrapper" class="relative group/brand cursor-pointer shrink-0" title="EasiApply">
+          <div id="sidebar-brand-icon" class="w-9 h-9 rounded-xl bg-on-background flex items-center justify-center text-primary-container font-headline-md text-headline-md font-bold shrink-0">
+            <span class="material-symbols-outlined text-[20px]">bolt</span>
+          </div>
+          <button id="sidebar-expand-btn" type="button" aria-label="Expand sidebar" title="Expand sidebar" class="w-9 h-9 rounded-xl bg-primary-container text-on-primary-fixed flex items-center justify-center font-bold shadow-sm hover:brightness-105 transition-all cursor-pointer">
+            <span class="material-symbols-outlined text-[20px]">arrow_right_4_square</span>
+          </button>
+        </div>
+        <span class="font-headline-md text-headline-md tracking-tight font-bold text-on-surface sidebar-label ml-space-sm flex-1 truncate">EasiApply</span>
+        <button id="sidebar-toggle-btn" type="button" aria-label="Minimize sidebar" title="Minimize sidebar" class="w-8 h-8 rounded-full flex items-center justify-center text-secondary hover:text-on-surface hover:bg-surface-container transition-all cursor-pointer shrink-0">
+          <span class="material-symbols-outlined text-[18px]">arrow_left_4_square</span>
+        </button>
+      </div>
+      <nav class="flex flex-col gap-space-xs" data-active-classes="bg-primary-container text-on-primary-fixed font-bold rounded-full shadow-[0_4px_16px_rgba(182,244,56,0.25)]">
+        <a class="flex items-center gap-space-sm px-space-md py-space-sm text-secondary hover:bg-surface-container-highest hover:text-on-surface transition-all rounded-full font-label-md text-label-md" data-path="dashboard" href="#" title="Dashboard">
+          <span class="material-symbols-outlined text-[20px]">category_3</span><span class="sidebar-label">Dashboard</span>
+        </a>
+        <a class="flex items-center gap-space-sm px-space-md py-space-sm text-secondary hover:bg-surface-container-highest hover:text-on-surface transition-all rounded-full font-label-md text-label-md" data-path="profile" href="#" title="Profile">
+          <span class="material-symbols-outlined text-[20px]">user_02</span><span class="sidebar-label">Profile</span>
+        </a>
+        <a class="flex items-center gap-space-sm px-space-md py-space-sm text-secondary hover:bg-surface-container-highest hover:text-on-surface transition-all rounded-full font-label-md text-label-md" data-path="matches" href="#" title="Matches">
+          <span class="material-symbols-outlined text-[20px]">discover</span><span class="sidebar-label">Matches</span>
+        </a>
+        <a aria-current="page" class="flex items-center gap-space-sm px-space-md py-space-sm transition-all bg-primary-container text-on-primary-fixed font-bold rounded-full shadow-[0_4px_16px_rgba(182,244,56,0.25)]" data-path="outreach" href="#" title="Applications">
+          <span class="material-symbols-outlined text-[20px]">file_document</span><span class="sidebar-label">Applications</span>
+        </a>
+        <a class="flex items-center gap-space-sm px-space-md py-space-sm text-secondary hover:bg-surface-container-highest hover:text-on-surface transition-all rounded-full font-label-md text-label-md" data-path="analytics" href="#" title="Analytics">
+          <span class="material-symbols-outlined text-[20px]">chart_bar_vertical_01</span><span class="sidebar-label">Analytics</span>
+        </a>
+      </nav>
+    </div>
+    <div class="flex flex-col gap-space-xs pt-space-md border-t border-surface-container-high/40">
+      <div id="header-linkedin-pill" class="flex items-center gap-2 px-3 py-2 bg-surface-container hover:bg-surface-container-high rounded-full text-secondary font-label-md text-[13px] transition-all cursor-pointer shadow-sm mb-1" title="LinkedIn Connection Status">
+        <span id="header-linkedin-dot" class="w-2 h-2 rounded-full bg-emerald-500 shrink-0"></span>
+        <span id="header-linkedin-label" class="font-bold text-on-surface truncate text-xs sidebar-label">LinkedIn: Checking...</span>
+      </div>
+      <nav data-active-classes="bg-primary-container text-on-primary-fixed font-bold rounded-full shadow-[0_4px_16px_rgba(182,244,56,0.25)]">
+        <a class="flex items-center gap-space-sm px-space-md py-space-sm text-secondary hover:bg-surface-container-highest hover:text-on-surface transition-all rounded-full font-label-md text-label-md" data-path="settings" href="#" title="Settings">
+          <span class="material-symbols-outlined text-[20px]">settings_1</span><span class="sidebar-label">Settings</span>
+        </a>
+      </nav>
+    </div>
+  </aside>
+
+  <!-- Main Content Layout -->
+  <div id="main-wrapper" class="pl-64 flex flex-col min-h-screen">
+
+    <!-- Top Navigation Header -->
+    <header id="app-header" class="fixed top-0 right-0 left-64 h-16 bg-surface/80 backdrop-blur-md z-40 px-space-xl flex items-center justify-between border-b border-surface-container-high/40">
+      <div class="flex items-center gap-space-sm">
+        <h1 class="font-headline-sm text-headline-sm font-bold text-on-surface">Applications</h1>
+      </div>
+      <div class="flex items-center gap-6">
+        <div class="flex items-center gap-2.5">
+          <span class="font-code-header text-code-header uppercase tracking-wider text-tertiary">System Status</span>
+          <div class="status-pill status-pill-active" id="header-system-status">
+            <span class="status-pill-dot"></span>
+            <span class="status-pill-text">Operational</span>
+          </div>
+        </div>
+        <div class="flex items-center gap-3">
+          <button id="scrape-stop-btn" type="button" aria-label="Stop scrape session" class="hidden items-center gap-space-xs px-space-md py-space-xs bg-error text-on-error rounded-full font-label-md text-label-md font-bold shadow-sm transition-all hover:bg-error/90">
+            <span class="material-symbols-outlined text-[18px]">octagon_warning</span><span>Stop</span>
+          </button>
+          <button id="darkmode-toggle-header" data-darkmode-toggle aria-label="Toggle dark mode" class="w-9 h-9 rounded-full bg-surface-container-lowest flex items-center justify-center text-secondary hover:text-on-surface hover:bg-surface-container-high transition-colors shadow-[0_1px_4px_rgba(0,0,0,0.04)] cursor-pointer" type="button">
+            <span class="material-symbols-outlined text-[20px]">mode_-__dark</span>
+          </button>
+
+          <button id="app-exit-btn" aria-label="Exit Application" class="w-9 h-9 rounded-full bg-error flex items-center justify-center text-white hover:brightness-110 active:scale-95 transition-all shadow-[0_1px_4px_rgba(0,0,0,0.04)] cursor-pointer" type="button" title="Shutdown Application">
+            <span class="material-symbols-outlined text-[20px]">stop_sign</span>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <!-- Main Workspace -->
+    <main class="relative pt-20 w-full bg-surface px-space-xl py-space-xl">
+
+      <!-- STATE DEFAULT: Empty State when no jobs scraped yet -->
+      <div id="state-default" class="flex flex-col w-full gap-space-lg pb-space-xl">
+        <div class="bg-surface-container-lowest rounded-[28px] p-space-xl shadow-[0_8px_32px_rgba(17,19,21,0.03)] flex flex-col items-center justify-center text-center py-20 px-space-lg">
+          <div class="relative w-40 h-40 flex items-center justify-center mb-space-lg">
+            <div class="absolute inset-0 rounded-full border border-dashed border-surface-container-high animate-pulse"></div>
+            <div class="absolute w-28 h-28 rounded-full border border-dashed border-primary-container/40"></div>
+            <div class="relative w-16 h-16 rounded-2xl bg-surface-container flex items-center justify-center shadow-sm text-primary">
+              <span class="material-symbols-outlined text-[32px]">edit_note</span>
+            </div>
+          </div>
+          <h2 class="font-headline-md text-headline-md font-bold text-on-surface tracking-tight mb-2">No Job Selected For Application</h2>
+          <p class="font-body-md text-body-md text-secondary max-w-lg mb-space-lg leading-relaxed">
+            Pick an indexed opportunity from your Matches list or run a LinkedIn search from Dashboard to open the Job Detail &amp; Email Drafter.
+          </p>
+          <div class="flex items-center gap-space-sm flex-wrap justify-center">
+            <a class="inline-flex items-center gap-space-xs px-space-xl py-3 rounded-full bg-primary-container text-on-primary-fixed hover:bg-primary-fixed-dim font-headline-sm text-headline-sm font-bold shadow-[0_4px_16px_rgba(182,244,56,0.35)] transition-all hover:scale-105 active:scale-95" data-path="matches" href="#">
+              <span class="material-symbols-outlined text-[20px]">auto_awesome</span><span>View Matches</span>
+            </a>
+            <a class="inline-flex items-center gap-space-xs px-space-lg py-3 rounded-full bg-surface-container-highest text-on-surface hover:bg-surface-container-high font-label-md text-label-md font-bold transition-all" data-path="dashboard" href="#">
+              <span class="material-symbols-outlined text-[18px]">category_3</span><span>Go to Dashboard</span>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- STATE QUEUE: Initial Screen Showing All Extracted Results List -->
+      <div id="state-queue" class="hidden flex flex-col w-full gap-space-lg pb-space-xl">
+        
+        <!-- Section Toggle Bar (Opportunities | Outbox Queue | Sent Emails) -->
+        <div class="flex items-center justify-between gap-space-md">
+          <div class="flex items-center bg-surface-container-high p-1.5 rounded-full shadow-sm" id="applications-section-tabs">
+            <button class="app-section-tab active inline-flex items-center gap-2 px-6 py-2.5 rounded-full bg-primary-container text-on-primary-fixed font-headline-sm text-[14px] sm:text-[15px] font-bold shadow-[0_3px_12px_rgba(182,244,56,0.35)] transition-all cursor-pointer" data-section="opportunities" type="button">
+              <span class="material-symbols-outlined text-[19px]">travel_explore</span>
+              <span>Opportunities</span>
+              <span id="badge-opps-count" class="text-[11px] px-2.5 py-0.5 rounded-full bg-on-primary-fixed/20 text-on-primary-fixed font-mono font-bold">0</span>
+            </button>
+            <button class="app-section-tab inline-flex items-center gap-2 px-6 py-2.5 rounded-full text-secondary hover:text-on-surface font-headline-sm text-[14px] sm:text-[15px] font-semibold transition-colors cursor-pointer" data-section="outbox" type="button">
+              <span class="material-symbols-outlined text-[19px]">outbox</span>
+              <span>Outbox Queue</span>
+              <span id="badge-outbox-count" class="text-[11px] px-2.5 py-0.5 rounded-full bg-surface-container-highest text-secondary font-mono font-bold">0</span>
+            </button>
+            <button class="app-section-tab inline-flex items-center gap-2 px-6 py-2.5 rounded-full text-secondary hover:text-on-surface font-headline-sm text-[14px] sm:text-[15px] font-semibold transition-colors cursor-pointer" data-section="sent" type="button">
+              <span class="material-symbols-outlined text-[19px]">mark_email_read</span>
+              <span>Sent Emails</span>
+              <span id="badge-sent-count" class="text-[11px] px-2.5 py-0.5 rounded-full bg-surface-container-highest text-secondary font-mono font-bold">0</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- TAB 1: Opportunities Section (Filter & Search Toolbar + Results List) -->
+        <div id="app-section-opportunities" class="flex flex-col w-full gap-space-lg">
+          <!-- Filter & Search Bar for Queue -->
+          <div class="flex flex-col gap-space-sm p-space-md bg-surface-container-lowest rounded-2xl shadow-sm">
+            <div class="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-space-sm">
+              <div class="relative flex-1 flex items-center">
+                <span class="material-symbols-outlined absolute left-3 text-secondary text-[20px]">search</span>
+                <input id="queue-search-input" type="text" placeholder="Filter by role, company, or recruiter..." class="w-full bg-surface-container-low pl-10 pr-4 py-2 rounded-full font-body-md text-body-md text-on-surface focus:outline-none transition-all">
+              </div>
+              <div class="flex items-center gap-2 flex-wrap">
+                <span id="queue-total-pill" class="px-space-md py-1.5 bg-primary-container/25 text-on-primary-container rounded-full font-label-md text-label-md font-bold shrink-0">0 Opportunities</span>
+                <button class="queue-filter-btn active px-3.5 py-1.5 rounded-full font-label-md text-label-md font-semibold bg-primary-container text-on-primary-fixed transition-all cursor-pointer" data-filter="all" type="button">All</button>
+                <button class="queue-filter-btn px-3.5 py-1.5 rounded-full font-label-md text-label-md font-semibold bg-surface-container text-secondary hover:text-on-surface transition-all cursor-pointer" data-filter="email" type="button">Direct Email</button>
+                <button class="queue-filter-btn px-3.5 py-1.5 rounded-full font-label-md text-label-md font-semibold bg-surface-container text-secondary hover:text-on-surface transition-all cursor-pointer" data-filter="inmail" type="button">Connection Notes</button>
+              </div>
+            </div>
+
+            <!-- Queue Timeline & Sort toolbar -->
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-space-xs pt-1 border-t border-surface-container-high/40">
+              <div class="flex items-center gap-1.5 flex-wrap" id="queue-timeline-chips">
+                <span class="font-code-header text-code-header text-tertiary uppercase text-[11px] mr-1">Timeline:</span>
+                <button class="queue-timeline-btn active px-3 py-1 rounded-full font-label-md text-[12px] font-semibold bg-primary-container text-on-primary-fixed cursor-pointer transition-all" data-timeline="all" type="button">All Time</button>
+                <button class="queue-timeline-btn px-3 py-1 rounded-full font-label-md text-[12px] font-semibold bg-surface-container text-secondary hover:text-on-surface cursor-pointer transition-all" data-timeline="today" type="button">Today</button>
+                <button class="queue-timeline-btn px-3 py-1 rounded-full font-label-md text-[12px] font-semibold bg-surface-container text-secondary hover:text-on-surface cursor-pointer transition-all" data-timeline="yesterday" type="button">Yesterday</button>
+                <button class="queue-timeline-btn px-3 py-1 rounded-full font-label-md text-[12px] font-semibold bg-surface-container text-secondary hover:text-on-surface cursor-pointer transition-all" data-timeline="7d" type="button">Last 7 Days</button>
+                <button class="queue-timeline-btn px-3 py-1 rounded-full font-label-md text-[12px] font-semibold bg-surface-container text-secondary hover:text-on-surface cursor-pointer transition-all" data-timeline="custom" type="button">Custom Range</button>
+              </div>
+              <div id="queue-custom-date-container" class="hidden flex items-center gap-2 pt-1 sm:pt-0">
+                <input type="date" id="queue-start-date" class="bg-surface-container-low text-on-surface text-[12px] px-2.5 py-1 rounded-lg">
+                <span class="text-tertiary text-[12px]">to</span>
+                <input type="date" id="queue-end-date" class="bg-surface-container-low text-on-surface text-[12px] px-2.5 py-1 rounded-lg">
+              </div>
+            </div>
+          </div>
+
+          <!-- Master Card Container for Extracted Opportunities (Separated by Divider Lines & Custom Scroller) -->
+          <div class="bg-surface-container-lowest rounded-3xl shadow-sm overflow-hidden">
+            <div class="flex flex-col max-h-[660px] overflow-y-auto custom-card-scroll divide-y divide-surface-container-high/50" id="outreach-queue-container"></div>
+          </div>
+        </div>
+
+        <!-- TAB 2: Outbox Queue & Delivery Status Section -->
+        <div id="app-section-outbox" class="hidden flex flex-col w-full gap-space-lg">
+          <div class="bg-surface-container-lowest rounded-3xl p-space-xl shadow-sm flex flex-col gap-space-md">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between pb-space-sm border-b border-surface-container-high gap-space-sm">
+              <div class="flex items-center gap-space-sm">
+                <span class="material-symbols-outlined text-primary text-[24px]">outbox</span>
+                <div>
+                  <h3 class="font-headline-sm text-headline-sm text-on-surface font-bold">Outbox Queue &amp; Delivery Status</h3>
+                  <p class="font-body-sm text-body-sm text-secondary card-sub">Scheduled emails throttled to your daily safe limit</p>
+                </div>
+              </div>
+              <!-- Queue Controls: Pause/Resume, Clear Queue, Refresh -->
+              <div class="flex items-center gap-2 flex-wrap">
+                <button id="toggle-outbox-pause-btn" type="button" class="flex items-center gap-1 px-3.5 py-1.5 rounded-full bg-surface-container text-on-surface hover:bg-surface-container-highest font-label-md text-label-md font-bold transition-all cursor-pointer">
+                  <span class="material-symbols-outlined text-[18px] text-amber-500" id="outbox-pause-icon">pause_circle</span>
+                  <span id="outbox-pause-label">Pause Auto-Send</span>
+                </button>
+                <button id="clear-outbox-btn" type="button" class="flex items-center gap-1 px-3.5 py-1.5 rounded-full bg-error-container/40 text-on-error-container hover:bg-error-container font-label-md text-label-md font-bold transition-all cursor-pointer">
+                  <span class="material-symbols-outlined text-[18px]">delete_sweep</span>
+                  <span>Clear Queue</span>
+                </button>
+                <button id="refresh-outbox-btn" type="button" class="flex items-center gap-1 px-3 py-1.5 rounded-full bg-surface-container text-secondary hover:text-on-surface hover:bg-surface-container-highest font-code-terminal text-code-terminal transition-colors cursor-pointer">
+                  <span class="material-symbols-outlined text-[16px]">refresh</span><span>Refresh</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- Pending Outbox Queue Table -->
+            <div class="overflow-x-auto">
+              <table class="w-full text-left font-body-sm text-body-sm">
+                <thead>
+                  <tr class="border-b border-surface-container-high text-tertiary font-code-header text-code-header uppercase">
+                    <th class="py-2.5 px-3">Recipient</th>
+                    <th class="py-2.5 px-3">Subject</th>
+                    <th class="py-2.5 px-3">Scheduled</th>
+                    <th class="py-2.5 px-3">Status</th>
+                    <th class="py-2.5 px-3 text-right">Action</th>
+                  </tr>
+                </thead>
+                <tbody id="outbox-table-body">
+                  <tr>
+                    <td colspan="5" class="py-6 text-center text-secondary">No emails queued yet. Click "Queue for Auto-Send" above.</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- TAB 3: Recently Dispatched Outreach / Sent Emails Section -->
+        <div id="app-section-sent" class="hidden flex flex-col w-full gap-space-lg">
+          <div class="bg-surface-container-lowest rounded-3xl p-space-xl shadow-sm flex flex-col gap-space-md">
+            <div class="flex items-center justify-between pb-space-sm border-b border-surface-container-high">
+              <div class="flex items-center gap-space-sm">
+                <span class="material-symbols-outlined text-primary text-[24px]">mark_email_read</span>
+                <div>
+                  <h3 class="font-headline-sm text-headline-sm text-on-surface font-bold">Recently Dispatched Outreach</h3>
+                  <p class="font-body-sm text-body-sm text-secondary card-sub">Verified sent emails delivered via SMTP</p>
+                </div>
+              </div>
+              <span id="sent-outbox-count-pill" class="px-3 py-1 rounded-full bg-primary-container/20 text-on-primary-container font-label-md text-label-md font-bold">0 Sent</span>
+            </div>
+
+            <div class="overflow-x-auto">
+              <table id="sent-outbox-table" class="w-full text-left font-body-sm text-body-sm">
+                <thead>
+                  <tr class="border-b border-surface-container-high text-tertiary font-code-header text-code-header uppercase">
+                    <th class="py-2.5 px-3">Recipient</th>
+                    <th class="py-2.5 px-3">Subject</th>
+                    <th class="py-2.5 px-3">Sent Timestamp</th>
+                    <th class="py-2.5 px-3">Attachment</th>
+                    <th class="py-2.5 px-3 text-right">Status</th>
+                  </tr>
+                </thead>
+                <tbody id="sent-outbox-table-body">
+                  <tr>
+                    <td colspan="5" class="py-6 text-center text-secondary">No dispatched emails recorded yet.</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- STATE SUCCESS: Two-Pane Job Detail & Outreach Composer -->
+      <div id="state-success" class="hidden flex flex-col w-full gap-space-lg pb-space-xl">
+
+        <!-- Top Navigation & Role Switcher Bar -->
+        <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-space-md p-space-md bg-surface-container-lowest rounded-2xl shadow-sm">
+          <div class="flex items-center gap-space-md flex-wrap min-w-0">
+            <button id="back-to-queue-btn" type="button" class="inline-flex items-center gap-space-xs px-space-md py-2 bg-surface-container text-on-surface hover:bg-surface-container-highest transition-all rounded-full font-label-md text-label-md shadow-sm cursor-pointer">
+              <span class="material-symbols-outlined text-[18px]">arrow_back</span>
+              <span>Back to Applications</span>
+            </button>
+            <div class="flex items-center gap-2 relative">
+              <span class="font-code-header text-code-header text-tertiary uppercase shrink-0">Target Job:</span>
+              <div class="relative" id="outreach-dropdown-wrapper">
+                <select id="outreach-selector" class="hidden sr-only"></select>
+                <button id="outreach-dropdown-btn" type="button" aria-haspopup="listbox" aria-expanded="false" class="inline-flex items-center justify-between gap-3 pl-4 pr-3.5 py-2 bg-surface-container-low hover:bg-surface-container-high text-on-surface rounded-full font-label-md text-label-md font-bold transition-all shadow-xs cursor-pointer max-w-[240px] sm:max-w-[340px] md:max-w-[420px]">
+                  <span id="outreach-dropdown-label" class="truncate text-left font-bold text-on-surface">Select Target Job...</span>
+                  <span id="outreach-dropdown-arrow" class="material-symbols-outlined text-[20px] text-secondary transition-transform duration-200 shrink-0 select-none">expand_more</span>
+                </button>
+                <div id="outreach-dropdown-menu" class="hidden absolute left-0 top-full mt-2 w-[320px] sm:w-[420px] max-w-[90vw] bg-surface-container-lowest text-on-surface rounded-2xl shadow-[0_12px_36px_rgba(0,0,0,0.12)] dark:shadow-[0_12px_40px_rgba(0,0,0,0.6)] border border-surface-container-high/40 dark:border-none p-1.5 z-50 max-h-80 overflow-y-auto space-y-1 log-feed-scroll"></div>
+              </div>
+            </div>
+          </div>
+          <div class="flex items-center gap-space-xs shrink-0 self-end md:self-auto">
+            <button id="prev-job-btn" type="button" title="Previous Opportunity" class="w-9 h-9 rounded-full bg-surface-container flex items-center justify-center text-secondary hover:text-on-surface hover:bg-surface-container-highest transition-colors">
+              <span class="material-symbols-outlined text-[18px]">chevron_left</span>
+            </button>
+            <span id="job-counter-pill" class="font-code-terminal text-code-terminal text-tertiary px-2">1 of 1</span>
+            <button id="next-job-btn" type="button" title="Next Opportunity" class="w-9 h-9 rounded-full bg-surface-container flex items-center justify-center text-secondary hover:text-on-surface hover:bg-surface-container-highest transition-colors">
+              <span class="material-symbols-outlined text-[18px]">chevron_right</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Two-Pane Split Layout -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-space-lg items-start">
+
+          <!-- LEFT PANE: Job Detail & Match Analysis (5 Cols) -->
+          <div class="lg:col-span-5 flex flex-col gap-space-lg">
+
+            <!-- Consolidated Job & Recruiter Overview Card -->
+            <div class="relative overflow-hidden bg-surface-container-lowest rounded-3xl p-space-lg shadow-sm flex flex-col gap-space-md">
+              <div class="absolute -right-8 -top-8 w-44 h-44 bg-primary-container/15 rounded-full blur-3xl pointer-events-none"></div>
+              
+              <!-- Top Row: Initial + Role Title + Recruiter/Company Subtitle + Badges -->
+              <div class="flex items-start justify-between gap-space-md">
+                <div class="flex items-start gap-space-md min-w-0 flex-1">
+                  <div id="outreach-company-initial" class="w-14 h-14 rounded-2xl bg-inverse-surface flex items-center justify-center text-primary-container font-headline-lg font-bold shadow-md select-none shrink-0">
+                    ?
+                  </div>
+                  <div class="min-w-0 flex-1">
+                    <h1 id="outreach-role-title" class="font-headline-md text-headline-md text-on-surface font-bold tracking-tight truncate">Job Title</h1>
+                    <div class="flex items-center gap-space-xs text-secondary mt-1 flex-wrap">
+                      <span class="material-symbols-outlined text-[16px] text-tertiary">person</span>
+                      <span id="outreach-recruiter-name" class="font-label-md text-label-md font-semibold text-on-surface truncate">Hiring Manager</span>
+                      <span class="text-tertiary">•</span>
+                      <span id="outreach-company-name" class="font-label-md text-label-md text-tertiary truncate">Company</span>
+                      <span class="material-symbols-outlined text-primary text-[16px]">circle_check</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="flex items-center gap-space-xs shrink-0 self-start">
+                  <span id="outreach-status-badge" class="px-space-sm py-1 bg-surface-container-high text-on-surface rounded-full font-label-md text-label-md font-bold">Scraped</span>
+                  <span id="outreach-score-badge" class="px-space-sm py-1 bg-primary-container text-on-primary-fixed rounded-full font-label-md text-label-md font-bold">--% Match</span>
+                </div>
+              </div>
+
+              <!-- Middle Row: Location & Direct Contact Info -->
+              <div class="flex flex-wrap items-center gap-y-space-xs gap-x-space-md text-tertiary text-body-sm py-2 border-t border-b border-surface-container-high/40">
+                <div class="flex items-center gap-space-xs">
+                  <span class="material-symbols-outlined text-[18px] text-secondary">location_on</span>
+                  <span id="outreach-location" class="text-on-surface font-medium">Location not specified in post</span>
+                </div>
+                <div class="flex items-center gap-space-xs">
+                  <span class="material-symbols-outlined text-[18px] text-secondary">share_2</span>
+                  <span id="outreach-source-type" class="text-secondary">LinkedIn Feed</span>
+                </div>
+                <div class="flex items-center gap-space-xs">
+                  <span class="material-symbols-outlined text-[18px] text-secondary">mail</span>
+                  <span id="outreach-contact-email-label" class="font-code-terminal text-code-terminal text-primary font-bold">No direct email detected</span>
+                </div>
+                <span id="outreach-recruiter-info" class="hidden">Direct Contact</span>
+              </div>
+
+              <!-- Bottom Row: The Two Link Action Pills -->
+              <div class="flex items-center gap-space-sm flex-wrap pt-0.5">
+                <a id="outreach-recruiter-link" class="inline-flex items-center gap-1.5 px-4 py-2 bg-surface-container hover:bg-surface-container-highest transition-all rounded-full font-label-md text-label-md text-on-surface font-semibold shadow-sm" href="#" rel="noopener noreferrer" target="_blank">
+                  <span class="material-symbols-outlined text-[16px] text-primary">person</span>
+                  <span>View Recruiter Profile</span>
+                </a>
+                <div id="outreach-link-wrapper" class="inline-flex items-center">
+                  <a id="outreach-post-url" class="inline-flex items-center gap-1.5 px-4 py-2 bg-surface-container hover:bg-surface-container-highest transition-all rounded-full font-label-md text-label-md text-on-surface font-semibold shadow-sm" href="#" target="_blank" rel="noopener noreferrer">
+                    <span class="material-symbols-outlined text-[16px] text-primary">open_in_new</span>
+                    <span>View Post / Job</span>
+                  </a>
+                </div>
+              </div>
+            </div>
+
+            <!-- Match Analysis Module -->
+            <div class="bg-surface-container-lowest rounded-3xl p-space-lg shadow-sm">
+              <div class="flex items-center justify-between mb-space-md">
+                <div class="flex items-center gap-space-xs">
+                  <span class="material-symbols-outlined text-primary text-[20px]">troubleshoot</span>
+                  <h2 class="font-headline-sm text-headline-sm text-on-surface font-bold">Match Analysis</h2>
+                </div>
+                <span class="font-code-header text-code-header text-tertiary uppercase">AI Calibration</span>
+              </div>
+
+              <!-- Metric Gauges -->
+              <div class="grid grid-cols-3 gap-space-sm mb-space-md text-center">
+                <div class="flex flex-col items-center p-space-sm rounded-2xl bg-surface-container-low">
+                  <span id="outreach-gauge-match" class="font-headline-sm text-headline-sm font-bold text-primary">--%</span>
+                  <span class="font-label-md text-label-md text-on-surface font-medium mt-1">Match Fit</span>
+                  <span class="font-body-sm text-body-sm text-tertiary">Semantic vector</span>
+                </div>
+                <div class="flex flex-col items-center p-space-sm rounded-2xl bg-surface-container-low">
+                  <span id="outreach-gauge-ats" class="font-headline-sm text-headline-sm font-bold text-on-surface">--%</span>
+                  <span class="font-label-md text-label-md text-on-surface font-medium mt-1">ATS Score</span>
+                  <span class="font-body-sm text-body-sm text-tertiary">Parser score</span>
+                </div>
+                <div class="flex flex-col items-center p-space-sm rounded-2xl bg-surface-container-low">
+                  <span id="outreach-gauge-keywords" class="font-headline-sm text-headline-sm font-bold text-on-surface font-code-terminal">--</span>
+                  <span class="font-label-md text-label-md text-on-surface font-medium mt-1">Missing Keys</span>
+                  <span class="font-body-sm text-body-sm text-tertiary">Skill gap</span>
+                </div>
+              </div>
+
+              <div class="p-space-md rounded-2xl bg-surface-container-low flex flex-col gap-space-xs">
+                <div class="flex items-center gap-space-xs text-on-surface font-label-md text-label-md font-bold">
+                  <span class="material-symbols-outlined text-primary text-[18px]">circle_check</span>
+                  <span>AI Qualification &amp; Reasoning:</span>
+                </div>
+                <p id="outreach-reasoning" class="font-body-sm text-body-sm text-secondary leading-relaxed whitespace-pre-wrap">
+                  Awaiting analysis. Scoring takes place automatically after scraping or via the Matches dashboard.
+                </p>
+              </div>
+
+            </div>
+
+            <!-- LinkedIn Connection Note (<300 chars) Card -->
+            <div id="linkedin-note-section" class="bg-surface-container-lowest rounded-3xl p-space-lg shadow-sm flex flex-col gap-space-md">
+              <div class="flex items-center justify-between">
+                <div class="flex items-center gap-space-xs">
+                  <span class="material-symbols-outlined text-primary text-[20px]">chat_dots</span>
+                  <h2 class="font-headline-sm text-headline-sm font-bold text-on-surface">LinkedIn Connection Note <span class="text-primary font-mono text-[13px] font-normal">(&lt;300 chars)</span></h2>
+                </div>
+                <div class="flex items-center gap-2">
+                  <span id="linkedin-note-counter" class="font-mono text-[12px] px-2.5 py-0.5 rounded-full bg-surface-container text-secondary font-bold transition-colors">
+                    <span id="linkedin-note-char-count">0</span> / 300
+                  </span>
+                </div>
+              </div>
+              <p class="font-body-sm text-body-sm text-secondary -mt-1">
+                High-converting intro tailored for LinkedIn connection requests (&lt;300 character limit).
+              </p>
+              <div class="relative flex flex-col gap-1.5">
+                <textarea id="linkedin-note-input" maxlength="300" rows="3" class="w-full bg-surface-container-low text-on-surface font-body-sm text-body-sm p-3.5 rounded-2xl resize-none focus:outline-none focus:ring-1 focus:ring-primary/50 transition-all placeholder:text-tertiary border border-surface-container-high/50" placeholder="Type or auto-generate a custom 300-char LinkedIn connection note..."></textarea>
+                <div class="w-full bg-surface-container h-1.5 rounded-full overflow-hidden">
+                  <div id="linkedin-note-progress-bar" class="bg-primary h-full rounded-full transition-all duration-150" style="width: 0%;"></div>
+                </div>
+              </div>
+              <div class="flex items-center justify-between pt-0.5 flex-wrap gap-2">
+                <button id="generate-linkedin-note-btn" type="button" class="inline-flex items-center gap-1.5 px-3.5 py-2 bg-surface-container hover:bg-surface-container-highest text-on-surface rounded-full font-label-md text-label-md font-semibold transition-all cursor-pointer">
+                  <span class="material-symbols-outlined text-[16px] text-primary">auto_fix_high</span>
+                  <span>Generate 300-char Note</span>
+                </button>
+                <div class="flex items-center gap-2">
+                  <button id="copy-linkedin-note-btn" type="button" class="inline-flex items-center gap-1.5 px-3.5 py-2 bg-surface-container hover:bg-surface-container-highest text-on-surface rounded-full font-label-md text-label-md font-semibold transition-all cursor-pointer">
+                    <span class="material-symbols-outlined text-[16px]">content_copy</span>
+                    <span>Copy Note</span>
+                  </button>
+                  <button id="copy-open-linkedin-btn" type="button" class="inline-flex items-center gap-1.5 px-4 py-2 bg-primary-container text-on-primary-fixed hover:brightness-105 active:scale-95 rounded-full font-label-md text-label-md font-bold shadow-xs transition-all cursor-pointer">
+                    <span class="material-symbols-outlined text-[16px]">rocket_launch</span>
+                    <span>Copy &amp; Open LinkedIn</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Job Description Accordion Section (Fixed Max-Height with Internal Scroll) -->
+            <div class="bg-surface-container-lowest rounded-3xl p-space-lg shadow-sm flex flex-col gap-space-md">
+              <div class="flex items-center justify-between cursor-pointer select-none accordion-toggle" data-target="accordion-content">
+                <div class="flex items-center gap-space-xs">
+                  <span class="material-symbols-outlined text-[20px] text-tertiary">description</span>
+                  <h2 class="font-headline-sm text-headline-sm text-on-surface font-bold">Role Overview &amp; Description</h2>
+                </div>
+                <button id="toggle-role-overview-btn" aria-label="Toggle role overview" class="w-8 h-8 rounded-full bg-surface-container flex items-center justify-center text-on-surface transition-transform duration-200 chevron-icon accordion-toggle cursor-pointer" data-target="accordion-content" type="button">
+                  <span class="material-symbols-outlined text-[20px]">expand_more</span>
+                </button>
+              </div>
+              <div class="accordion-content pt-space-xs font-body-sm text-body-sm text-secondary leading-relaxed max-h-[280px] overflow-y-auto pr-2 whitespace-pre-wrap" id="accordion-content">
+                <p id="outreach-full-description">No full description captured for this listing.</p>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- RIGHT PANE: Email Drafter Module (7 Cols) -->
+          <div class="lg:col-span-7 flex flex-col gap-space-lg">
+
+            <div class="bg-surface-container-lowest rounded-3xl p-space-xl shadow-sm flex flex-col gap-space-md">
+              
+              <!-- Header & Editor / Preview Mode Toggle -->
+              <div class="flex items-center justify-between pb-space-sm border-b border-surface-container-high">
+                <div>
+                  <h2 class="font-headline-md text-headline-md text-on-surface font-bold">Email Drafter</h2>
+                  <p class="font-body-sm text-body-sm text-tertiary">Tailored cold email and application pitch generated from your resume</p>
+                </div>
+                <div class="flex items-center gap-space-xs bg-surface-container-low p-1 rounded-full">
+                  <button class="px-space-md py-1 rounded-full font-label-md text-label-md bg-surface-container-lowest text-on-surface shadow-sm font-semibold transition-all" id="tab-write" type="button">
+                    Editor
+                  </button>
+                  <button class="px-space-md py-1 rounded-full font-label-md text-label-md text-secondary hover:text-on-surface transition-all" id="tab-preview" type="button">
+                    Preview
+                  </button>
+                </div>
+              </div>
+
+
+
+              <!-- Email Headers (TO & SUBJECT) -->
+              <div class="flex flex-col gap-space-sm">
+                <!-- TO Field (Multi-Recipient Supported) -->
+                <div id="outreach-to-email-row" class="flex items-center bg-surface-container-low rounded-2xl px-space-md py-2.5 gap-space-sm">
+                  <span class="font-code-header text-code-header text-tertiary uppercase w-20 shrink-0">TO:</span>
+                  <input id="outreach-to-email" class="flex-1 bg-transparent text-on-surface font-body-md text-body-md focus:outline-none placeholder:text-tertiary" placeholder="Enter recruiter email(s) — comma-separated for multiple (e.g. recruiter@company.com, jobs@company.com)" type="text">
+                  <span class="font-code-terminal text-code-terminal text-tertiary shrink-0 hidden sm:inline">Multiple emails supported</span>
+                </div>
+
+                <!-- SUBJECT Field -->
+                <div class="flex items-center bg-surface-container-low rounded-2xl px-space-md py-2.5 gap-space-sm">
+                  <span class="font-code-header text-code-header text-tertiary uppercase w-20 shrink-0">SUBJECT:</span>
+                  <input id="outreach-subject" class="flex-1 bg-transparent text-on-surface font-body-md text-body-md focus:outline-none placeholder:text-tertiary" placeholder="Subject line for this application pitch..." type="text">
+                </div>
+              </div>
+
+              <!-- Dynamic Variable Chips -->
+              <div class="flex flex-col gap-space-xs pt-1">
+                <div class="flex items-center justify-between">
+                  <span class="font-code-header text-code-header text-tertiary uppercase tracking-wider text-[11px]">Quick Tokens</span>
+                  <span class="font-body-sm text-body-sm text-tertiary text-[12px]">Click to insert at cursor</span>
+                </div>
+                <div class="flex flex-wrap items-center gap-space-xs">
+                  <button class="px-space-sm py-1 bg-primary-container/20 text-on-primary-fixed hover:bg-primary-container/40 rounded-full font-code-terminal text-code-terminal text-[12px] transition-colors flex items-center gap-1" onclick="window.insertToken('{recruiterName}')" type="button">
+                    <span>{recruiterName}</span>
+                    <span class="material-symbols-outlined text-[14px]">add</span>
+                  </button>
+                  <button class="px-space-sm py-1 bg-primary-container/20 text-on-primary-fixed hover:bg-primary-container/40 rounded-full font-code-terminal text-code-terminal text-[12px] transition-colors flex items-center gap-1" onclick="window.insertToken('{companyName}')" type="button">
+                    <span>{companyName}</span>
+                    <span class="material-symbols-outlined text-[14px]">add</span>
+                  </button>
+                  <button class="px-space-sm py-1 bg-primary-container/20 text-on-primary-fixed hover:bg-primary-container/40 rounded-full font-code-terminal text-code-terminal text-[12px] transition-colors flex items-center gap-1" onclick="window.insertToken('{roleName}')" type="button">
+                    <span>{roleName}</span>
+                    <span class="material-symbols-outlined text-[14px]">add</span>
+                  </button>
+                  <button class="px-space-sm py-1 bg-surface-container hover:bg-surface-container-highest text-on-surface rounded-full font-code-terminal text-code-terminal text-[12px] transition-colors flex items-center gap-1" onclick="window.insertToken('{yearsExperience}')" type="button">
+                    <span>{yearsExperience}</span>
+                    <span class="material-symbols-outlined text-[14px]">add</span>
+                  </button>
+                </div>
+              </div>
+
+              <!-- Body Editor Area -->
+              <div class="flex flex-col rounded-2xl bg-surface-container-low overflow-hidden">
+                <div class="p-space-md">
+                  <textarea id="email-body-input" class="w-full bg-transparent text-on-surface font-body-md text-body-md leading-relaxed resize-y focus:outline-none min-h-[220px]" placeholder="Write or generate your application pitch here..."></textarea>
+                  <div id="email-preview-pane" class="hidden font-body-md text-body-md leading-relaxed whitespace-pre-wrap text-on-surface min-h-[220px]"></div>
+                </div>
+              </div>
+
+              <!-- Resume Selection & Attachment Module (Design System Aligned) -->
+              <div class="flex flex-col sm:flex-row items-stretch sm:items-center justify-between p-3.5 sm:p-4 bg-surface-container-low rounded-2xl gap-3.5 border border-surface-container-high/60 transition-colors">
+                <div class="flex items-center gap-3.5 min-w-0 flex-1">
+                  <div class="w-11 h-11 rounded-xl bg-surface-container flex items-center justify-center text-primary shrink-0 border border-surface-container-high/80">
+                    <span id="outreach-resume-icon" class="material-symbols-outlined text-[24px]">picture_as_pdf</span>
+                  </div>
+                  <div class="flex flex-col min-w-0 flex-1 gap-1">
+                    <div class="flex items-center gap-2 flex-wrap">
+                      <div class="relative inline-flex items-center max-w-full sm:max-w-md">
+                        <select id="outreach-resume-select" class="appearance-none w-full bg-surface-container text-on-surface font-label-md text-label-md font-bold pl-3.5 pr-8 py-1.5 rounded-full outline-none border border-outline-variant/30 hover:border-primary/50 focus:border-primary focus:ring-2 focus:ring-primary/20 cursor-pointer transition-all truncate shadow-xs">
+                          <!-- Populated dynamically with uploaded resumes -->
+                        </select>
+                        <span class="material-symbols-outlined text-[18px] text-secondary absolute right-2.5 pointer-events-none select-none">unfold_more</span>
+                      </div>
+                      <span id="outreach-resume-tag-badge" class="hidden inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-primary-container text-on-primary-fixed font-label-sm text-[11px] font-bold shadow-xs">
+                        <span class="material-symbols-outlined text-[12px]">workspace_premium</span>
+                        <span id="outreach-resume-tag-text">Role Tag</span>
+                      </span>
+                      <span id="outreach-resume-primary-badge" class="hidden inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-primary text-on-primary font-code-terminal text-[10px] font-bold tracking-wide shadow-xs uppercase">
+                        <span class="material-symbols-outlined text-[11px]">star</span>Primary
+                      </span>
+                    </div>
+                    <div class="flex items-center gap-2 text-secondary font-body-sm text-[12px] truncate">
+                      <span class="inline-flex items-center gap-1 text-primary font-medium">
+                        <span class="material-symbols-outlined text-[13px]">attach_file</span>
+                        <span id="outreach-attachment-title" class="truncate font-code-terminal">Auto-attached to outreach email</span>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+                <div class="flex items-center gap-2 shrink-0 self-end sm:self-auto pt-1 sm:pt-0">
+                  <button id="view-resume-preview-btn" type="button" class="inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-surface-container text-on-surface hover:bg-surface-container-highest font-label-md text-label-md font-semibold transition-all shadow-xs cursor-pointer active:scale-95">
+                    <span class="material-symbols-outlined text-[16px] text-primary">visibility</span>
+                    <span>Preview</span>
+                  </button>
+                </div>
+              </div>
+
+              <!-- Schedule Send Datetime Picker (Neo-Tech Cockpit Theme) -->
+              <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between p-3.5 sm:p-4 bg-surface-container-low rounded-2xl gap-3 border border-surface-container-high/60 transition-colors">
+                <div class="flex items-center gap-3 flex-wrap min-w-0">
+                  <div class="w-9 h-9 rounded-xl bg-surface-container flex items-center justify-center text-primary shrink-0 border border-surface-container-high/80">
+                    <span class="material-symbols-outlined text-[18px]">schedule</span>
+                  </div>
+                  <div class="flex items-center gap-2.5 flex-wrap">
+                    <span class="font-label-md text-label-md font-bold text-on-surface">Schedule Send:</span>
+                    <div class="schedule-picker-wrapper inline-flex items-center relative">
+                      <input type="datetime-local" id="outreach-schedule-input" class="schedule-datetime-input outline-none focus:ring-0">
+                    </div>
+                    <button id="clear-schedule-btn" type="button" class="inline-flex items-center gap-1 text-[12px] text-secondary hover:text-on-surface px-3 py-1.5 rounded-full bg-surface-container hover:bg-surface-container-high transition-all font-label-md cursor-pointer font-semibold active:scale-95" title="Reset to Immediate Send">
+                      <span class="material-symbols-outlined text-[14px]">close</span><span>Clear</span>
+                    </button>
+                  </div>
+                </div>
+                <div class="flex items-center gap-1.5 text-secondary font-body-sm text-[12px] pl-12 sm:pl-0">
+                  <span class="w-1.5 h-1.5 rounded-full bg-primary"></span>
+                  <span>Default: Immediate auto-pacing</span>
+                </div>
+              </div>
+
+              <!-- Action Buttons -->
+              <div class="flex flex-col sm:flex-row items-center justify-between pt-space-xs gap-space-md">
+                <div class="flex items-center gap-space-xs text-tertiary text-body-sm">
+                  <span class="material-symbols-outlined text-[18px]">lock</span>
+                  <span>SMTP Outbound Dispatch Relay</span>
+                </div>
+                <div class="flex items-center gap-space-sm w-full sm:w-auto justify-end flex-wrap">
+                  <button id="regenerate-draft-btn" class="px-space-md py-2.5 rounded-full bg-surface-container text-on-surface hover:bg-surface-container-highest transition-all font-label-md text-label-md font-bold flex items-center gap-1" type="button">
+                    <span class="material-symbols-outlined text-[18px]">magic_button</span><span>Generate AI Email</span>
+                  </button>
+                  <button id="save-draft-btn" class="px-space-md py-2.5 rounded-full bg-surface-container text-on-surface hover:bg-surface-container-highest transition-all font-label-md text-label-md font-bold flex items-center justify-center" type="button">
+                    <span>Save Draft</span>
+                  </button>
+                  <button id="send-outreach-btn" class="flex items-center gap-space-sm px-space-lg py-2.5 rounded-full bg-primary-container text-on-primary-fixed hover:brightness-105 active:scale-95 shadow-[0_4px_16px_rgba(182,244,56,0.25)] font-label-md text-label-md font-bold transition-all" type="button">
+                    <span class="material-symbols-outlined text-[18px]">schedule_send</span><span>Queue for Auto-Send</span>
+                  </button>
+                </div>
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+
+
+
+      <!-- Floating Applied Action Button (Visible in Detail View) -->
+      <div id="floating-applied-container" class="hidden fixed bottom-6 right-8 z-40 flex items-center">
+        <button id="mark-applied-btn" type="button" class="flex items-center gap-2 px-6 py-3.5 bg-primary-container text-on-primary-fixed rounded-full font-label-md text-label-md font-bold shadow-[0_8px_32px_rgba(182,244,56,0.38)] hover:scale-105 active:scale-95 transition-all cursor-pointer border border-primary/20 backdrop-blur-sm group" title="Mark this application as Applied on LinkedIn">
+          <span class="material-symbols-outlined text-[20px] transition-transform group-hover:scale-110" id="mark-applied-icon">check_circle_3</span>
+          <span id="mark-applied-label">Mark as Applied</span>
+        </button>
+      </div>
+
+      <!-- Toast Container (Positioned above floating button) -->
+      <div id="toast" class="fixed bottom-24 right-8 bg-on-background text-surface px-space-lg py-space-sm rounded-full font-label-md text-label-md shadow-2xl flex items-center gap-space-sm translate-y-24 opacity-0 transition-all duration-300 pointer-events-none z-50">
+        <span class="w-2 h-2 rounded-full bg-primary-container animate-ping"></span>
+        <span id="toast-message">Action processed</span>
+      </div>
+
+    </main>
+  </div>
+
+  <script src="/static/darkmode.js"></script>
+  <script src="/static/app.js"></script>
+</body>
+</html>

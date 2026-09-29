@@ -1,0 +1,11 @@
+<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <g transform="translate(0, -224)">
+    <g xmlns="http://www.w3.org/2000/svg">
+<path d="M3 228V242C3 243.105 3.89543 244 5 244H17H19C20.1046 244 21 243.105 21 242V232H17" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+<path d="M3 228H17V242C17 243.105 17.8954 244 19 244" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+<path d="M13 232H7" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+<path d="M13 236H9" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+</g>
+
+  </g>
+</svg>
