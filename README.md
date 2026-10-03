@@ -7,6 +7,12 @@
 
 > **EasiApply** is an open-source, local-first job automation copilot designed for product designers, engineers, and digital professionals. It scrapes hiring posts, scores match quality via multi-model AI gateways, generates tailored cold pitches, and tracks application status directly in a cockpit dashboard.
 
+> [!CAUTION]
+> **Account Safety & Secondary Account Recommendation**:
+> LinkedIn strictly monitors automated account activity. For your own safety, **strongly recommend using a secondary or alternate LinkedIn account** rather than your primary personal account for job scraping.
+> 
+> **Important Disclaimer**: This tool is provided for personal automation and educational purposes only. If excessive usage or aggressive scraping leads to your LinkedIn account being flagged, temporarily restricted, or permanently banned, the creator and contributors **will not be held responsible**. Automate responsibly and keep scraping session limits low.
+
 ---
 
 ## Key Features
@@ -123,6 +129,39 @@ AI_MODEL="meta-llama/llama-3.1-8b-instruct:free"
 
 ---
 
+## How LinkedIn Login Works (No Credentials in Code)
+
+You **never** need to store your LinkedIn password or email in your `.env` file or codebase:
+1. When you trigger scraping for the first time, EasiApply automatically launches a real Playwright Chromium browser window.
+2. You log in to LinkedIn manually inside this browser window just like you normally do (including solving any CAPTCHA or 2FA prompts).
+3. EasiApply safely saves your session state and authentication cookies locally inside the `user_data/` folder on your own machine.
+4. On future runs, EasiApply uses your saved local session automatically without asking you to log in again.
+5. The `user_data/` directory is strictly ignored by `.gitignore` and is never tracked by Git.
+
+---
+
+## Email Outreach Setup (Optional)
+
+If you wish to send outreach emails directly from the dashboard, you can configure your email provider under **Settings** or in `.env`:
+
+> [!TIP]
+> **For Gmail Users:**
+> Do **not** use your normal Gmail account password. Google requires an **App Password**:
+> 1. Go to your [Google Account Security Settings](https://myaccount.google.com/security).
+> 2. Ensure **2-Step Verification** is turned ON.
+> 3. Search for or navigate to **App Passwords** ([direct link](https://myaccount.google.com/apppasswords)).
+> 4. Create a new App Password named `EasiApply` (it generates a 16-character code like `abcd efgh ijkl mnop`).
+> 5. Use that 16-character code as your `SMTP_PASSWORD`.
+
+---
+
+## Legal & Platform Disclaimer
+
+EasiApply is an independent, community-driven open-source project intended strictly for personal workflow automation and productivity. It is not affiliated with, endorsed by, sponsored by, or associated in any way with LinkedIn Corporation or Microsoft Corporation. All platform trademarks belong to their respective owners. Users must adhere to LinkedIn’s User Agreement and applicable local laws.
+
+---
+
 ## License
 Distributed under the MIT License. See `LICENSE` for more information.
+
 
