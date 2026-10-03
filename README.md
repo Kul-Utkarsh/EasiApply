@@ -102,7 +102,16 @@ Open your `.env` file in a text editor and set:
 AI_PROVIDER="openrouter"
 AI_BASE_URL="https://openrouter.ai/api/v1"
 AI_API_KEY="sk-or-v1-your-actual-openrouter-key-here"
-AI_MODEL="anthropic/claude-3.5-sonnet"
+
+# Set any model ID of your choice available on OpenRouter:
+# Free options (zero cost):
+#   AI_MODEL="meta-llama/llama-3.1-8b-instruct:free"
+#   AI_MODEL="mistralai/mistral-7b-instruct:free"
+#   AI_MODEL="google/gemma-2-9b-it:free"
+# Paid / High-intelligence options (requires credits):
+#   AI_MODEL="anthropic/claude-3.5-sonnet"
+#   AI_MODEL="openai/gpt-4o-mini"
+AI_MODEL="meta-llama/llama-3.1-8b-instruct:free"
 ```
 
 ---
