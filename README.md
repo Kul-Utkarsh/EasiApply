@@ -71,15 +71,49 @@ Open [http://127.0.0.1:8000/dashboard](http://127.0.0.1:8000/dashboard) in your 
 
 ## Configuration & AI Setup
 
-Navigate to **Settings** in the dashboard to connect your AI provider:
-- **Ollama (100% Free & Local)**: Base URL `http://localhost:11434/v1` (no API key needed).
-- **OpenAI**: Base URL `https://api.openai.com/v1`, enter your OpenAI API key.
-- **OpenRouter**: Base URL `https://openrouter.ai/api/v1`, enter your OpenRouter key.
-- **OmniRoute / Custom Gateway**: Enter your gateway endpoint and API key.
+EasiApply supports any OpenAI-compatible API gateway. You can configure your provider either via the dashboard UI (**Settings** page) or directly in your `.env` file.
 
-Click **Test Connection** to verify your provider and auto-populate available models.
+### Step-by-Step: Connecting OpenRouter (Recommended — Easiest Setup)
+
+[OpenRouter](https://openrouter.ai/) gives you access to models from Anthropic (Claude), OpenAI (GPT-4o), Google (Gemini), Meta (Llama), and dozens of free or low-cost models with a single API key.
+
+#### 1. Get Your OpenRouter API Key
+1. Go to [https://openrouter.ai/](https://openrouter.ai/) and create a free account (or sign in with Google/GitHub).
+2. Go to [https://openrouter.ai/settings/keys](https://openrouter.ai/settings/keys) (or click your profile icon → **Keys**).
+3. Click **Create Key**.
+4. Give it a name (e.g., `EasiApply`), optionally set a credit limit, and click **Create**.
+5. **Copy the key immediately** (it begins with `sk-or-v1-...`). You won't be able to view it again.
+6. *(Optional)* If you plan to use paid models (like Claude 3.5 Sonnet or GPT-4o), add a small credit balance ($5) under [openrouter.ai/credits](https://openrouter.ai/credits). Many models (like `meta-llama/llama-3.1-8b-instruct:free`) are completely free to use.
+
+#### 2. Connect in EasiApply (Two Easy Ways)
+
+**Option A: Through the Web Dashboard (Recommended)**
+1. Launch EasiApply (`launch.bat` on Windows or `./launch.sh` on macOS/Linux).
+2. Open [http://127.0.0.1:8000/settings](http://127.0.0.1:8000/settings) in your browser.
+3. In the **AI Provider** dropdown, select **OpenRouter**.
+4. Paste your API key (`sk-or-v1-...`) into the **API Key** field.
+5. Base URL will automatically default to `https://openrouter.ai/api/v1`.
+6. Click **Test Connection**. Once connected, choose your preferred model from the dropdown (e.g., `anthropic/claude-3.5-sonnet`, `meta-llama/llama-3.1-70b-instruct`, or any free model).
+7. Click **Save Settings**.
+
+**Option B: Directly in your `.env` File**
+Open your `.env` file in a text editor and set:
+```ini
+AI_PROVIDER="openrouter"
+AI_BASE_URL="https://openrouter.ai/api/v1"
+AI_API_KEY="sk-or-v1-your-actual-openrouter-key-here"
+AI_MODEL="anthropic/claude-3.5-sonnet"
+```
+
+---
+
+### Other AI Providers Supported
+- **Ollama (100% Free & Local)**: Base URL `http://localhost:11434/v1` (no API key needed, runs offline).
+- **OpenAI**: Base URL `https://api.openai.com/v1`, enter your OpenAI API key (`sk-...`).
+- **OmniRoute / Custom Gateway**: Enter your custom gateway endpoint and token.
 
 ---
 
 ## License
 Distributed under the MIT License. See `LICENSE` for more information.
+
