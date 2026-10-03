@@ -157,11 +157,36 @@ If you wish to send outreach emails directly from the dashboard, you can configu
 
 ## Legal & Platform Disclaimer
 
-EasiApply is an independent, community-driven open-source project intended strictly for personal workflow automation and productivity. It is not affiliated with, endorsed by, sponsored by, or associated in any way with LinkedIn Corporation or Microsoft Corporation. All platform trademarks belong to their respective owners. Users must adhere to LinkedIn’s User Agreement and applicable local laws.
+> [!WARNING]
+> Please read this section carefully before using or contributing to this project.
+
+1. **Independent Project & Non-Affiliation**:
+   - EasiApply is an independent open-source software project designed strictly for personal productivity, educational exploration, and job application tracking.
+   - It is **not** endorsed by, certified by, partnered with, or affiliated with LinkedIn® Corporation, Microsoft Corporation, or any of their affiliates or subsidiaries. "LinkedIn" is a registered trademark of LinkedIn Corporation.
+
+2. **Compliance with Third-Party Terms of Service**:
+   - Automated interaction or scraping on LinkedIn may be against LinkedIn's [User Agreement](https://www.linkedin.com/legal/user-agreement).
+   - Users are exclusively responsible for their own actions, usage frequency, and compliance with all applicable third-party Terms of Service.
+   - The authors and maintainers accept **no liability** for any account suspension, restriction, IP throttling, or loss of data resulting from the use of this software.
+
+3. **Anti-Spam & Responsible Communication**:
+   - The cold email drafting and SMTP outreach functionality must be used ethically and in accordance with international communication regulations, including the **CAN-SPAM Act**, **GDPR**, **CASL**, and other local laws.
+   - **Do not** use this tool for bulk spamming, unsolicited mass marketing, or harvesting unauthorized personal data.
+
+4. **Privacy & Data Security**:
+   - EasiApply operates locally on your machine. No user resumes, login session cookies, or scraped data are sent to external servers other than the AI provider endpoints you explicitly configure.
+   - The software is provided "as is", without warranty of any kind, express or implied.
+
+---
+
+## Contributing & Code of Conduct
+
+Contributions, bug reports, and suggestions are welcome! Feel free to open an Issue or submit a Pull Request.
 
 ---
 
 ## License
 Distributed under the MIT License. See `LICENSE` for more information.
+
 
 
