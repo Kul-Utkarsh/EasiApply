@@ -52,24 +52,39 @@
 ## Quickstart
 
 ### Prerequisites
-- Python 3.10 or higher
-- Git
+- Python 3.10 or higher installed on your system ([Download Python](https://www.python.org/downloads/)) — make sure to check *"Add python.exe to PATH"*.
 
-### 1. Clone the Repository
+---
+
+### Option 1: One-Click ZIP Download (Easiest — No Git Required)
+
+1. Go to the [**Releases**](https://github.com/Kul-Utkarsh/EasiApply/releases) page on GitHub.
+2. Under the latest release (e.g. `v1.0.0`), download **`EasiApply-v1.0.0.zip`** (or click **Source code (zip)**).
+3. Extract the downloaded ZIP archive into any folder on your computer.
+4. Launch the application:
+   - **Windows**: Double-click `launch.bat`.
+   - **macOS / Linux**: Open terminal in that folder and run `./launch.sh`.
+
+---
+
+### Option 2: Clone via Git (For Developers)
+
 ```bash
 git clone https://github.com/Kul-Utkarsh/EasiApply.git
 cd EasiApply
 ```
+Then start the application:
+- **Windows**: Double-click `launch.bat` (or run `launch.bat` in Command Prompt / PowerShell).
+- **macOS / Linux**: Run `./launch.sh` (or `bash launch.sh`).
 
-### 2. Start the Application
-* **Windows**: Double-click `launch.bat` (or run `launch.bat` in Command Prompt / PowerShell).
-* **macOS / Linux**: Run `./launch.sh` (or `bash launch.sh`).
+---
 
-The launcher will automatically:
-1. Initialize your `.env` configuration file from `.env.example`.
-2. Install required Python packages from `requirements.txt`.
-3. Download the Playwright Chromium browser binaries (one-time setup).
-4. Launch the FastAPI server on `http://127.0.0.1:8000` and open your dashboard.
+### What happens on first launch?
+The launcher runs a zero-friction self-healing setup:
+1. Initializes your `.env` configuration template from `.env.example`.
+2. Automatically creates a virtual environment and installs all dependencies from `requirements.txt`.
+3. Downloads the Playwright Chromium browser binaries (one-time setup).
+4. Starts the local FastAPI server and opens your cockpit dashboard at [http://127.0.0.1:8000/dashboard](http://127.0.0.1:8000/dashboard).
 
 ---
 
