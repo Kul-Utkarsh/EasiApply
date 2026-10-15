@@ -13,6 +13,29 @@
 > 
 > **Important Disclaimer**: This tool is provided for personal automation and educational purposes only. If excessive usage or aggressive scraping leads to your LinkedIn account being flagged, temporarily restricted, or permanently banned, the creator and contributors **will not be held responsible**. Automate responsibly and keep scraping session limits low.
 
+<p align="center">
+  <img src="assets/dashboard.png" alt="EasiApply Dashboard Cockpit" width="100%" style="border-radius: 12px; box-shadow: 0 8px 30px rgba(0,0,0,0.12);" />
+</p>
+
+---
+
+## UI & Feature Showcase
+
+| **Interactive AI Cockpit** | **Candidate Semantic Profile & Resumes** |
+|:---:|:---:|
+| <img src="assets/dashboard.png" alt="Dashboard Cockpit" width="100%"/> | <img src="assets/profile.png" alt="Resume Intelligence" width="100%"/> |
+| *One-click scraping, real-time telemetry & quick action center* | *Multi-resume router, auto-tags & semantic matching vectors* |
+
+| **Scraped Jobs & AI Scoring** | **Application Tracking & History** |
+|:---:|:---:|
+| <img src="assets/matches.png" alt="Matches & Scorecard" width="100%"/> | <img src="assets/applications.png" alt="Outreach & Analytics" width="100%"/> |
+| *Deep ATS scoring, keyword matching & automated tailored pitches* | *Outreach lifecycle pipeline with direct SMTP dispatches* |
+
+### Animated Walkthrough
+<p align="center">
+  <img src="assets/demo.gif" alt="EasiApply Live Demo" width="100%" style="border-radius: 12px;" />
+</p>
+
 ---
 
 ## Key Features
