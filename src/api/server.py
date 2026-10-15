@@ -3061,7 +3061,10 @@ def linkedin_status():
             if has_li_cookie:
                 break
     
-    is_logged_in = has_li_cookie or (session_data and bool(session_data.get("logged_in")))
+    if session_data and session_data.get("logged_in") is False:
+        is_logged_in = False
+    else:
+        is_logged_in = has_li_cookie or (session_data and bool(session_data.get("logged_in")))
 
     if is_logged_in:
         # Auto-heal session JSON file if cookie was verified
@@ -3209,6 +3212,50 @@ def open_linkedin_login_window(background_tasks: BackgroundTasks):
         background_tasks.add_task(_interactive_worker)
         return {"status": "started", "message": "Chrome window launched for LinkedIn authentication."}
     except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@app.post("/api/linkedin/logout")
+def logout_linkedin():
+    """Disconnect and log out the active LinkedIn account by clearing cookies and session metadata."""
+    try:
+        # 1. Update session file with explicit logged_in = False
+        _write_linkedin_session({
+            "logged_in": False,
+            "account_name": None,
+            "login_credential": None,
+            "profile_url": None,
+            "updated_at": datetime.now().isoformat()
+        })
+
+        # 2. Clear LinkedIn cookies from user_data directory
+        user_data = Path(os.getenv("USER_DATA_DIR", str(BASE_DIR / "user_data")))
+        default_dir = user_data / "Default"
+        cookie_paths = [
+            default_dir / "Network" / "Cookies",
+            default_dir / "Cookies"
+        ]
+        cleared_cookies = False
+        for cp in cookie_paths:
+            if cp.exists() and cp.stat().st_size > 0:
+                try:
+                    import sqlite3
+                    conn = sqlite3.connect(str(cp))
+                    conn.execute("DELETE FROM cookies WHERE host_key LIKE '%linkedin%'")
+                    conn.commit()
+                    conn.close()
+                    cleared_cookies = True
+                except Exception as ex:
+                    print(f"Warning purging cookies SQLite during logout: {ex}")
+
+        add_log("AUTH", "LinkedIn account logged out successfully.")
+        return {
+            "status": "success",
+            "message": "LinkedIn account logged out successfully.",
+            "cookies_cleared": cleared_cookies
+        }
+    except Exception as e:
+        add_log("ERR_AUTH", f"Failed to log out LinkedIn: {e}")
         raise HTTPException(status_code=500, detail=str(e))
 
 

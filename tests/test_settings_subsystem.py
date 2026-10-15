@@ -42,3 +42,18 @@ def test_state_endpoint_has_budget():
     data = resp.json()
     assert "today_sent_count" in data
     assert "daily_send_cap" in data
+
+
+def test_linkedin_logout_endpoint():
+    resp = client.post("/api/linkedin/logout")
+    assert resp.status_code == 200
+    data = resp.json()
+    assert data.get("status") == "success"
+
+    # Subsequent call to /api/linkedin-status must report disconnected
+    status_resp = client.get("/api/linkedin-status")
+    assert status_resp.status_code == 200
+    status_data = status_resp.json()
+    assert status_data.get("logged_in") is False
+    assert status_data.get("status") == "disconnected"
+

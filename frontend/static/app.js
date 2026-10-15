@@ -3926,14 +3926,124 @@
       if (isLoggedIn) h.textContent = "LinkedIn account session active (" + (cleanName || "Connected") + "). Scrapes will reuse this persistent session.";
       else h.textContent = "No active session found. Click 'Open Chrome Session' below to sign in.";
     });
+
+    // Toggle Log Out buttons across Settings page and header
+    var logoutBtns = $$('[id="linkedin-logout-btn"]');
+    logoutBtns.forEach(function (btn) {
+      if (isLoggedIn) {
+        btn.classList.remove("hidden");
+        btn.classList.add("inline-flex");
+      } else {
+        btn.classList.add("hidden");
+        btn.classList.remove("inline-flex");
+      }
+    });
   }
+
+  function openLinkedInAccountModal(data) {
+    var existing = document.getElementById("linkedin-account-modal");
+    if (existing) existing.remove();
+
+    var cleanName = (data && data.account_name || "Active Member").split("\n")[0].trim();
+    var loginCred = (data && data.login_credential) ? String(data.login_credential).trim() : "";
+    var profileUrl = (data && data.profile_url) ? String(data.profile_url).trim() : "";
+
+    var modal = document.createElement("div");
+    modal.id = "linkedin-account-modal";
+    modal.className = "fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm app-modal animate-fade-in";
+    modal.innerHTML = 
+      '<div class="w-full max-w-md bg-surface-container-lowest border border-outline-variant/30 rounded-3xl p-6 shadow-2xl">' +
+        '<div class="flex items-center justify-between pb-4 border-b border-outline-variant/20 mb-4">' +
+          '<div class="flex items-center gap-3">' +
+            '<div class="w-10 h-10 rounded-2xl bg-[#0A66C2]/15 text-[#0A66C2] flex items-center justify-center font-bold shrink-0">' +
+              '<span class="material-symbols-outlined text-[24px]">account_circle</span>' +
+            '</div>' +
+            '<div>' +
+              '<h3 class="font-headline-sm text-[16px] font-bold text-on-surface">LinkedIn Account</h3>' +
+              '<div class="flex items-center gap-1.5 mt-0.5">' +
+                '<span class="w-2 h-2 rounded-full dot-connected shrink-0"></span>' +
+                '<span class="text-xs text-primary font-medium">Session Connected</span>' +
+              '</div>' +
+            '</div>' +
+          '</div>' +
+          '<button id="li-acct-close-btn" type="button" class="w-8 h-8 rounded-full bg-surface-container hover:bg-surface-container-high text-secondary hover:text-on-surface flex items-center justify-center transition-all cursor-pointer" title="Close">' +
+            '<span class="material-symbols-outlined text-[18px]">close</span>' +
+          '</button>' +
+        '</div>' +
+        '<div class="p-4 rounded-2xl bg-surface-container-low border border-surface-container-high/60 mb-5 space-y-2.5 font-body-sm">' +
+          '<div class="flex items-center justify-between">' +
+            '<span class="text-secondary text-xs">Member:</span>' +
+            '<span class="font-semibold text-on-surface text-sm">' + escapeHTML(cleanName) + '</span>' +
+          '</div>' +
+          (loginCred ? (
+            '<div class="flex items-center justify-between">' +
+              '<span class="text-secondary text-xs">' + (loginCred.includes("@") ? "Email:" : "Credential:") + '</span>' +
+              '<span class="font-mono text-xs text-on-surface">' + escapeHTML(loginCred) + '</span>' +
+            '</div>'
+          ) : '') +
+          (profileUrl ? (
+            '<div class="flex items-center justify-between">' +
+              '<span class="text-secondary text-xs">Profile:</span>' +
+              '<a href="' + escapeHTML(profileUrl) + '" target="_blank" rel="noopener" class="text-primary hover:underline text-xs truncate max-w-[200px]">View Profile</a>' +
+            '</div>'
+          ) : '') +
+        '</div>' +
+        '<div class="flex flex-col sm:flex-row items-center justify-between gap-2.5">' +
+          '<button id="li-acct-logout-btn" type="button" class="w-full sm:w-auto px-4 py-2.5 rounded-full bg-error/10 hover:bg-error text-error hover:text-white border border-error/20 font-label-md text-sm font-semibold transition-all flex items-center justify-center gap-1.5 cursor-pointer">' +
+            '<span class="material-symbols-outlined text-[16px]">logout</span>' +
+            '<span>Log Out</span>' +
+          '</button>' +
+          '<div class="flex items-center gap-2 w-full sm:w-auto justify-end">' +
+            '<button id="li-acct-open-btn" type="button" class="px-4 py-2.5 rounded-full bg-primary-container text-on-primary-fixed hover:brightness-105 font-label-md text-sm font-bold transition-all flex items-center justify-center gap-1.5 cursor-pointer shadow-sm">' +
+              '<span class="material-symbols-outlined text-[16px]">open_in_new</span>' +
+              '<span>Open Chrome</span>' +
+            '</button>' +
+          '</div>' +
+        '</div>' +
+      '</div>';
+
+    document.body.appendChild(modal);
+
+    modal.querySelector("#li-acct-close-btn").addEventListener("click", function () {
+      modal.remove();
+    });
+
+    modal.querySelector("#li-acct-open-btn").addEventListener("click", function () {
+      modal.remove();
+      api("/api/linkedin/login-window", { method: "POST", body: {} })
+        .then(function () { showToast("Opening Chrome session..."); })
+        .catch(function (err) { showToast("Error opening Chrome: " + err.message); });
+    });
+
+    modal.querySelector("#li-acct-logout-btn").addEventListener("click", function () {
+      modal.remove();
+      showConfirmModal({
+        title: "Log Out of LinkedIn?",
+        message: "This will remove your saved LinkedIn session and cookies from the local Chrome profile. You will need to log in again to search and apply for jobs.",
+        confirmText: "Log Out",
+        confirmColor: "bg-error text-white hover:brightness-110",
+        onConfirm: function () {
+          api("/api/linkedin/logout", { method: "POST", body: {} })
+            .then(function (res) {
+              showToast(res && res.message ? res.message : "Logged out from LinkedIn.");
+              api("/api/linkedin-status").then(paintLinkedInStatus);
+            })
+            .catch(function (err) {
+              showToast("Logout failed: " + err.message);
+              api("/api/linkedin-status").then(paintLinkedInStatus);
+            });
+        }
+      });
+    });
+  }
+  window.openLinkedInAccountModal = openLinkedInAccountModal;
 
   function bindLinkedInStatus() {
     api("/api/linkedin-status").then(function (res) {
       paintLinkedInStatus(res || "unknown");
     }).catch(function () { paintLinkedInStatus("unknown"); });
 
-    // Header pill click
+    // Header pill click across all pages
     var headerPills = $$('[id="header-linkedin-pill"]');
     headerPills.forEach(function (pill) {
       if (pill.__bound) return;
@@ -3942,7 +4052,7 @@
         api("/api/linkedin-status").then(function (res) {
           paintLinkedInStatus(res);
           if (res && res.logged_in) {
-            showToast("Active LinkedIn Session: " + (res.account_name || "Connected"));
+            openLinkedInAccountModal(res);
           } else {
             openLinkedInLoginModal(function () {
               api("/api/linkedin-status").then(paintLinkedInStatus);
@@ -3950,6 +4060,40 @@
           }
         }).catch(function () {
           openLinkedInLoginModal();
+        });
+      });
+    });
+
+    // Settings page Log Out button
+    var logoutBtns = $$('[id="linkedin-logout-btn"]');
+    logoutBtns.forEach(function (btn) {
+      if (btn.__boundLogout) return;
+      btn.__boundLogout = true;
+      btn.addEventListener("click", function (e) {
+        e.preventDefault();
+        showConfirmModal({
+          title: "Log Out of LinkedIn?",
+          message: "This will remove your saved LinkedIn session and cookies from the local Chrome profile. You will need to log in again to search and apply for jobs.",
+          confirmText: "Log Out",
+          confirmColor: "bg-error text-white hover:brightness-110",
+          onConfirm: function () {
+            var orig = btn.innerHTML;
+            btn.disabled = true;
+            btn.innerHTML = '<span class="material-symbols-outlined text-[16px] animate-spin">progress_activity</span><span>Logging out...</span>';
+            api("/api/linkedin/logout", { method: "POST", body: {} })
+              .then(function (res) {
+                showToast(res && res.message ? res.message : "Logged out from LinkedIn.");
+                api("/api/linkedin-status").then(paintLinkedInStatus);
+              })
+              .catch(function (err) {
+                showToast("Logout failed: " + err.message);
+                api("/api/linkedin-status").then(paintLinkedInStatus);
+              })
+              .then(function () {
+                btn.disabled = false;
+                btn.innerHTML = orig;
+              });
+          }
         });
       });
     });
